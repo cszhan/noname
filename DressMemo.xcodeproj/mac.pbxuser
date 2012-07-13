@@ -1,0 +1,398 @@
+// !$*UTF8*$!
+{
+	040A7C4D1593541B00B518EC /* ZCSDataArchiveMgr.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1012, 2145}}";
+			sepNavSelRange = "{1626, 0}";
+			sepNavVisRange = "{1457, 798}";
+		};
+	};
+	040A7C761593877D00B518EC /* zh-Hans */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 460}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 277}";
+		};
+	};
+	040A7C7815941F1B00B518EC /* PhotoUploadMarkTagViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 462}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 472}";
+		};
+	};
+	040A7C7915941F1B00B518EC /* PhotoUploadMarkTagViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 322}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 360}";
+		};
+	};
+	040C34261595AAC400558846 /* PeekPagedScrollViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1012, 392}}";
+			sepNavSelRange = "{415, 0}";
+			sepNavVisRange = "{0, 466}";
+		};
+	};
+	040C34271595AAC400558846 /* PeekPagedScrollViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 2938}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 640}";
+		};
+	};
+	044E7497158C84910048CB70 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 04870B5E1596C1A0000DE724 /* DressMemo */;
+		activeSDKPreference = iphonesimulator4.2;
+		activeTarget = 044E749F158C84920048CB70 /* DressMemo */;
+		addToTargets = (
+			044E749F158C84920048CB70 /* DressMemo */,
+		);
+		breakpoints = (
+		);
+		codeSenseManager = 04870B711596C1EC000DE724 /* Code sense */;
+		executables = (
+			04870B5E1596C1A0000DE724 /* DressMemo */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					619,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					809,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 362393035;
+			PBXWorkspaceStateSaveDate = 362393035;
+		};
+		perUserProjectItems = {
+			049A3D5A15986E8B00467BB3 /* PBXTextBookmark */ = 049A3D5A15986E8B00467BB3 /* PBXTextBookmark */;
+			049A3D5B15986E8B00467BB3 /* PBXTextBookmark */ = 049A3D5B15986E8B00467BB3 /* PBXTextBookmark */;
+			049A3D5C15986E8B00467BB3 /* PBXBookmark */ = 049A3D5C15986E8B00467BB3 /* PBXBookmark */;
+			049A3D5D15986E8B00467BB3 /* PBXBookmark */ = 049A3D5D15986E8B00467BB3 /* PBXBookmark */;
+			049A3D5E15986E8B00467BB3 /* PBXBookmark */ = 049A3D5E15986E8B00467BB3 /* PBXBookmark */;
+			049A3D5F15986E8B00467BB3 /* PBXBookmark */ = 049A3D5F15986E8B00467BB3 /* PBXBookmark */;
+			049A3D6015986E8B00467BB3 /* PBXBookmark */ = 049A3D6015986E8B00467BB3 /* PBXBookmark */;
+			049A3D6115986E8B00467BB3 /* PBXBookmark */ = 049A3D6115986E8B00467BB3 /* PBXBookmark */;
+			049A3D6215986E8B00467BB3 /* PBXTextBookmark */ = 049A3D6215986E8B00467BB3 /* PBXTextBookmark */;
+			049A3D6415986E8B00467BB3 /* PBXTextBookmark */ = 049A3D6415986E8B00467BB3 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 04870B701596C1EC000DE724 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	044E749F158C84920048CB70 /* DressMemo */ = {
+		activeExec = 0;
+		executables = (
+			04870B5E1596C1A0000DE724 /* DressMemo */,
+		);
+	};
+	044E74B0158C84920048CB70 /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 384}}";
+			sepNavSelRange = "{413, 0}";
+			sepNavVisRange = "{0, 460}";
+		};
+	};
+	044E74B2158C84920048CB70 /* DressMemo-Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 384}}";
+			sepNavSelRange = "{487, 0}";
+			sepNavVisRange = "{0, 546}";
+		};
+	};
+	044E74B3158C84920048CB70 /* AppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 384}}";
+			sepNavSelRange = "{232, 0}";
+			sepNavVisRange = "{0, 275}";
+		};
+	};
+	045E7B15158F817D00E8B210 /* AppMainUIViewMangae.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"(NSString *)keyPath\";\n            r = \"{935, 23}\";\n            s = 1;\n        },\n                {\n            l = \"(NSKeyValueObservingOptions)options\";\n            r = \"{967, 39}\";\n            s = 1;\n        },\n                {\n            l = \"(void *)context\";\n            r = \"{1015, 19}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 5215}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1111, 2015}}";
+			sepNavSelRange = "{4218, 57}";
+			sepNavVisRange = "{3787, 1000}";
+		};
+	};
+	045E7B16158F817D00E8B210 /* NEMainTabBarController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 370}}";
+			sepNavSelRange = "{31, 0}";
+			sepNavVisRange = "{0, 341}";
+		};
+	};
+	045E7B17158F817D00E8B210 /* NEMainTabBarController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1118, 2080}}";
+			sepNavSelRange = "{3738, 19}";
+			sepNavVisRange = "{3801, 1091}";
+		};
+	};
+	045E7B19158F817D00E8B210 /* NTESMBMainMenuController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"CGFloat x\";\n            r = \"{5143, 13}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat y\";\n            r = \"{5158, 13}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat width\";\n            r = \"{5173, 17}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat height\";\n            r = \"{5192, 18}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat x\";\n            r = \"{7891, 13}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat y\";\n            r = \"{7906, 13}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat width\";\n            r = \"{7921, 17}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat height\";\n            r = \"{7940, 18}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat dx\";\n            r = \"{11945, 14}\";\n            s = 1;\n        },\n                {\n            l = \"CGFloat dy\";\n            r = \"{11961, 14}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 34039}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {957, 12285}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 871}";
+		};
+	};
+	045E7B21158F819700E8B210 /* UIBaseViewController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"(BOOL)animated\";\n            r = \"{6270, 18}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 9289}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {894, 4108}}";
+			sepNavSelRange = "{1771, 0}";
+			sepNavVisRange = "{1309, 1007}";
+		};
+	};
+	04870B5E1596C1A0000DE724 /* DressMemo */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = DressMemo;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	04870B701596C1EC000DE724 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	04870B711596C1EC000DE724 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	049A3D5A15986E8B00467BB3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 04EB810B1590283C00C3DBCC /* PhotoUploadViewController.m */;
+		name = "PhotoUploadViewController.m: 142";
+		rLen = 1;
+		rLoc = 4582;
+		rType = 0;
+		vrLen = 1166;
+		vrLoc = 4264;
+	};
+	049A3D5B15986E8B00467BB3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 04E031A015984B84001ACC2B /* TagChooseBrandViewController.m */;
+		name = "TagChooseBrandViewController.m: 55";
+		rLen = 0;
+		rLoc = 1201;
+		rType = 0;
+		vrLen = 1050;
+		vrLoc = 620;
+	};
+	049A3D5C15986E8B00467BB3 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04EB80DE1590237600C3DBCC /* BG-updated.png */;
+	};
+	049A3D5D15986E8B00467BB3 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04EB80DD1590237600C3DBCC /* BG-touchnote.png */;
+	};
+	049A3D5E15986E8B00467BB3 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04EB80DC1590237600C3DBCC /* BG-setting.png */;
+	};
+	049A3D5F15986E8B00467BB3 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 049A3D4B15986CB600467BB3 /* btn-red.png */;
+	};
+	049A3D6015986E8B00467BB3 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 049A3D4A15986CB600467BB3 /* btn-red-back.png */;
+	};
+	049A3D6115986E8B00467BB3 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04EB80E41590237600C3DBCC /* Btn_back.png */;
+	};
+	049A3D6215986E8B00467BB3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 040A7C761593877D00B518EC /* zh-Hans */;
+		name = "Localizable.strings: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 277;
+		vrLoc = 0;
+	};
+	049A3D6415986E8B00467BB3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 045E7B21158F819700E8B210 /* UIBaseViewController.m */;
+		name = "UIBaseViewController.m: 62";
+		rLen = 0;
+		rLoc = 1771;
+		rType = 0;
+		vrLen = 1061;
+		vrLoc = 1255;
+	};
+	04DE1EC2159615FA009BD267 /* PhotoUploadProcess.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 322}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 214}";
+		};
+	};
+	04E031A015984B84001ACC2B /* TagChooseBrandViewController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"(BOOL)animated\";\n            r = \"{1146, 18}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 1670}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {782, 897}}";
+			sepNavSelRange = "{1184, 0}";
+			sepNavVisRange = "{620, 1033}";
+		};
+	};
+	04EB777F1590C66D00C2209B /* BSPreviewScrollView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 624}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 969}";
+		};
+	};
+	04EB77821590C66D00C2209B /* PhotoUploadStartViewController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"(BOOL)animated\";\n            r = \"{11821, 18}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 12725}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1069, 5226}}";
+			sepNavSelRange = "{7049, 0}";
+			sepNavVisRange = "{6818, 956}";
+		};
+	};
+	04EB77921590D90D00C2209B /* UIImage+ProportionalFill.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1012, 2795}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 828}";
+		};
+	};
+	04EB80DE1590237600C3DBCC /* BG-updated.png */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{38, 96}, {1099, 656}}";
+		};
+	};
+	04EB81071590281200C3DBCC /* DressWhatViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 462}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 244}";
+		};
+	};
+	04EB81081590281200C3DBCC /* DressWhatViewController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"(BOOL)animated\";\n            r = \"{1070, 18}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 1549}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {782, 884}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 708}";
+		};
+	};
+	04EB810A1590283C00C3DBCC /* PhotoUploadViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 462}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 273}";
+		};
+	};
+	04EB810B1590283C00C3DBCC /* PhotoUploadViewController.m */ = {
+		uiCtxt = {
+			sepNavFolds = "{\n    c =     (\n                {\n            l = \"(BOOL)animated\";\n            r = \"{7926, 18}\";\n            s = 1;\n        },\n                {\n            l = \"(BOOL)\";\n            r = \"{8583, 10}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 8923}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {985, 3627}}";
+			sepNavSelRange = "{4582, 1}";
+			sepNavVisRange = "{4264, 1166}";
+		};
+	};
+	04EB810D1590287100C3DBCC /* MyProfileViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 462}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 244}";
+		};
+	};
+	04EB810E1590287100C3DBCC /* MyProfileViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 572}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 711}";
+		};
+	};
+	04EB816715908C3700C3DBCC /* PhotoPickTool.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 384}}";
+			sepNavSelRange = "{374, 100}";
+			sepNavVisRange = "{0, 821}";
+		};
+	};
+	04EB816815908C3700C3DBCC /* PhotoPickTool.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1111, 1820}}";
+			sepNavSelRange = "{4434, 0}";
+			sepNavVisRange = "{3406, 1054}";
+		};
+	};
+}

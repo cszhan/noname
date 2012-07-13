@@ -1,0 +1,37 @@
+/* Localized versions of Info.plist keys */
+
+"Dress what"         = "穿啥";
+"Upload"        = "上传";
+"Me"            = "我";
+"From Camera"   ="拍照";
+"From Album"    ="取自相册";
+"Delete"        ="删除";
+"Cancel"        ="取消";
+"Next"          ="继续";
+"Return"		="返回";
+"Ok"            ="确认";
+"Choose class"  = "选择分类";
+"Choose Brand" = "输入品牌";
+
+"Data Processing" = "图片处理中...";
+
+"Description"   = "描述";
+"Delete" = "删除";
+"Done" = "完成";
+
+"China" = "中国";
+"Choose sence" = "选择场合";
+"Choose emotion" = "选择心情";
+"Descripton" = "描述"; 
+
+"touch anywhere to add tag view" = "点击任意地方添加标签";
+
+"Forget password"  = "忘记密码";
+"Email" = "邮箱";
+"Password" = "密码";
+"Register" = "注册";
+"Login" = "登陆";
+"Reset Password" = "";
+"Send" = "发送";
+
+"NetWorkError" = "网络请求错误";

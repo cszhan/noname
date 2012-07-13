@@ -1,0 +1,30 @@
+//
+// Prefix header for all source files of the 'DressMemo' target in the 'DressMemo' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "NEDebugTool.h"
+    #import "UIParamsCfg.h"
+#import "SVProgressHUD.h"
+
+#import "ZCSNotficationMgr.h"
+#import "AppMSGDef.h"
+#import "AppConfig.h"
+#import "UIFramework.h"
+#import "UIBaseFactory.h"
+#import "NTESMBUtility.h"
+#ifdef ARC
+#else
+#define strong retain
+#define strong retain
+#endif
+
+#endif
