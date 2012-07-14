@@ -232,11 +232,14 @@
 			((LabelFieldCell *)cell).cellField.tag = kLoginAccountCell;
 			((LabelFieldCell *)cell).cellField.placeholder = @"如 name@163.com";
 			((LabelFieldCell *)cell).cellField.text = @"";
+              [((LabelFieldCell*)cell).cellName setRoundType:1];
+            /*
             CGRect rect = ((LabelFieldCell *)cell).cellName.frame;
             
             UIImage  *image = [UIImage_Extend imageWithColor:kLoginAndSignupCellImageBGColor];
-            MTDContextCreateRoundedMask( 5.f,0,0,0);
+             image = MTDContextCreateRoundedMask(image,5.f,0,0,0);
             [[((LabelFieldCell *)cell) cellLeftBGView]setImage:image];
+             */
             [((LabelFieldCell *)cell).cellName setRoundUpperLeft:YES];
 			break;
 		case 1:
@@ -251,6 +254,14 @@
 			((LabelFieldCell *)cell).cellField.secureTextEntry = YES;
 			((LabelFieldCell *)cell).cellField.tag = kLoginPasswordCell;
 			((LabelFieldCell *)cell).cellField.text = @"";
+            [((LabelFieldCell*)cell).cellName setRoundType:4];
+            /*
+            image = [UIImage_Extend imageWithColor:kLoginAndSignupCellImageBGColor];
+            image = MTDContextCreateRoundedMask(image,0,5,0,0);
+           
+            
+            [[((LabelFieldCell *)cell) cellLeftBGView]setImage:image];
+               */
 			break;
             
 		default:
