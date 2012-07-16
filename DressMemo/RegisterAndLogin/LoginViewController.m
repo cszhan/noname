@@ -18,17 +18,25 @@
 #import "MGScrollView.h"
 #import "MGStyledBox.h"
 #import "UIImage+Extend.h"
+
+#import "ZCSNetClientDataMgr.h"
 #define kLoginAccountCell 0
 #define kLoginPasswordCell 1
 
 
 @interface LoginViewController ()
-
+@property(nonatomic,retain)NSString *account;
+@property(nonatomic,retain)NSString *password;
 @end
 
 @implementation LoginViewController
 @synthesize  reSetPwdcell;
--(void)dealloc{
+@synthesize account;
+@synthesize password;
+-(void)dealloc
+{
+    self.password =nil;
+    self.account = nil;
     self.reSetPwdcell = nil;
     [logInfo release];
     [super dealloc];
@@ -45,9 +53,8 @@
 {   
     [super loadView];
     //
-  
-    
-    [self setNavgationBarTitle:NSLocalizedString(@"Login", @"")];
+    [self setNavgationBarTitle:NSLocalizedString(@"Login", @""
+                                                 )];
     [self setRightTextContent:NSLocalizedString(@"Done", @"")];
     //change the background
 	//self.view = mainView;
@@ -60,14 +67,19 @@
 	mainView.bgImage = bgImage;
     */
 }
+- (void)addObservers{
+    [ZCSNotficationMgr addObserver:self call:@selector(didLoginOK:) msgName:kZCSNetWorkOK];
+     [ZCSNotficationMgr addObserver:self call:@selector(didLoginFailed:) msgName:
+       kZCSNetWorkRespondFailed];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 #if 1
     //as the 
-    CGFloat bgWidth = kDeviceScreenWidth-2*kLoginResetPasswardPending;
-    CGFloat bgHeight = 2*kLoginCellItemHeight+kLoginResetPasswardPending*2;
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(kLoginResetPasswardPending,kLoginResetPasswardPending+kMBAppTopToolBarHeight,bgWidth,bgHeight-18)];
+    CGFloat bgWidth = kDeviceScreenWidth-2*KLoginAndResignPendingX;
+    CGFloat bgHeight = 2*kLoginCellItemHeight+KLoginAndResignPendingX*2;
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(KLoginAndResignPendingX,KLoginAndResignPendingX+kMBAppTopToolBarHeight,bgWidth,bgHeight-18)];
     bgView.clipsToBounds = YES;
     bgView.layer.cornerRadius = kLoginViewRadius;
     bgView.backgroundColor = [UIColor whiteColor];
@@ -100,22 +112,30 @@
     [self.view addSubview:bgView];
 #endif
     
-#if 0
-    UITableViewCell *cell = [[[UIButtonLikeCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell" ] autorelease];
+#if 1
+    UIButtonLikeCell *cell = [[[UIButtonLikeCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell" ] autorelease];
     
     cell.backgroundColor = [UIColor whiteColor];
-    cell.textLabel.text = NSLocalizedString(@"Forget password", @"");
+    cell.labelText.text = NSLocalizedString(@"Forget password", @"");
     //cell.textLabel.frame = CGRectOffset(cell.textLabel.frame, 40.f, 0);
-    
+    CGPoint origin = cell.labelText.frame.origin;
+    CGSize size = cell.labelText.frame.size;
+    cell.labelText.frame = CGRectMake(origin.x+25.f, origin.y,size.width, size.height);
+    cell.labelText.font = kLoginAndSignupInputTextFont;
+    cell.labelText.textColor = kLoginAndSignupInputTextColor;
+    //cell.textLab
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.frame = CGRectMake(kLoginResetPasswardPending,kMBAppTopToolBarHeight+logInfo.frame.size.height+20.f,kDeviceScreenWidth-kLoginResetPasswardPending*2,kLoginCellItemHeight);
-    
+    cell.accessoryView.backgroundColor = [UIColor clearColor];
+    cell.frame = CGRectMake(KLoginAndResignPendingX,kMBAppTopToolBarHeight+logInfo.frame.size.height+20.f,kDeviceScreenWidth-KLoginAndResignPendingX*2,kLoginCellItemHeight);
+    cell.layer.cornerRadius = kLoginViewRadius;
     self.reSetPwdcell = cell;
+    cell.touchDelegate = self;
     [self.view addSubview:cell]; 
 #else
 
-    CGRect rect =  CGRectMake(kLoginResetPasswardPending,kMBAppTopToolBarHeight+logInfo.frame.size.height+20.f,kDeviceScreenWidth-kLoginResetPasswardPending*2,kLoginCellItemHeight);
+    CGRect rect =  CGRectMake(KLoginAndResignPendingX,kMBAppTopToolBarHeight+logInfo.frame.size.height+20.f,kDeviceScreenWidth-KLoginAndResignPendingX*2,kLoginCellItemHeight);
     UIButton *btn = [UIBaseFactory forkUIButtonByRect:rect text: NSLocalizedString(@"Forget password", @"") image:nil];
+    btn.backgroundColor = [UIColor whiteColor];
     [btn addTarget:self action:@selector(didTouchEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
 
@@ -285,7 +305,10 @@
 }
 -(void)didTouchEvent:(id)sender
 {
+    ResetPasswordViewController *resetPwdVc = [[ResetPasswordViewController alloc]init];
     
+    [self.navigationController pushViewController:resetPwdVc animated:YES];
+    [resetPwdVc release];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -297,7 +320,8 @@
         [resetPwdVc release];
     }
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
 	if (textField.returnKeyType == UIReturnKeyNext)
     {
 		NSInteger nextTag = [textField tag] + 1;	
@@ -334,7 +358,9 @@
         point = [[touch view] convertPoint:point toView:self.view];
         NE_LOG(@"%lf,%lf",point.x,point.y);
    // }
-    
+    //[self.reSetPwdcell ];
+    //[self ];
+
     if(CGRectContainsPoint(self.reSetPwdcell.frame,point))
     {
         ResetPasswordViewController *resetPwdVc = [[ResetPasswordViewController alloc]init];
@@ -344,5 +370,105 @@
 
     
     }
+}
+#pragma mark check input
+/**
+
+ 用户点击“登陆”按钮时的各种报错提醒，采用默认弹窗控件进行提示。
+ 提示的种类按照优先级排序：
+ 1.	缺少邮箱      用语：请输入登录名
+ 2.	缺少密码      用语：请输入密码
+ "Please input login account" = "请输入登录名";
+ "Please input login password" = "请输入密码";
+ */
+-(BOOL)checkLoginInfoInput
+{
+    //NSIndex
+    LabelFieldCell *cell = (LabelFieldCell*)[logInfo  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    self.account = cell.cellField.text;
+    if(!account||[account isEqualToString:@""])
+    {
+        [self alertMsg:NSLocalizedString(@"Please input login account", @"")]; 
+        [cell.cellField becomeFirstResponder];
+        return NO;
+    }
+    cell = (LabelFieldCell*)[logInfo  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    self.password = cell.cellField.text;
+    if(!password||[password isEqualToString:@""])
+    {
+        [self alertMsg:NSLocalizedString(@"Please input login password", @"")];
+        [cell.cellField becomeFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+-(void)alertMsg:(NSString*)errMsg
+{
+    //NSString *errMsg = [obj localizedDescription];
+    UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:nil message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok",nil) otherButtonTitles:nil, nil]autorelease];
+    [alertErr show];
+}
+#pragma mark nav item selector
+-(void)didSelectorTopNavItem:(id)navObj
+{
+	NE_LOG(@"select item:%d",[navObj tag]);
+    
+	switch ([navObj tag])
+	{
+		case 0:
+        {
+            [self.navigationController popViewControllerAnimated:YES];// animated:
+        }
+			break;
+		case 1:
+		{
+            
+			[self loginNow:nil];
+			break;
+		}
+	}
+ 
+}
+-(void)loginNow:(id)sender
+{
+    if(![self checkLoginInfoInput])
+    {
+        return;
+    }
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Login...", @"") networkIndicator:YES];
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
+                         	  
+                                                self.account,@"email",
+                                                self.password,@"pass",
+                                                nil];
+    
+    ZCSNetClientDataMgr *netClientMgr = [ZCSNetClientDataMgr getSingleTone];
+    [netClientMgr  startUserLogin:param];
+}
+#pragma mark
+#pragma mark net Respond
+
+-(void)didLoginOK:(NSNotification*)ntf
+{
+    //save use name and passwor;
+    [SVProgressHUD dismiss];
+    id obj = [ntf object];
+    id request = [obj objectForKey:@"request"];
+    id data = [obj objectForKey:@"data"];
+    NSString *resKey = [request resourceKey];
+    if([resKey isEqualToString:@"register"])
+        [self.navigationController popViewControllerAnimated:YES];
+    
+}
+/*
+ *
+ 3.	邮箱不正确       用语：该用户名尚未注册
+ 4.	密码不正确       用语：密码不正确
+ 5。不是正确的email
+ */
+-(void)didLoginFailed:(NSNotification*)ntf
+{
+     [SVProgressHUD dismiss];
+
 }
 @end

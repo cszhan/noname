@@ -40,6 +40,7 @@
 @property (nonatomic, assign) id<BSPreviewScrollViewDelegate, NSObject> delegate;
 @property (nonatomic, assign) CGSize pageSize;
 @property (nonatomic, assign) BOOL dropShadow;
+@property (nonatomic, assign) BOOL useMask;
 @property (nonatomic, retain) UIImageView *bgView;
 @property (nonatomic, assign) CGPoint zoomScale;
 //three custom property set
@@ -50,6 +51,9 @@
 -(void)setScrollerZoom:(BOOL)zoomTag;
 //-(void)setZoomScale:(CGPoint)zoomScale;
 - (void)setInsertBgView:(BOOL)tag;
+//user mask image
+- (void)setMaskImage:(UIImage*)maskImage;
+
 //set the Page 
 -(void)setPageControlHidden:(BOOL)hidden;
 -(void)setPageControlFrame:(CGRect)rect;

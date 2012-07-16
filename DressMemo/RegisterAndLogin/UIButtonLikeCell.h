@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol UITableViewCellDelegate
+@optional
+-(void)didTouchEvent:(id)sender;
+@end    
 @interface UIButtonLikeCell : UITableViewCell
-
+@property(nonatomic,assign)id touchDelegate;
+@property(nonatomic,retain)UILabel *labelText;
 @end

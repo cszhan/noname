@@ -19,6 +19,8 @@
 
 
 #define kPhotoUploadImageSizeX   640.f//627.f
+
+#define kUserPhotoUploadImageSize 320.f
 //for photo upload
 #define kPhotoUploadStartMaxPicCount        3
 
@@ -85,7 +87,7 @@
 #define kPhotoUploadProcessIndicatorTextRect CGRectMake(0.f,0.f,0.f,0.f)
 
 
-#define kPhotoUploadBrandChoosePendingX    40.f
+#define kPhotoUploadBrandChoosePendingX    43.5f
 #define kPhotoUploadBrandItemGapH          (38.f/2.f)
 
 #define kPhotoUploadPointScaleX        kPhotoUploadImageSizeX/kPhotoUploadMarkTagImageMaxW

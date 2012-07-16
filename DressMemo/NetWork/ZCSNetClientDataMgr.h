@@ -10,4 +10,5 @@
 
 @interface ZCSNetClientDataMgr : NSObject
 +(id)getSingleTone;
+-(void)startUserLogin:(NSDictionary*)param;
 @end

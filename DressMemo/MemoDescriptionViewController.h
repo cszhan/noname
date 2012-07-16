@@ -18,5 +18,6 @@
 @property(nonatomic,retain) IBOutlet GCPlaceholderTextView    *despTextView;
 @property(nonatomic,retain) IBOutlet UIPickerView *pickerView;
 @property(nonatomic,retain) IBOutlet UIView      *mainFrameView;
+//@property(nonatomic,retain) IBOutlet UILabel     *indicatorTextLabel;
 @property(nonatomic,assign) CGSize  gMainFrameSize;
 @end

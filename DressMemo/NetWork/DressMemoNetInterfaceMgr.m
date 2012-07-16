@@ -70,12 +70,14 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
                                @"/user/login"    ,     @"login",
                                @"/user/register",      @"register",
                                @"/user/update",        @"update",
+                               @"/user/forgetpwd",     @"forgetpwd",
                                @"/memo/add",           @"add",
                                @"/memo/getOccasions",  @"getOccasions",
                                @"/memo/getEmotions",   @"getEmotions",
                                @"/memo/getCountries",  @"getCountries",
                                @"/memo/getCats",       @"getCats",
                                @"/memo/uploadpic",     @"uploadpic",
+                               
                                nil];
         
         requestsWorkingDict =[[NSMutableDictionary alloc]init];
@@ -135,7 +137,6 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
          [queueRequestsArr addObject:followClient];
          //we can releas it 
          [followClient release];
-         
          return followClient;
          
      }
@@ -345,6 +346,7 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         
         
     }
+   
     
     /*
     [ZCSNotficationMgr postMSG:kZCSNetWorkOK obj:client];
@@ -392,7 +394,7 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
             [queueRequestsArr  removeAllObjects];
         }
         [self checkRequestDomainError:request withData:resultData];
-        [ZCSNotficationMgr postMSG:kZCSNetWorkFailed obj:resultData];
+        //[ZCSNotficationMgr postMSG:kZCSNetWorkRequestFailed obj:resultData];
     }
     else
     {
@@ -432,19 +434,19 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         }
         @synchronized(self)
         {
-            for(int i = 0;i<[queueRequestsArr count];i++)
+            int requestCount = [queueRequestsArr count];
+            for(int i = 0;i<requestCount;i++)
             {
                 
                 ZCSNetClient *client = [queueRequestsArr objectAtIndex:i];
                 NSDictionary *addParam = [NSDictionary dictionaryWithObject:self.gToken forKey:@"token"];
                 [client reComposetRequestAddParam:addParam];
-                
                 //sleep(10);
                 [self startRequest:client];
-                [queueRequestsArr removeObject:client];
                 [requestsWorkingDict setObject:client forKey:client.requestKey];
+                //[queueRequestsArr removeObject:client];
             }
-            //[queueRequestsArr removeAllObjects];
+            [queueRequestsArr removeAllObjects];
         }
     }
     else 
@@ -472,14 +474,14 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
     {
     
     }
-    
+    [ZCSNotficationMgr postMSG:kZCSNetWorkRequestFailed obj:data]; 
 }
 #pragma mark -
 #pragma mark server respond data error
 -(void)checkServerRespondDataError:(ZCSNetClient*)request withResult:(NSDictionary*)dataDict
 {
     NE_LOG(@"error info :%@",[dataDict description]);
-
+    [ZCSNotficationMgr postMSG:kZCSNetWorkRespondFailed obj:dataDict];
 }
 -(void)cancelRequest:(ZCSNetClient*)request
 {

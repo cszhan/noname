@@ -10,8 +10,10 @@
 #import "ZCSTableViewCellBase.h"
 #import "ZCSRoundLabel.h"
 extern NSString *TextFieldShouldResign;
-
-
+@protocol didEndCellInput <NSObject>
+@optional
+-(void)didEndCellInput:(id)sender;
+@end
 @interface LabelFieldCell : ZCSTableViewCellBase <UITextFieldDelegate>{
 	IBOutlet ZCSRoundLabel *cellName;
 	IBOutlet UITextField *cellField;
@@ -19,6 +21,7 @@ extern NSString *TextFieldShouldResign;
 
 @property (nonatomic, retain)IBOutlet UILabel *cellName;
 @property (nonatomic, retain)IBOutlet UITextField *cellField;
+@property (nonatomic, assign) id delegate;
 //@property (nonatomic, retain)IBOutlet UIImageView *cellLeftBGView;
 
 -(void)setLabelName:(NSString *)name;

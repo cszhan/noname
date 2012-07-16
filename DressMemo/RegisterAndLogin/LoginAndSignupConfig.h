@@ -16,27 +16,28 @@
 #define kLoginAndSignupMainLoginButtonStartY          574.f/2.f
 #define kLoginAndSignupMainSignupButtonStartY          698.f/2.f
 
-#define  kLoginCellItemLeftWidth                   40.f
+#define  kLoginCellItemLeftWidth                    40.f
 #define  kLoginCellItemLeftBGColor                 [UIColor greenColor]
+
 #define  kLoginAndSignupCellLineColor              HexRGB(170,170,170)
 #define  kLoginAndSignupCellImageBGColor           HexRGB(231,231,231)
 
 #define  kLoginAndSignupHintTextColor              [UIColor lightGrayColor]
 #define  kLoginAndSignupHintTextFont               [UIFont systemFontOfSize:16]
 
-#define  kLoginAndSignupInputTextColor             [UIColor lightGrayColor]
+#define  kLoginAndSignupInputTextColor               HexRGB(70,70,70) //[UIColor lightGrayColor]
 #define  kLoginAndSignupInputTextFont              [UIFont systemFontOfSize:16]
 
 
 #define  kRegisterAvatorImagePending                    17.f
 
-#define  kLoginResetPasswardPending                     18.f/2.f
+#define  KLoginAndResignPendingX                     18.f/2.f
 
-#define  kLoginViewRadius                               5.0
+#define  kLoginViewRadius                               9.0
 
 #define  kLoginCellItemHeight                          44.f
 
-#define  kRegisterCellImageItemHeight                  58.f
+#define  kRegisterCellImageItemHeight                  82.5f
 
 //
 //  LoginConst.h

@@ -53,8 +53,10 @@ static UINavigationController *currentNavgationController = nil;
 
 	NTESMBMainMenuController *mainVC = [[NTESMBMainMenuController alloc]init];
     mainVC.delegate = self;
+    
 #if 1
 	UINavigationController *navCtrl = [[UINavigationController alloc]initWithRootViewController:mainVC];
+    navCtrl.navigationBar.tintColor = [UIColor redColor];//[UIColor colorWithPatternImage:];
 	navCtrl.navigationBarHidden = YES;
 	currentNavgationController = navCtrl;
 	//navCtrl.delegate = self;

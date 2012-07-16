@@ -52,6 +52,7 @@
 @synthesize preSelectBtn;
 @synthesize bgScrollerView;
 @synthesize  gMainFrameSize;
+//@synthesize indicatorTextLabel;
 -(void)dealloc
 {
     self.leftBtn = nil;
@@ -60,6 +61,7 @@
     self.rightText = nil;
     self.alldataDict = nil;
     self.bgScrollerView = nil;
+    //self.indicatorTextLabel = nil;
     [ZCSNotficationMgr removeObserver:self];
     self.pickDataSource = nil;
     [super dealloc];
@@ -146,14 +148,13 @@
 	NE_LOG(@"btn frame");
 	NE_LOGRECT(btn.frame);
 	//btn.hidden = YES;
-	UILabel *btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(0.f, 0.f, btn.frame.size.width,btn.frame.size.height)];
+	UILabel *btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTopNavItemLabelOffsetX,kTopNavItemLabelOffSetY, btn.frame.size.width,btn.frame.size.height)];
     btnTextLabel.backgroundColor = [UIColor clearColor];
     //btnTextLabel.center = 
     btnTextLabel.text = NSLocalizedString(@"Return", @"");
     btnTextLabel.textColor = [UIColor whiteColor];
     btnTextLabel.font = kNavgationItemButtonTextFont;
-    btnTextLabel.textAlignment = UITextAlignmentCenter;
-	
+    btnTextLabel.textAlignment = UITextAlignmentLeft;
     self.leftText = btnTextLabel;
 	
     [btn addSubview:btnTextLabel];
@@ -187,7 +188,7 @@
 	//CGRect rect = CGRectMake(0.f, 0.f, kDeviceScreenWidth, kMBAppTopToolBarHeight);
 	
     
-    btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(0.f, 0.f, btn.frame.size.width,btn.frame.size.height)];
+    btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(0.f,kTopNavItemLabelOffSetY, btn.frame.size.width,btn.frame.size.height)];
     btnTextLabel.backgroundColor = [UIColor clearColor];
     //btnTextLabel.center = 
     btnTextLabel.text = NSLocalizedString(@"Next", @"");
@@ -229,7 +230,17 @@
     [self setRightTextContent:NSLocalizedString(@"Upload", @"")];
     
     self.subAddressTextFied.delegate = self;
-    
+    UIView *paddingView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,kInputTextPenndingX,subAddressTextFied.frame.size.height)] autorelease];
+    subAddressTextFied.leftView = paddingView;
+    subAddressTextFied.leftViewMode = UITextFieldViewModeAlways;
+    NSArray *viewArr = [self.mainFrameView subviews];
+    for(id subView in viewArr)
+    {
+        if ([subView isKindOfClass:[UILabel class]]) 
+        {
+            [(UILabel*)subView setTextColor:kUploadChooseTextColor];
+        }
+    }
     /*
      @"getOccasions",
      @"getEmotions", 
@@ -238,7 +249,7 @@
     despTextView.placeholder = NSLocalizedString(@"Description", @"");
     UIImageWithFileName(bgImage, @"inputboxL.png");
 #if 1
-    UIEdgeInsets resizeEdgeInset = UIEdgeInsetsMake(10.f,10.f,10.f,10.f);
+    UIEdgeInsets resizeEdgeInset = UIEdgeInsetsMake(12.f,12.f,12.f,12.f);
     if([bgImage respondsToSelector:@selector(resizableImageWithCapInsets:)]&&1)
     {
         bgImage =[bgImage resizableImageWithCapInsets:resizeEdgeInset];
@@ -246,13 +257,13 @@
     }
     else 
     {
-        bgImage = [bgImage stretchableImageWithLeftCapWidth:10.f topCapHeight:10.f];
+        bgImage = [bgImage stretchableImageWithLeftCapWidth:12.f topCapHeight:12.f];
     }
 #endif
     UIImageView *bgView = [[UIImageView alloc]initWithImage:bgImage];
     bgView.frame = despTextView.frame;
-    bgView.clipsToBounds = YES;
-    despTextView.layer.masksToBounds = YES;
+    //bgView.clipsToBounds = YES;
+    //despTextView.layer.masksToBounds = YES;
     [mainFrameView insertSubview:bgView belowSubview:despTextView];
     //despTextView.layer.contents = (id)bgImage;
     
@@ -289,7 +300,7 @@
     [self setButtonAttribute:senceBtn];
     
     UIScrollView *scrollerView = [[UIScrollView alloc]initWithFrame:
-                                  CGRectMake(0.f,kMBAppTopToolBarHeight,kDeviceScreenWidth, kMBAppRealViewHeight)];
+                                  CGRectMake(0.f,kMBAppTopToolBarHeight,kDeviceScreenWidth, kDeviceScreenHeight-kMBAppTopToolBarHeight-kMBAppStatusBar)];
     [scrollerView addSubview:mainFrameView];
     [mainFrameView release];
     scrollerView.contentSize = mainFrameView.frame.size;
@@ -304,7 +315,8 @@
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //btn.titleLabel.textColor = kUploadDataTextColor;
     [btn setTitleColor:kUploadNoChooseTextColor forState:UIControlStateNormal];
-    btn.titleEdgeInsets = UIEdgeInsetsMake(0.f, 10, 0,0.f);
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0.f,kInputTextPenndingX, 0,0.f);
+    
 
 }
 - (void)viewDidUnload

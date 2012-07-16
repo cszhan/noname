@@ -78,7 +78,7 @@ static DBManage   *dbMgr = nil;
 	//self.view = mainView;
     */
 	UIImage *bgImage = nil;
-	UIImageWithFileName(bgImage,@"BG-photo.png");
+	UIImageWithFileName(bgImage,@"BG-mask.png");
 	//assert(bgImage);
 	mainView.bgImage = bgImage;
     
@@ -162,7 +162,7 @@ static DBManage   *dbMgr = nil;
     [scrollViewPreview setPageViewPendingWidth:kPhotoUploadScrollerPagePendingX];
    // [bgImageView addSubview:scrollViewPreview];
     
-    [mainView.mainFramView addSubview:bgImageView];
+    //[mainView.mainFramView addSubview:bgImageView];
     [bgImageView release];
     //scrollViewPreview.backgroundColor = [UIColor colorWithPatternImage:bgImage];
   
@@ -249,6 +249,7 @@ static int chooseActionType = -1;
                                                 ,nil];
             actionSheet.delegate = self;
             actionSheet.backgroundColor= [UIColor clearColor];
+            actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
             //[actionSheet addButtonWithTitle:NSLocalizedString(@"From Camera",@"")];
             //[actionSheet addButtonWithTitle:NSLocalizedString(@"From Album" ,@"")];
             //[actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel",@"")];
@@ -264,6 +265,7 @@ static int chooseActionType = -1;
                                                            cancelButtonTitle:NSLocalizedString(@"Cancel",@"")
                                                       destructiveButtonTitle:NSLocalizedString(@"Delete",@"") otherButtonTitles:nil,nil];
             actionSheet.delegate = self;
+            actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
             //[actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel",@"")];
             [actionSheet showInView:gnv.view];
             [actionSheet autorelease];
@@ -450,12 +452,12 @@ static int chooseActionType = -1;
 #else
     [scrollViewPreview  reloadScrollerPageViewAnimation:i];
     NSArray *pageViews = [scrollViewPreview getScrollerPageViews];
-    for(int i = 0;i<[pageViews count];i++)
+    for(int j = 0;j<[pageViews count];j++)
     {
-        UIView *item = [pageViews objectAtIndex:i];
+        UIView *item = [pageViews objectAtIndex:j];
         if((NSNull*)item!= [NSNull null])
         {
-            item.tag = i;
+            item.tag = j;
         }
     }
     
@@ -528,6 +530,7 @@ static int chooseActionType = -1;
     maskView.frame = CGRectMake(0.f, 0.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
     [imageView addSubview:maskView];
     maskView.hidden = YES;
+    [maskView release];
     //maskView.alpha = 1.f;
 	imageView.contentMode = UIViewContentModeScaleToFill;
 	return imageView;

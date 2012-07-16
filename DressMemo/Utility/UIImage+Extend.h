@@ -14,4 +14,5 @@
 +(UIImage*)imageCroppedToFitSizeII:(CGSize)size withFileName:(NSString*)fileName;
 +(UIImage*)imageScaleToFitSize:(CGSize)size withData:(UIImage*)srcData;
 +(UIImage *)makeRoundCornerImage:(UIImage*)img :(int) cornerWidth :(int) cornerHeight;
++(UIImage *)imageWithColor:(UIColor *)color;
 @end

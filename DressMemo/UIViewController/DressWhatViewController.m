@@ -14,6 +14,7 @@
 //for test only
 #import "LoginViewController.h"
 #import "LoginAndResignMainViewController.h"
+#import "RegisterViewController.h"
 
 @interface DressWhatViewController ()
 
@@ -110,6 +111,13 @@
 #endif
 #if 0
             LoginViewController *tagchooseBrandVc = [[LoginViewController alloc]init];
+            [self.navigationController pushViewController:tagchooseBrandVc animated:YES];
+            [tagchooseBrandVc release];
+            
+            return ;
+#endif
+#if 0
+            RegisterViewController *tagchooseBrandVc = [[RegisterViewController alloc]init];
             [self.navigationController pushViewController:tagchooseBrandVc animated:YES];
             [tagchooseBrandVc release];
             

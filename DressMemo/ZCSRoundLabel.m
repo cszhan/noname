@@ -10,16 +10,32 @@
 
 @implementation ZCSRoundLabel
 @synthesize cornerColor;
+@synthesize bgColor;
 @synthesize radius;
+@synthesize borderWidth;
 @synthesize roundUpperLeft;
 @synthesize roundUpperRight;
 @synthesize roundLowerLeft;
 @synthesize roundLowerRight;
+@synthesize roundType;
+-(void)awakeFromNib
+{
+    [self initData];
+
+}
+- (void)initData{
+
+    radius = 10.f;
+    roundType = 0;
+    //bgColor =
+    borderWidth = 0.f;
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (self) 
+    {
+        [self initData];
     }
     return self;
 }
@@ -34,13 +50,21 @@
 */
 -(void) drawRect:(CGRect) rect 
 {
+    
+#if 0
     CGContextRef c = UIGraphicsGetCurrentContext();
     if (c != nil)  {
         CGContextSetFillColorWithColor(c, self.cornerColor.CGColor);
         [self drawRoundedCornersInRect:self.bounds inContext:c];
         CGContextFillPath(c);
     }
-    [super drawRect:rect];
+#else
+    //return;
+    [self drawRoundConner:rect];
+    
+     [super drawRect:rect];
+#endif
+   
 }
 
 -(void) drawCornerInContext:(CGContextRef)c cornerX:(int) x cornerY:(int) y
@@ -90,13 +114,23 @@
 -(void)drawRoundConner:(CGRect)rect {
 
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 1);
-    CGContextSetStrokeColorWithColor(context, self.cornerColor.CGColor);
-    CGContextSetFillColorWithColor(context, self.cornerColor.CGColor);
+    
+    CGContextSetLineWidth(context, borderWidth);
+    if(borderWidth)
+    {
+        CGContextSetStrokeColorWithColor(context, self.cornerColor.CGColor);
+    }
+    else 
+    {
+        CGContextSetRGBStrokeColor(context, 0, 0, 0, 0.f);//clear color;
+    }
+    CGContextSetFillColorWithColor(context, self.bgColor.CGColor);
+    //CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 1.0);
+    //CGContextSetFillColorWithColor(context, self.bgColor.CGColor);
     
     CGRect rrect = self.bounds;
     
-    CGFloat radius = 5.f;
+    //CGFloat radius = 5.f;
     CGFloat width = CGRectGetWidth(rrect);
     CGFloat height = CGRectGetHeight(rrect);
     
@@ -111,30 +145,61 @@
     CGFloat miny = CGRectGetMinY(rrect);
     CGFloat midy = CGRectGetMidY(rrect);
     CGFloat maxy = CGRectGetMaxY(rrect);
-    switch (1) 
+    switch (roundType) 
     {
+        case 0://none round conner
+            CGContextMoveToPoint(context, minx, miny);
+            CGContextAddLineToPoint(context,maxx,miny);
+            //right line edge
+            CGContextAddLineToPoint(context,maxx,maxy);
+            //bottom line edge
+            CGContextAddLineToPoint(context,minx,maxy);
+            //left half line 
+            //CGContextAddLineToPoint(context,minx,midy);
+            break;
         case 1://表示左上角
+            //left conner (arc create by two tangent line
             CGContextMoveToPoint(context, minx, midy);
             CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);
+            //CGContextMoveToPoint(context, minx, midy);
+#if 1
+            //top half line
             CGContextAddLineToPoint(context,maxx,miny);
+            //right line edge
             CGContextAddLineToPoint(context,maxx,maxy);
+            //bottom line edge
             CGContextAddLineToPoint(context,minx,maxy);
+            //left half line 
+            CGContextAddLineToPoint(context,minx,midy);
+#endif
             break;
-        case 2://表示左下角和右下角
+            //right top conner
+        case 2:
+            CGContextMoveToPoint(context, midx, miny);
+            CGContextAddArcToPoint(context, minx, maxy, maxx, midy, radius);
+            CGContextAddLineToPoint(context, maxx, maxy);
+            CGContextAddLineToPoint(context,minx, maxy);
+            CGContextAddLineToPoint(context, minx, miny);
+            break;
+            //right bottom conner
+        case 3:
+            CGContextMoveToPoint(context, maxx, midy);
+            CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
+            CGContextAddLineToPoint(context, minx, maxy);
+            CGContextAddLineToPoint(context,minx, miny);
+            CGContextAddLineToPoint(context, maxx, miny);
+            
+        case 4://表示左下角
             CGContextMoveToPoint(context, midx, maxy);
             CGContextAddArcToPoint(context, minx, maxy, minx, midy, radius);
             CGContextAddLineToPoint(context,minx,miny);
+            //top line 
             CGContextAddLineToPoint(context,maxx,miny);
-            CGContextAddLineToPoint(context,maxx,midy);
-            CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
-            break;
-        case 3:
-            CGContextMoveToPoint(context, minx, midy);
-            CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);
-            CGContextAddLineToPoint(context,maxx,miny);
+            //right line 
             CGContextAddLineToPoint(context,maxx,maxy);
-            CGContextAddLineToPoint(context,minx,maxy);
+            //CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
             break;
+            
         default:
             CGContextMoveToPoint(context, minx, midy);
             CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);

@@ -12,6 +12,7 @@
 NSString *TextFieldShouldResign = @"TextFieldShouldResign";
 
 @implementation LabelFieldCell
+@synthesize delegate;
 @synthesize cellName;
 @synthesize cellField;
 @synthesize cellLeftBGView;
@@ -74,6 +75,7 @@ NSString *TextFieldShouldResign = @"TextFieldShouldResign";
         cellName.textAlignment = UITextAlignmentCenter;
         cellName.backgroundColor = [UIColor clearColor];
 		cellField.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+        cellField.delegate = self;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resignField:) name:TextFieldShouldResign object:nil];
     }
     return self;
@@ -88,8 +90,10 @@ NSString *TextFieldShouldResign = @"TextFieldShouldResign";
 
 
 - (void)dealloc {
+#if 1
 	self.cellName = nil;
 	self.cellField = nil;
+#endif
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:TextFieldShouldResign object:nil];
     [super dealloc];
 }
@@ -164,6 +168,11 @@ NSString *TextFieldShouldResign = @"TextFieldShouldResign";
 //    }
 // */
 //}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if(delegate && [delegate respondsToSelector:@selector(didEndCellInput:)])
+       [delegate didEndCellInput:self];
+}
 - (void)drawRect:(CGRect)rect 
 {
 #if 0

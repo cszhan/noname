@@ -14,5 +14,8 @@
 @property(nonatomic,assign)BOOL roundLowerRight;
 @property(nonatomic,assign)BOOL roundLowerLeft;
 @property(nonatomic,assign)CGFloat radius;
-@property(nonatomic,assign)UIColor *cornerColor;
+@property(nonatomic,assign)CGFloat borderWidth;
+@property(nonatomic,retain)UIColor *bgColor;
+@property(nonatomic,retain)UIColor *cornerColor;
+@property(nonatomic,assign)int roundType;
 @end

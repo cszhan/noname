@@ -13,19 +13,7 @@
 
 #define HexRGB(x,y,z)  [UIColor colorWithRed:(x/255.f) green:(y/255.f) blue:(z/255.f) alpha:1]
 
-#define HexRGBA(x,y,z,a) ［UIColor colorWithRed:x/255.f green:y/255.f blue:z/255.f alpha:a]
-//if all the button is the same ,the offset should be all 0
-#define kTabAllItemTextCenterXOffset    @"4,0,-4"
-#define kTabAllItemTextCenterYOffset    @"0,0,0"
-
-#define kTabAllItemText                 @"Dress what,Upload,Me"
-
-#define kTabItemTextHeight          16
-#define kTabItemTextFont            [UIFont systemFontOfSize:16]
-
-
-#define kTabCountMax                              3
-#define kTabItemImageSubfix                       @"png"
+#define HexRGBA(x,y,z,a) [UIColor colorWithRed:x/255.f green:y/255.f blue:z/255.f alpha:a]
 
 //the tabBabview will offset Y ,if we don't offset Y then we should  0,this app we offset 10 ,as the select status
 #define kTabBarViewOffsetY                              -10.f

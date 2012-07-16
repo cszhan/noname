@@ -10,9 +10,13 @@
 //#import "ZCSNotficationMgr.h"
 static PhotoPickTool *sharedInstance = nil;
 static UIImagePickerController *picker = nil;
+@interface PhotoPickTool()
+@property(nonatomic,assign)BOOL isImageEdit;
+@end
 @implementation PhotoPickTool
 @synthesize delegate;
 @synthesize controllerDelegate;
+@synthesize isImageEdit;
 +(id)getSingleTone
 {
     @synchronized(self)
@@ -38,6 +42,7 @@ static UIImagePickerController *picker = nil;
 {
     [ZCSNotficationMgr removeObserver:self msgName:kUploadPhotoPickChooseMSG];
     [ZCSNotficationMgr addObserver:self call:@selector(pickPhoto:) msgName:kUploadPhotoPickChooseMSG];
+    [ZCSNotficationMgr addObserver:self call:@selector(pickPhotoEdit:) msgName:kUploadPhotoPickChooseEditMSG];
 }
 #pragma mark pick phto from action sheet msg
 -(void)pickPhoto:(NSNotification*)ntf
@@ -67,6 +72,11 @@ static UIImagePickerController *picker = nil;
 	}
 
 }
+-(void)pickPhotoEdit:(NSNotification*)ntf
+{
+    isImageEdit = YES;
+    [self pickPhoto:ntf];
+}
 #pragma mark  UIImagePickerController 
 - (BOOL)pickPhotoFromCamara{
 	//NE_LOGFUN;
@@ -79,6 +89,10 @@ static UIImagePickerController *picker = nil;
 	picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 	//picker.postViewController = self;
 	picker.delegate = self;
+    if(isImageEdit)
+    {
+        picker.allowsEditing = YES;
+    }
 	[controllerDelegate presentModalViewController:picker animated:YES];
     return YES;
 }
@@ -86,7 +100,12 @@ static UIImagePickerController *picker = nil;
 {
 	//UIImagePickerController *picker = [[[UIImagePickerController alloc] init] autorelease];
 	picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.navigationBar.tintColor = [UIColor redColor];
 	picker.delegate = self;
+    if(isImageEdit)
+    {
+        picker.allowsEditing = YES;
+    }
 	[controllerDelegate presentModalViewController:picker animated:YES];
     return YES;
 }
@@ -94,9 +113,17 @@ static UIImagePickerController *picker = nil;
 {
         NE_LOG(@"%@",[info description]);
    
-	
-     [controllerDelegate dismissModalViewControllerAnimated:YES];
-    UIImage *data = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    [controllerDelegate dismissModalViewControllerAnimated:YES];
+    UIImage *data  = nil;
+    if(isImageEdit)
+    {
+        data = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    }
+    else 
+    {
+        data = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    }
+    
     if([delegate respondsToSelector:@selector(didGetImageData:)]&&delegate)
     {
         [delegate didGetImageData:data];

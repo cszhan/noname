@@ -36,7 +36,7 @@ static DBManage *dbMgr = nil;
         
         requestResourceDict = [[NSMutableDictionary alloc]init];
         [ZCSNotficationMgr addObserver:self call:@selector(didGetDataFromNet:) msgName:kZCSNetWorkOK];
-        [ZCSNotficationMgr addObserver:self call:@selector(didGetDataFromNetFailed:) msgName:kZCSNetWorkFailed];
+        [ZCSNotficationMgr addObserver:self call:@selector(didGetDataFromNetFailed:) msgName:kZCSNetWorkRequestFailed];
         dbMgr = [DBManage getSingleTone];
     }
     return self;
@@ -134,14 +134,25 @@ static DBManage *dbMgr = nil;
              NSString *xStr = [data objectForKey:@"PointX"];
              NSString *yStr = [data objectForKey:@"PointY"];
              */
+            for(id subItem in [tagItem allValues])
+            {
+                NSLog(@"value:%@",subItem);
+            }
             [self makeRealUploadClassData:classAllData withItemData:tagItem];
-            
-            [brandValueArr  addObject:[tagItem objectForKey:@"Brand"]];
-            [cats1ValueArr addObject:[tagItem objectForKey:@"Cats1"]];
-            [cats2ValueArr addObject:[tagItem objectForKey:@"Cats2"]];
+            NSString *brand = [tagItem objectForKey:@"Brand"];
+            assert(brand);
+            [brandValueArr  addObject:brand];
+            NSString *cat1 = [tagItem objectForKey:@"Cats1"];
+            assert(cat1);
+            [cats1ValueArr addObject:cat1];
+            NSString *cat2 = [tagItem objectForKey:@"Cats2"];
+            assert(cat2);
+            [cats2ValueArr addObject:cat2];
             NSString *realX = [dbMgr uploadTagDataPointXMap:[tagItem objectForKey:@"PointX"]];
+            assert(realX);
             [pointXValueArr addObject:realX];
             NSString *realY = [dbMgr uploadTagDataPointYMap:[tagItem objectForKey:@"PointY"] withKey:key];
+            assert(realY);
             [pointYValueArr addObject:realY];
             
         }
@@ -207,6 +218,43 @@ static DBManage *dbMgr = nil;
     }
 
 }
+#pragma mark user 
+-(void)startUserLogin:(NSDictionary*)param
+{
+    [dressMemoInterfaceMgr startAnRequestByResKey:@"login" 
+                                        needLogIn:NO
+                                        withParam:param
+                                       withMethod:@"POST"
+                                         withData:NO];
+
+}
+-(void)startUserResetPassword:(NSDictionary*)param
+{
+
+    [dressMemoInterfaceMgr startAnRequestByResKey:@"forgetpwd" 
+                                        needLogIn:NO
+                                        withParam:param
+                                       withMethod:@"POST"
+                                         withData:NO];
+
+}
+-(void)startUserResign:(NSDictionary*)param
+
+{
+    BOOL isHasData = NO;
+    if([param objectForKey:@"avatar"])
+    {
+     
+        isHasData  = YES;
+    
+    }
+    [dressMemoInterfaceMgr startAnRequestByResKey:@"register" 
+                                        needLogIn:NO
+                                        withParam:param
+                                       withMethod:@"POST"
+                                         withData:isHasData];
+
+}
 -(id)getRequestByRequestKey:(NSString*)requestKey
 {
 
@@ -250,6 +298,7 @@ static DBManage *dbMgr = nil;
         UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:@"NetWorkError" message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Done",nil) otherButtonTitles:nil, nil]autorelease];
         [alertErr show];
     }
+    [SVProgressHUD dismiss];
 }
 -(void)dealloc
 {

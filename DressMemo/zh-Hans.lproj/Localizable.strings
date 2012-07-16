@@ -26,12 +26,29 @@
 
 "touch anywhere to add tag view" = "点击任意地方添加标签";
 
+"Nickmame" = "昵称";
+"4to30character" = "4到30个字符";
+"6to16character" = "6到16个字符";
+
 "Forget password"  = "忘记密码";
 "Email" = "邮箱";
 "Password" = "密码";
 "Register" = "注册";
 "Login" = "登陆";
-"Reset Password" = "";
+"Reset Password" = "重置密码";
 "Send" = "发送";
 
 "NetWorkError" = "网络请求错误";
+
+"Login..." = "登陆中...";
+"Resign..." = "注册中...";
+
+"Please input login account" = "请输入登录名";
+"Please input login password" = "请输入密码";
+
+"Please input resign email" = "请输入注册邮箱";
+
+"Please input resign nickname" = "请输入昵称";
+"Please input resign account" = "请输入邮箱";
+"Please input resign password" = "请设定密码";
+

@@ -115,6 +115,32 @@ static DBManage *sharedInstance = nil;
     }
     return NO;
 }
+-(BOOL)saveUserImageTolocalPath:(UIImage*)imageData withFileName:(NSString*)fileName
+{
+
+    CGFloat scaleRatio = imageData.size.width/kUserPhotoUploadImageSize;
+    
+    CGFloat targetHeight = imageData.size.height/scaleRatio;
+    
+    UIImage *scaleImage = [UIImage_Extend imageScaleToFitSize:CGSizeMake(kUserPhotoUploadImageSize,targetHeight) withData:imageData];
+    
+    NSData *saveData = UIImageJPEGRepresentation(scaleImage,0.8);
+    /*
+     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+     
+     NSString *docsDir = [dirPaths objectAtIndex:0];
+     */
+    NSString *path = [NTESMBUtility filePathInDocumentsDirectoryForFileName:fileName];
+    
+    
+    [uploadimageTagPointMap setValue:[NSNumber numberWithFloat:targetHeight/kPhotoUploadMarkTagImageMaxH] forKey:path];
+    
+    if([saveData writeToFile:path atomically:YES])
+    {
+        return YES;
+    }
+    return NO;
+}
 
 -(void)removeImageByFileName:(NSString*)fileName
 {

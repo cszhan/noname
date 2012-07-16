@@ -23,5 +23,6 @@
 @property(nonatomic,assign)BOOL hasImageData;
 @property(nonatomic,assign)BOOL  hasZoom;
 @property(nonatomic,assign)id delegate;
+@property(nonatomic,assign)UIView *maskView;
 -(CGPoint)getTouchPoint;
 @end

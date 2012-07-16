@@ -111,7 +111,8 @@ static UILabel *label = nil;
 }
 - (void)hiddenAfterDelay:(NSTimeInterval)duration
 {
-    [self performSelector:@selector(hiddenAuto) withObject:nil afterDelay:duration];
+    //[self performSelector:@selector(hiddenAuto) withObject:nil afterDelay:duration];
+    [self performSelector:@selector(hiddenUpAnimation) withObject:nil afterDelay:duration];
 }
 -(void)hiddenAuto
 {

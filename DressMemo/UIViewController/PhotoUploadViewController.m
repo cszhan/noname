@@ -52,36 +52,52 @@
     [bgImageView release];
     
 	UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImageWithFileName(bgImage,@"upload_camera.png");
+	UIImageWithFileName(bgImage,@"fcamera.png");
 	//UIImage *bgImageS = nil;
 	//UIImageWithFileName(bg
 	[btn setBackgroundImage:bgImage forState:UIControlStateNormal];
-    btn.showsTouchWhenHighlighted = YES;
-    /*
-	UIImageWithFileName(bgImage,@"Btn_back.png");
+    //btn.showsTouchWhenHighlighted = YES;
+    
+	UIImageWithFileName(bgImage,@"fcamerahover.png");
 	[btn setBackgroundImage:bgImage forState:UIControlStateHighlighted];
 	//|UIControlStateHighlighted|UIControlStateSelected
-    */
+    
 	btn.frame = CGRectMake(kUploadFromCameraX,kUpladFromCameraY,bgImage.size.width/kScale, bgImage.size.height/kScale);
     [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag = 0;
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(52.f,(572.f-252.f)/2.f, 30.f, 20.f)];
+    textLabel.text = NSLocalizedString(@"From Camera", @"");
+    textLabel.font = kAppTextSystemFont(15.f);
+    textLabel.textColor = [UIColor blackColor];
+    textLabel.backgroundColor = [UIColor clearColor];
+    [btn addSubview:textLabel];
+    [textLabel release];
     [mainView addSubview:btn];
 	NE_LOGRECT(btn.frame);
 
     btn = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImageWithFileName(bgImage,@"upload_album.png");
+	UIImageWithFileName(bgImage,@"falbum.png");
 	//UIImage *bgImageS = nil;
 	//UIImageWithFileName(bg
-	[btn setBackgroundImage:bgImage forState:UIControlStateNormal];
-    /*
-     UIImageWithFileName(bgImage,@"Btn_back.png");
+	//[btn setImage:bgImage forState:UIControlStateNormal];
+    [btn setBackgroundImage:bgImage forState:UIControlStateNormal];
+    
+     UIImageWithFileName(bgImage,@"falbumhover.png");
      [btn setBackgroundImage:bgImage forState:UIControlStateHighlighted];
      //|UIControlStateHighlighted|UIControlStateSelected
-     */
+
 	btn.frame = CGRectMake(kUploadFromAlbumX,kUpladFromAlbumY,bgImage.size.width/kScale, bgImage.size.height/kScale);
-    btn.showsTouchWhenHighlighted = YES;
+    //btn.showsTouchWhenHighlighted = YES;
     [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag = 1;
+    
+    textLabel = [[UILabel alloc]initWithFrame:CGRectMake((464.f-340.f)/2.f,(572.f-252.f)/2.f, 100.f, 20.f)];
+    textLabel.text = NSLocalizedString(@"From Album", @"");
+    textLabel.font = kAppTextSystemFont(15.f);
+    textLabel.textColor = [UIColor blackColor];
+    textLabel.backgroundColor = [UIColor clearColor];
+    [btn addSubview:textLabel];
+    [textLabel release];
     [mainView addSubview:btn];
 }
 -(void)loadView
@@ -109,10 +125,22 @@
 	//[self.view addSubview:mainView];
 	//[mainView release];
 }
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     if(isUpdatedTag)
     {
+        NSArray *subViewsArr = mainView.subviews;
+        for(id item in subViewsArr)
+        {
+            [item removeFromSuperview];
+        }
+        UIImage *bgImage = nil;
+        UIImageWithFileName(bgImage,@"BG-updated.png");
+        //assert(bgImage);
+        mainView.bgImage = bgImage;
+        mainView.alpha = 0.;
+        isUpdatedTag = NO;
         [UIView animateWithDuration:0.5 animations:
          ^{
              mainView.alpha = 1.f;
@@ -317,20 +345,8 @@ static PhotoPickTool *photoPickTool = nil;
 {
     //self.view = nil;
     //
-    NSArray *subViewsArr = mainView.subviews;
-    for(id item in subViewsArr)
-    {
-        [item removeFromSuperview];
-    }
-    /*
-     self.mainFrameView.frame = CGRectOffset(self.mainFrameView.frame, 0.f, - pickerView.frame.size.height);
-     */
-    
-    UIImage *bgImage = nil;
-    UIImageWithFileName(bgImage,@"BG-updated.png");
-    //assert(bgImage);
-    mainView.bgImage = bgImage;
-    mainView.alpha = 0.4;
+    [[DBManage getSingleTone] clearAllUploadImageData];
+    NSLog(@"upload Done ");
     isUpdatedTag = YES;
     //[self.navigationController popToRootViewControllerAnimated:YES];
 	//self.view = mainView;

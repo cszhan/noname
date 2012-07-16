@@ -100,9 +100,10 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
 	
     return newImage;
 }
-UIImage* MTDContextCreateRoundedMask( CGRect rect, CGFloat radius_tl, CGFloat radius_tr, CGFloat radius_bl, CGFloat radius_br ) {  
+UIImage* MTDContextCreateRoundedMask(UIImage *srcImage, CGRect rect, CGFloat radius_tl, CGFloat radius_tr, CGFloat radius_bl, CGFloat radius_br ) {  
     
     CGContextRef context;
+#if 0
     CGColorSpaceRef colorSpace;
     
     colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -116,7 +117,9 @@ UIImage* MTDContextCreateRoundedMask( CGRect rect, CGFloat radius_tl, CGFloat ra
     if ( context == NULL ) {
         return NULL;
     }
-    
+#else
+    context = UIGraphicsGetCurrentContext();
+#endif
     // cerate mask
     
     CGFloat minx = CGRectGetMinX( rect ), midx = CGRectGetMidX( rect ), maxx = CGRectGetMaxX( rect );
@@ -140,21 +143,23 @@ UIImage* MTDContextCreateRoundedMask( CGRect rect, CGFloat radius_tl, CGFloat ra
     
     // Create CGImageRef of the main view bitmap content, and then
     // release that bitmap context
+    /*
     CGImageRef bitmapContext = CGBitmapContextCreateImage( context );
     CGContextRelease( context );
-    
-    // convert the finished resized image to a UIImage 
-    UIImage *theImage = [UIImage imageWithCGImage:bitmapContext];
+    */
+    // convert the finished resized image to a UIImage (
+    UIGraphicsBeginImageContext(srcImage.size);
+    UIImage *theImage = [UIImage imageWithCGImage:srcImage.CGImage];
     // image is retained by the property setting above, so we can 
     // release the original
-    CGImageRelease(bitmapContext);
-    
+    //CGImageRelease(bitmapContext);
+    UIGraphicsEndImageContext();
     // return the image
     return theImage;
 } 
-+(UIImage *)imageWithColor:(UIColor *)color 
++(UIImage *)imageWithColor:(UIColor *)color  withSize:(CGSize)size
 {
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width,size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     

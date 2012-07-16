@@ -125,10 +125,17 @@
 	self.scrollViewPreview.delegate = self;
     
     [self.scrollViewPreview setZoomScale:CGPointMake(kPhotoUploadMarkTagImageScaleW, kPhotoUploadMarkTagImageScaleH)];
-    [self.scrollViewPreview setInsertBgView:NO];
+    
+    [self.scrollViewPreview setInsertBgView:YES];
+    //use the mask layer
+    //UIImage *maskImage = [UIImage_Extend imageWithColor:HexRGB(0,0,0) withSize:CGSizeMake(kPhotoUploadMarkTagImageNomarlW, kPhotoUploadMarkTagImageNomarlH)];
+
+    //[self.scrollViewPreview setMaskImage:maskImage];
+
+    
     [self.scrollViewPreview setPageViewPendingWidth:kPhotoUploadMarkScrollerPagePendingX];
     [self.scrollViewPreview setPageControlHidden:NO];
-
+    NE_LOGRECT(self.scrollViewPreview.frame);
     StyledPageControl *pageControl = [self.scrollViewPreview getPageControl];
     UIImage *image  = nil;
     UIImageWithFileName(image ,@"point-gray.png");
@@ -136,6 +143,7 @@
     UIImageWithFileName(image ,@"point-red.png");
     pageControl.selectedThumbImage = image;
     pageControl.pageControlStyle = PageControlStyleThumb;
+
     
     CGRect rect = pageControl.frame;
     //[self.scrollViewPreview setPageControlFrame:CGRectMake(0.f,rect.size.height-80.f,kDeviceScreenWidth, 40.f)];
@@ -153,18 +161,20 @@
 #if 0
         bgImage = [bgImage stretchableImageWithLeftCapWidth: topCapHeight:];
 #endif
-        ZCSAlertInforView *alertView = [[ZCSAlertInforView alloc]initWithFrame:CGRectMake(0.f,-43.f,bgImage.size.width/kScale, bgImage.size.height/kScale)withText:@"" isWindow:NO];
+        ZCSAlertInforView *alertView = [[ZCSAlertInforView alloc]initWithFrame:CGRectMake(0.f,-44.f,bgImage.size.width/kScale, bgImage.size.height/kScale)withText:@"" isWindow:NO];
         [alertView setBGContent:bgImage];
-        [alertView setTextFont:kUploadPhotoTextFont_SYS(15)];
+        [alertView setTextFont:kUploadPhotoTextFont_SYS(14)];
         alertView.isHiddenAuto = NO;
         alertView.center = CGPointMake(kPhotoUploadMarkScrollerW/2.f,alertView.center.y);
         self.alterInfoView = alertView;
         alterInfoView.text = NSLocalizedString(@"touch anywhere to add tag view", @"");
         [self.scrollViewPreview insertSubview:alterInfoView belowSubview:mainView.topBarView];
+     
         [alertView show];
         [alertView release];
+        
     }
-    
+       [self.view  bringSubviewToFront:mainView.topBarView];
     //[self.scrollViewPreview release];
     // Do any additional setup after loading the view.
 }
@@ -194,6 +204,13 @@
     imageView.contentMode = UIViewContentModeScaleToFill;
     [self initTagButton:imageView withIndex:index];
 
+    //HexRGB(0,0,0)
+    UIView *maskView =[[UIView alloc]initWithFrame:CGRectMake(0.f, 0.f,kPhotoUploadMarkTagImageNomarlW, kPhotoUploadMarkTagImageNomarlH)];
+    maskView.backgroundColor = HexRGBA(0, 0, 0,0.7);
+    [imageView addSubview:maskView];
+    [maskView release];
+    maskView.hidden = YES;
+    imageView.maskView = maskView;
     return  imageView;//[super viewForItemAtIndex:scrollView index:index];
 }
 -(void)initTagButton:(UIImageView*)imageView withIndex:(NSInteger)index{
@@ -308,7 +325,7 @@ static int tagType = 0;//0 new ,1 for change
     //[self.navigationController popViewControllerAnimated:YES];
     //NSString *brand = [data objectForKey:@"Brand"];
     shouldHidden = YES;
-    UIView *currentView = [self.scrollViewPreview getScrollerPage:self.chooseImageIndex];
+    TapImage *currentView = [self.scrollViewPreview getScrollerPage:self.chooseImageIndex];
     int countIndex = [currentImageTagArr count];
     if(tagType == 0)
     {   
@@ -355,6 +372,8 @@ static int tagType = 0;//0 new ,1 for change
         */
     
     }
+    [currentView bringSubviewToFront:currentView.maskView];
+    //[self.scrollViewPreview bringSubviewToFront:<#(UIView *)#>
     
 }
 -(void)didDeleteTagBtn:(DressMemoTagButton*)btn withInforView:(id)inforView

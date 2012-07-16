@@ -21,6 +21,7 @@
 @property(nonatomic,retain)NSMutableArray *uploadImageTagArr;
 +(id)getSingleTone;
 -(BOOL)saveUploadImageTolocalPath:(UIImage*)imageData withFileName:(NSString*)fileName;
+-(BOOL)saveUserImageTolocalPath:(UIImage*)imageData withFileName:(NSString*)fileName;
 - (void)saveImageTagDataById:(NSString*)key withData:(id)data;
 
 

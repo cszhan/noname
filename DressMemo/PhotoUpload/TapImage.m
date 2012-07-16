@@ -12,11 +12,13 @@
 
 #import "TapImage.h"
 #import "ZCSNotficationMgr.h"
-
+#import <QuartzCore/QuartzCore.h>
 @implementation TapImage
 @synthesize delegate;
 @synthesize hasImageData;
 @synthesize hasZoom;
+@synthesize maskView;
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
                     //:(NSSet *)touches withEvent:(UIEvent *)event
 {

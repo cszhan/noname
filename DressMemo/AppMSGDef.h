@@ -16,11 +16,14 @@
  * NSNotification object NSDictionary object 
  */
 #define kZCSNetWorkOK     @"ZCSNetWorkOk"
-#define kZCSNetWorkFailed  @"ZCSNetWorkFailed"
+#define kZCSNetWorkServerFailed  @"ZCSNetWorkServerFailed"
+#define kZCSNetWorkRespondFailed  @"ZCSNetWorkRespondFailed"
+#define kZCSNetWorkRequestFailed  @"ZCSNetWorkRequestFailed"
 /*
  photo pick 
  */
 #define kUploadPhotoPickChooseMSG     @"uploadPhotoPickChooseMSG"
+#define kUploadPhotoPickChooseEditMSG @"uploadPhotoPickChooseEditMSG"
 #define kUploadActionSheetViewAlertMSG @"uploadActionSheetViewAlertMSG"
 
 /**

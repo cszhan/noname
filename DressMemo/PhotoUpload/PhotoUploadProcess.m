@@ -46,7 +46,7 @@
 #if 1
     [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkStart:) msgName:kZCSNetWorkStart];
     [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkEnd:) msgName:kZCSNetWorkOK];
-    [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkFailed:) msgName:kZCSNetWorkFailed];
+    [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkFailed:) msgName:kZCSNetWorkRequestFailed];
 #endif
 }
 -(void)removeObservers
@@ -133,14 +133,14 @@
 }
 -(void)loadView
 {   
-	[super loadView];
+	//[super loadView];
     if(requestsArr == nil)
     {
     
         self.requestsArr = [NSMutableArray array];
     }
     
-#if 0 
+#if 1
     mainView = [[NEAppFrameView alloc]initWithFrame:[[UIScreen mainScreen]bounds] style:NEAppFrameViewDefault|NEAppFrameViewBottomBarNone|NEAppFrameViewTopBarNone];
 #endif
 	//self.view = mainView;

@@ -24,6 +24,7 @@ static UITextField *subClassInputTextField = nil;
 @property(nonatomic,retain)NSMutableDictionary *tempDict;
 @property(nonatomic,assign)BOOL isChangeTag;
 @property(nonatomic,retain)UIButton *delBtn;
+@property(nonatomic,retain)UIImageView *tagBgView;
 @property(nonatomic,retain)UIPickViewDataSourceBase    *pickDataSource;
 @property(nonatomic,assign)DressMemoTagButton *srcTagBtn;
 //@property(nonatomic,assign)UIView *srcTagInfoView;
@@ -43,14 +44,14 @@ static UITextField *subClassInputTextField = nil;
 @synthesize pickDataSource;
 @synthesize subData;
 @synthesize classAllData;
-
+@synthesize tagBgView;
 @synthesize srcTagBtn;
 //@synthesize srcTagInfoView;
 
 -(void)dealloc
 {
     self.pickDataSource = nil;
-   
+    self.tagBgView = nil;
     self.srcData = nil;
     self.data = nil;
     self.delBtn = nil;
@@ -137,7 +138,7 @@ static UITextField *subClassInputTextField = nil;
     //classBtn.titleLabel.textColor = ;
     [classBtn setTitleColor:kUploadNoChooseTextColor forState:UIControlStateNormal];
     
-    classBtn.titleEdgeInsets = UIEdgeInsetsMake(0.f, 10, 0,0.f);
+    classBtn.titleEdgeInsets = UIEdgeInsetsMake(0.f,kInputTextPenndingX, 0,0.f);
     [classBtn addTarget:self action:@selector(didSelectorClassBtn:) forControlEvents:UIControlEventTouchUpInside];
     classBtn.titleLabel.font =  kUploadPhotoTextFont_SYS_15;
     
@@ -148,7 +149,7 @@ static UITextField *subClassInputTextField = nil;
     [self.view addSubview:classBtn];
     
     subClassInputTextField = [[UITextField alloc]initWithFrame:CGRectMake(kPhotoUploadBrandChoosePendingX,curHeightY+kPhotoUploadBrandItemGapH,classBtn.frame.size.width,classBtn.frame.size.height)];
-    subClassInputTextField.borderStyle = UITextBorderStyleRoundedRect;
+    subClassInputTextField.borderStyle = UITextBorderStyleNone;
     subClassInputTextField.delegate = self;
     subClassInputTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     subClassInputTextField.font = kUploadPhotoTextFont_SYS_15;//[UIFont systemFontOfSize:40];
@@ -171,7 +172,11 @@ static UITextField *subClassInputTextField = nil;
     }
 #endif
     subClassInputTextField.background = bgImage;
-    subClassInputTextField.inputView.bounds = CGRectOffset( subClassInputTextField.inputView.bounds, 0, 4.f);
+    UIView *paddingView = [[[UIView alloc] initWithFrame:CGRectMake(0,0,kInputTextPenndingX,bgImage.size.height)] autorelease];
+    subClassInputTextField.leftView = paddingView;
+    //[paddingView release];
+    subClassInputTextField.leftViewMode = UITextFieldViewModeAlways;
+    //subClassInputTextField.inputView.bounds = CGRectOffset( subClassInputTextField.inputView.bounds,10.f, 4.f);
     //subClassInputTextField.contentMode = UIViewContentModeCenter;
     subClassInputTextField.placeholder = NSLocalizedString(@"Choose Brand",@"");
     
@@ -201,15 +206,15 @@ static UITextField *subClassInputTextField = nil;
     NE_LOGRECT(bgImageView.frame);
     [self.view addSubview:bgImageView];
     [bgImageView release];
+    self.tagBgView = bgImageView;
     
-     
     [subClassInputTextField release];
     
     UIImageWithFileName(bgImage,@"delBG.png");
-    rect = CGRectMake(kPhotoUploadBrandChoosePendingX,712.f/2.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
+    rect = CGRectMake(kPhotoUploadBrandChoosePendingX,(712.f-40.f)/2.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
     
     delBtn = [UIBaseFactory forkUIButtonByRect:rect text:NSLocalizedString(@"Delete", @"") image:bgImage];
-    delBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    delBtn.titleLabel.font = kAppTextSystemFont(21);
     UIEdgeInsets edgeInset = delBtn.titleEdgeInsets;
     delBtn.titleEdgeInsets = UIEdgeInsetsMake(edgeInset.top, edgeInset.left-10.f, edgeInset.bottom, edgeInset.right-10);
     [delBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -217,7 +222,14 @@ static UITextField *subClassInputTextField = nil;
     //delBtn.titleLabel.center = CGPointMake(delBtn.center.x-10,delBtn.center.y);
     [delBtn addTarget:self action:@selector(deleteTagBtn:) forControlEvents:UIControlEventTouchUpInside];
     if(!srcTagBtn)
+    {
+        bgImageView.hidden = NO;
         delBtn.hidden = YES;
+    }
+    else 
+    {
+        bgImageView.hidden = YES;
+    }
     [self.view addSubview:delBtn];
     
   
@@ -291,7 +303,7 @@ static UITextField *subClassInputTextField = nil;
     [self.view addSubview:classPickView];
     //[classPickView release]
     [classPickView release];
-    classPickView.frame = CGRectOffset(classPickView.frame,0,kDeviceScreenHeight-classPickView.frame.size.height);
+    classPickView.frame = CGRectOffset(classPickView.frame,0,kDeviceScreenHeight-classPickView.frame.size.height-20.f);
     classPickView.hidden = YES;
     
     
@@ -499,12 +511,16 @@ static UITextField *subClassInputTextField = nil;
     [classBtn setTitleColor:kUploadNoChooseTextColor forState:UIControlStateNormal];
     [subClassInputTextField setText:@""];
     isChangeTag = NO;
+    
     delBtn.hidden = YES;
+    tagBgView.hidden = NO;
+    
 }
 -(void)doConfirmTagView
 {
     [self setRightBtnEnable:NO];
     delBtn.hidden = NO;
+    tagBgView.hidden = YES;
     isChangeTag = YES;
     [subClassInputTextField resignFirstResponder];
     classPickView.hidden = YES;

@@ -19,6 +19,7 @@
 @property(nonatomic,assign)CGFloat xPagePending;
 @property(nonatomic,retain)StyledPageControl *pageControl;
 @property(nonatomic,assign)int lastLoadIndex;
+@property(nonatomic,retain)CALayer *maskLayer;
 @end
 @implementation BSPreviewScrollView
 @synthesize zoomOutSize;
@@ -29,7 +30,17 @@
 @synthesize pageControl;
 @synthesize zoomScale;
 @synthesize lastLoadIndex;
-
+@synthesize useMask;
+@synthesize maskLayer;
+- (void)setMaskImage:(UIImage*)maskImage
+{
+    
+    isNeedInsertBgView = YES;
+    useMask = YES;
+    self.maskLayer = [CALayer layer];
+    //maskLayer.frame = self.bounds;
+    maskLayer.contents = (id)[maskImage CGImage]; 
+}
 - (void)awakeFromNib
 {
 	firstLayout = YES;
@@ -55,6 +66,7 @@
         [pageControl setCoreNormalColor:[UIColor whiteColor]];
         [pageControl setCoreSelectedColor:[UIColor redColor]];
         pageControl.hidden = YES;
+        useMask = NO;
         //[UIView addSubview:]
          /*
          [pageControl setGapWidth:5];
@@ -214,7 +226,7 @@
              
             UIView *zoomView = nil;
             
-            //if(0<=page<[scrollViewPages count])
+            if(0<[scrollViewPages count])
             {
                 NSLog(@"Zoom out 1 frame:%@",NSStringFromCGRect(zoomView.frame));
                 zoomView = [scrollViewPages objectAtIndex:0];
@@ -222,6 +234,8 @@
                 NSLog(@"Zoom out 2 frame:%@",NSStringFromCGRect(zoomView.frame));
             }
         }
+        if(isNeedInsertBgView)
+            [self insertSubview:self.bgView belowIndex:0];
 #endif
 		firstLayout = NO;
 	}
@@ -238,16 +252,42 @@
             continue;
         }
 #if 1
-        UIView *subView = [[item subviews]lastObject];
-        if(i == num)
+        if(useMask)
         {
+            //UIView *subView = [[item subviews]lastObject];
+            NSLog(@"%@",[item description]);
+            if(i == num)
+            {
+               [item.layer setShadowColor:[HexRGBA(0,0,0,0.7)CGColor]]; 
+               
+            }
+            else 
+            {
+                [item.layer setShadowColor:nil];
+//                self.maskLayer.frame = item.bounds;
+//                [item.layer setMask:self.maskLayer];
+                
+                //[subView setMask:NO];
+            }
             
-            subView.hidden = YES;
         }
         else 
         {
-            subView.hidden = NO;
+            UIView *subView = [[item subviews]lastObject];
+            if(i == num)
+            {
+                
+                subView.hidden = YES;
+            }
+            else 
+            {
+                subView.hidden = NO;
+            }   
         }
+           
+       
+        
+        
 #else
         [self setAlphaForPage:item];
 #endif
@@ -346,6 +386,18 @@
 - (void)setInsertBgView:(BOOL)tag{
     isNeedInsertBgView = tag;
 }
+- (void)setMaskView:(BOOL)tag{
+    if(tag)
+    {
+        isNeedInsertBgView = YES;
+        useMask = NO;
+    }
+    else 
+    {
+        
+        useMask = YES;
+    }
+}
 /*
 -(void)setZoomScale:(CGPoint)_zoomScale{
     self.zoomScale= _zoomScale;
@@ -355,9 +407,15 @@
 #pragma mark UIScrollViewDelegate methods
 #define RIGHT  0
 #define LEFT 1 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+
+    NSLog(@"start dragg");
+}
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if(decelerate){
+    if(decelerate)
+    {
+        NSLog(@"decelerate");
         return;
     }
     NSLog(@"tttt");
@@ -526,7 +584,7 @@
         [scrollViewPages addObject:[NSNull null]];
         [self loadPage:index-1];
         if(isNeedInsertBgView)
-            [self insertSubview:nil belowIndex:0];
+            [self insertSubview:nil belowIndex:removeIndex];
         
         //[scrollViewPages replaceObjectAtIndex:i withObject:[NSNull null]];
     }

@@ -12,6 +12,7 @@
 #import "ZCSDataArchiveMgr.h"
 #import "DressMemoNetInterfaceMgr.h"
 #import "ZCSNetClientDataMgr.h"
+#import "ZCSNetClientErrorMgr.h"
 AppMainUIViewManage *appMg = nil;
 @implementation AppDelegate
 
@@ -25,6 +26,7 @@ AppMainUIViewManage *appMg = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+      [[UIApplication sharedApplication] setStatusBarStyle:UIActionSheetStyleBlackTranslucent animated:YES];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -36,9 +38,17 @@ AppMainUIViewManage *appMg = nil;
     [UIAlertViewMgr getSigleTone];
     [ZCSDataArchiveMgr getSingleTone];
     [DressMemoNetInterfaceMgr getSingleTone];
+    [ZCSNetClientErrorMgr getSingleTone];
     ZCSNetClientDataMgr *clientMgr = [ZCSNetClientDataMgr getSingleTone];
     //[clientMgr startMemoImageTagDataSource];
    //[clientMgr startMemoDataUpload:nil];
+#ifdef UI_APPEARANCE_SELECTOR
+    if([UINavigationBar resolveClassMethod:@selector(appearanceWhenContainedIn:)])
+    {
+  [[UINavigationBar appearanceWhenContainedIn:[UIImagePickerController class], nil] setTintColor:[UIColor redColor]];
+    }
+#endif
+    
 #endif
     
     [self.window makeKeyAndVisible];

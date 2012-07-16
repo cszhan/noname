@@ -17,7 +17,7 @@
 @class PlayingMenuViewController;
 static NSInteger tabCount;
 
-
+#define USE_LABEL
 
 @interface UIBaseViewController()
 -(void)initTopNavBarViews;
@@ -60,29 +60,34 @@ static NSInteger tabCount;
 	//UIImageWithFileName(bg
 	[btn setBackgroundImage:bgImage forState:UIControlStateNormal];
 	UIImageWithFileName(bgImage,@"btn-red-back.png");
-	[btn setBackgroundImage:bgImage forState:UIControlStateHighlighted];
+	[btn setBackgroundImage:bgImage forState:UIControlStateSelected];
 	//|UIControlStateHighlighted|UIControlStateSelected
 	btn.frame = CGRectMake(kMBAppTopToolXPending,kMBAppTopToolYPending,bgImage.size.width/kScale, bgImage.size.height/kScale);
 	//[mainView.mainFramView addSubview:btn];
 	NE_LOG(@"btn frame");
 	NE_LOGRECT(btn.frame);
 	//btn.hidden = YES;
-	UILabel *btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(0.f, 0.f, btn.frame.size.width,btn.frame.size.height)];
+    UILabel *btnTextLabel  = nil;
+#ifdef USE_LABEL
+	btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTopNavItemLabelOffsetX,kTopNavItemLabelOffSetY, btn.frame.size.width,btn.frame.size.height)];
     btnTextLabel.backgroundColor = [UIColor clearColor];
     //btnTextLabel.center = 
     btnTextLabel.text = NSLocalizedString(@"Return", @"");
     btnTextLabel.textColor = [UIColor whiteColor];
     btnTextLabel.font = kNavgationItemButtonTextFont;
-    btnTextLabel.textAlignment = UITextAlignmentCenter;
-	
+    btnTextLabel.textAlignment = UITextAlignmentLeft;
     leftText = btnTextLabel;
-	
     [btn addSubview:btnTextLabel];
 	[btnTextLabel release];
 
-	
-	
-	
+#else
+    [btn setTitle:NSLocalizedString(@"Return", @"") forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0.f,13, 0,0.f);
+    btn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    leftText = btn.titleLabel;
+    leftText.font = kNavgationItemButtonTextFont;
+#endif
 	[arr addObject:btn];
 	self.leftBtn = btn;
 	/*
@@ -108,7 +113,7 @@ static NSInteger tabCount;
 	//CGRect rect = CGRectMake(0.f, 0.f, kDeviceScreenWidth, kMBAppTopToolBarHeight);
 	
     
-    btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(0.f, 0.f, btn.frame.size.width,btn.frame.size.height)];
+    btnTextLabel = [[UILabel alloc]initWithFrame:CGRectMake(0.f,kTopNavItemLabelOffSetY, btn.frame.size.width,btn.frame.size.height)];
     btnTextLabel.backgroundColor = [UIColor clearColor];
     //btnTextLabel.center = 
     btnTextLabel.text = NSLocalizedString(@"Next", @"");

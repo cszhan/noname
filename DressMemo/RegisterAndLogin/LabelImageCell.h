@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "UIButtonLikeCell.h"
 #import "ZCSTableViewCellBase.h"
 
-@interface LabelImageCell : UITableViewCell {
+@interface LabelImageCell : UIButtonLikeCell {
 	IBOutlet UILabel *cellLabel;
 	IBOutlet UIImageView *cellImage;
 }
