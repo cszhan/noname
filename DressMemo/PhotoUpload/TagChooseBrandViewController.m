@@ -118,10 +118,14 @@ static UITextField *subClassInputTextField = nil;
 
     [ZCSNotficationMgr removeObserver:self];
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self addKeyValueObserver];
+}
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-     [self removeKeyValueObserver];
+    [self removeKeyValueObserver];
 }
 - (void)viewDidLoad
 {
@@ -213,7 +217,7 @@ static UITextField *subClassInputTextField = nil;
     UIImageWithFileName(bgImage,@"delBG.png");
     rect = CGRectMake(kPhotoUploadBrandChoosePendingX,(712.f-40.f)/2.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
     
-    delBtn = [UIBaseFactory forkUIButtonByRect:rect text:NSLocalizedString(@"Delete", @"") image:bgImage];
+    self.delBtn = [UIBaseFactory forkUIButtonByRect:rect text:NSLocalizedString(@"Delete", @"") image:bgImage];
     delBtn.titleLabel.font = kAppTextSystemFont(21);
     UIEdgeInsets edgeInset = delBtn.titleEdgeInsets;
     delBtn.titleEdgeInsets = UIEdgeInsetsMake(edgeInset.top, edgeInset.left-10.f, edgeInset.bottom, edgeInset.right-10);
@@ -305,10 +309,6 @@ static UITextField *subClassInputTextField = nil;
     [classPickView release];
     classPickView.frame = CGRectOffset(classPickView.frame,0,kDeviceScreenHeight-classPickView.frame.size.height-20.f);
     classPickView.hidden = YES;
-    
-    
-    
-    [self addKeyValueObserver];
     
 }
 

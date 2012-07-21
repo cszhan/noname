@@ -9,7 +9,7 @@
 #import "UITagChooseBaseViewController.h"
 #import "DressMemoTagButton.h"
 @interface TagChooseBrandViewController : UITagChooseBaseViewController<UIPickerViewDelegate,UITextFieldDelegate>
-@property(nonatomic,assign)id delegate;
+//@property(nonatomic,assign)id delegate;
 /**
  0:cats
  1:brand
