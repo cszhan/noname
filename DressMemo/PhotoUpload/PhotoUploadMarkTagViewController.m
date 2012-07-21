@@ -383,6 +383,7 @@ static int tagType = 0;//0 new ,1 for change
     [currentImageTagArr removeObjectAtIndex:imageTagIndex];
     [btn removeFromSuperview];
     [btn.tagInforView removeFromSuperview];
+    tagType = 0;
     
 }
 -(void)didTouchTagPopupView:(id)sender
