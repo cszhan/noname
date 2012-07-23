@@ -12,5 +12,6 @@
 #define  kPushNewViewController  @"pushNewViewController"
 #define  kPopAllViewController      @"popAllViewController"
 #define  kPresentModelViewController @"presentModelViewController"
+#define kDisMissModelViewController @"dismissModelViewController"
 
 #endif

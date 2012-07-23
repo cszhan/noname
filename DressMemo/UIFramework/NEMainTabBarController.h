@@ -13,4 +13,5 @@
 
 }
 -(id)initMainTabBarController:(NSArray*)viewControllers;
+-(void)didSelectorTabItem:(NSInteger)index;
 @end

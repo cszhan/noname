@@ -126,9 +126,13 @@
     [super viewDidLoad];
     //if(first)
     {
+        /*
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag = 0;
+        
         [self didSelectorTopNavItem:btn];
+         */
+        //[self didSelectorTabItem:0];
        // first = NO;
     }
     
@@ -136,6 +140,12 @@
 	//gNavigationController = self.navigationController;
 	//gNavigationController.delegate = self;
 	//_navigationController = self.navigationController;
+}
+-(void)didSelectorTabItem:(NSInteger)index
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.tag = index;
+    [self didSelectorTopNavItem:btn];
 }
 #pragma mark navigationController delegate
 // Called when the navigation controller shows a new top view controller via a push, pop or setting of the view controller stack.
