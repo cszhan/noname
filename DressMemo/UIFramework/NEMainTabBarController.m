@@ -132,7 +132,7 @@
         
         [self didSelectorTopNavItem:btn];
          */
-        //[self didSelectorTabItem:0];
+        [self didSelectorTabItem:0];
        // first = NO;
     }
     
