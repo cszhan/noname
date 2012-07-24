@@ -34,10 +34,18 @@ static NSInteger tabCount;
 @synthesize rightBtn;
 @synthesize leftText;
 @synthesize rightText;
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+    {
+        [self addObservers];
+    }   
+    return self;
+}
 -(void)initTopNavBarViews
 {
 	//hometimeline navigation Bar 
-	[self initHomePageTimelineNavBar:CGRectMake(0.f, 0.f, kDeviceScreenWidth, kMBAppTopToolBarHeight) withIndex:tabCount++];
+	[self initHomePageTimelineNavBar:CGRectMake(0.f,0.f, kDeviceScreenWidth, kMBAppTopToolBarHeight) withIndex:tabCount++];
 	
 }
 -(void)initHomePageTimelineNavBar:(CGRect)rect withIndex:(NSInteger)index
@@ -186,6 +194,9 @@ static NSInteger tabCount;
         rightText.textColor = [UIColor grayColor];
     }
 }
+-(void)setRightBtnHidden:(BOOL)enable{
+    self.rightBtn.hidden = enable;
+}
 -(void)setLeftTextContent:(NSString*)text
 {
 	leftText.text = text;
@@ -300,6 +311,7 @@ static NSInteger tabCount;
 -(void)viewDidLoad
 {
 	[super viewDidLoad];
+    //[self initTopNavBarViews];
     if(isFromViewUnload)
     {
         
@@ -313,13 +325,13 @@ static NSInteger tabCount;
     CGRect rect = mainView.mainFramView.frame;
     mainView.mainFramView.frame = CGRectMake(rect.origin.x,rect.origin.y,rect.size.width,rect.size.height+10.f);
     */
-    [self addObservers];
+    
     NE_LOGRECT(mainView.mainFramView.frame);
 }
 -(void)viewDidUnload
 {
     [super viewDidUnload];
-    [self removeObservers];
+    //[self removeObservers];
     
 }
 - (void)didReceiveMemoryWarning 
