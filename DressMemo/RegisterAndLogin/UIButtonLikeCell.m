@@ -11,9 +11,23 @@
 @implementation UIButtonLikeCell
 @synthesize labelText;
 @synthesize touchDelegate;
--(void)dealloc{
+@synthesize iconImageView;
+@synthesize labelCountText;
+-(void)dealloc
+{
     self.labelText = nil;
+    self.iconImageView = nil;
+    self.labelCountText = nil;
+    
     [super dealloc];
+}
++(id)getFromNibFile
+{
+    NSArray *nibItems = [[NSBundle mainBundle] loadNibNamed:@"UIButtonLikeCell" owner:self options:nil];
+    UIButtonLikeCell *instance = [nibItems objectAtIndex:0];
+    instance.labelText.backgroundColor = [UIColor clearColor];
+    instance.labelCountText.backgroundColor = [UIColor clearColor];
+    return instance;
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

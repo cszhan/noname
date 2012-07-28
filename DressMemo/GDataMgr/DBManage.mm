@@ -15,6 +15,9 @@
 #import "ZCSNotficationMgr.h"
 #import "ZCSNetClientDataMgr.h"
 #import "UIImage+Extend.h"
+
+#import "NTESMBUserIconCache.h"
+
 #define kLrcRequestMaxCount  5
 static DBManage *sharedInstance = nil;
 //static LrcNetClient *lrcNetClient;
@@ -28,6 +31,7 @@ static DBManage *sharedInstance = nil;
 //use tage dict or arr
 @synthesize uploadImageTagDict;
 @synthesize uploadImageTagArr;
+//@synthesize loginUserData;
 
 @synthesize uploadimageTagPointMap;
 -(id)init{
@@ -375,6 +379,13 @@ static DBManage *sharedInstance = nil;
     else {
         return NO;
     }
+}
+#pragma mark -
+#pragma mark user icon 
+-(UIImage*)getItemCellUserIconImageDefault
+{
+    NTESMBUserIconCache *iconCacheMgr = [NTESMBUserIconCache getInstance];
+    return  [iconCacheMgr statusImageDefault];
 }
 #pragma  sqlite method
 -(void)getLrcDataBy:(NSString*)lrcKey

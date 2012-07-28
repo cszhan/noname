@@ -12,7 +12,12 @@
 #import "NTESMBAPIStatusUpdateImage.h"
 #import "RequestCfg.h"
 #import "DBManage.h"
-#define ASI_ENGINE 
+
+#define USER_MODEL
+#define ASI_ENGINE
+#ifdef USER_MODEL
+#import "AppSetting.h"
+#endif
 #ifdef ASI_ENGINE
 #import "ZCSASIRequest.h"
 #endif
@@ -70,7 +75,14 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
                                @"/user/login"    ,     @"login",
                                @"/user/register",      @"register",
                                @"/user/update",        @"update",
+                               @"/user/getuser",      @"getuser",
                                @"/user/forgetpwd",     @"forgetpwd",
+                               
+                               @"/follow/dofollow",     @"dofollow",
+                               @"/follow/docancel" ,    @"docancel",
+                               @"/follow/getfollows",   @"getfollows",
+                               @"/follow/getfollowbys", @"getfollowbys",
+                               
                                @"/memo/add",           @"add",
                                @"/memo/getOccasions",  @"getOccasions",
                                @"/memo/getEmotions",   @"getEmotions",
@@ -78,6 +90,10 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
                                @"/memo/getCats",       @"getCats",
                                @"/memo/uploadpic",     @"uploadpic",
                                
+                               @"/memo/getmemos",      @"getmemos",
+                               
+                               @"/memo/getmemobys",    @"getmemobys",
+                                @"/notify/getnotifies",@"getnotifies",
                                nil];
         
         requestsWorkingDict =[[NSMutableDictionary alloc]init];
@@ -116,16 +132,21 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
          ZCSNetClient *followClient = [self ComposeAnRequestByResKey:resKey  withParam:params withMethod:method withData:hasData];
          if(!isLoginLoading)
          {
-             NSMutableDictionary * paramsDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+            
+#ifdef USER_MODEL
+             NSString *loginUser = [AppSetting getCurrentLoginUser];
+             NSDictionary *userData = [AppSetting getLoginUserInfo:loginUser];             NSMutableDictionary * paramsDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                        //@"login",@"method",		  
-                                                       @"cszhan@163.com",@"email",
+                                                       [userData objectForKey:@"email"],@"email",
                                                        //@""		 ,@"nameErrorFocus",
-                                                       @"123456",@"pass",
+                                                       [userData objectForKey:@"pass"],@"pass",
                                                        //@"",@"passwordErrorFocus",
                                                        //[params objectForKey:@"randcode"],@"randCode",
                                                        //@"",@"randErrorFocus",
                                                        //@"iphone",@"platform",
                                                        nil];
+             
+#endif
              ZCSNetClient *loginClient = [self startAnRequestByResKey:@"login" 
                                                             withParam:paramsDictionary 
                                                            withMethod:@"POST"
@@ -215,11 +236,12 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
     
     ZCSNetClient *netClient = nil;
     netClient = [self ComposeAnRequestByResKey:resKey withParam:params withMethod:method withData:hasData];
-    netClient.requestKey = resKey;
-    [self startRequest:netClient];
+    netClient.resourceKey = resKey;
     [requestsWorkingDict setValue:netClient forKey:netClient.requestKey];
-    [netClient autorelease];
-    return netClient;
+    NSLog(@"request count:%d",[[requestsWorkingDict allKeys]count]);
+    [self startRequest:netClient];
+    //[netClient autorelease];
+    return [netClient autorelease];
 }
 -(id)ComposeAnRequestByResKey:(NSString*)resKey withParam:(NSDictionary*)params withMethod:(NSString*)method
 {
@@ -346,8 +368,6 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         
         
     }
-   
-    
     /*
     [ZCSNotficationMgr postMSG:kZCSNetWorkOK obj:client];
     [requestsWorkingDict removeObjectForKey:requestKey];
@@ -393,12 +413,17 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         {
             [queueRequestsArr  removeAllObjects];
         }
-        [self checkRequestDomainError:request withData:resultData];
+        
+        NSDictionary *ntfData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 resultData,@"data",
+                                 request ,@"request",
+                                 nil];
+        [self checkRequestDomainError:request withData:ntfData];
         //[ZCSNotficationMgr postMSG:kZCSNetWorkRequestFailed obj:resultData];
     }
     else
     {
-        NE_LOG(@"request:%@,result:%@",request.requestKey,[[NSString alloc]initWithData:resultData encoding:request.respDataEncode]);
+        NE_LOG(@"request:%@,result:%@",request.requestKey,[[[NSString alloc]initWithData:resultData encoding:request.respDataEncode] autorelease]);
         [self checkRightRequest:request withData:resultData];
        
         
@@ -416,43 +441,59 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
     NSString *ret = [restData objectForKey:kNEFYJsonKeyResult];
     if(![ret isEqualToString:kNEFYJsonResultOK])
     {
-    
-        [self checkServerRespondDataError:request withResult:restData];
+        
+        NSDictionary *ntfData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 restData,@"data",
+                                 request ,@"request",
+                                 nil];
+        [self checkServerRespondDataError:request withResult:ntfData];
         return ;
     }
     
-    if(request.followRequest!=nil &&[request.resourceKey isEqualToString:@"login"])
+    if([request.resourceKey isEqualToString:@"login"]||[request.resourceKey isEqualToString:@"register"])
     {
         //if login ok ,
-        
-        NSString *token = [[restData objectForKey:@"info"]objectForKey:@"token"];
-        
+        NSDictionary *subDict = [restData objectForKey:@"info"];
+        NSString *token = [subDict objectForKey:@"token"];
+        NSString *userId = [subDict objectForKey:@"uid"];
+        [AppSetting setLoginUserId:userId];                
         if(token)
         {
             self.gToken = token;
             isLogin = YES;
         }
-        @synchronized(self)
+        //if(request.otherRequest!=nil)//mean has the follow request
         {
-            int requestCount = [queueRequestsArr count];
-            for(int i = 0;i<requestCount;i++)
+            @synchronized(self)
             {
-                
-                ZCSNetClient *client = [queueRequestsArr objectAtIndex:i];
-                NSDictionary *addParam = [NSDictionary dictionaryWithObject:self.gToken forKey:@"token"];
-                [client reComposetRequestAddParam:addParam];
-                //sleep(10);
-                [self startRequest:client];
-                [requestsWorkingDict setObject:client forKey:client.requestKey];
-                //[queueRequestsArr removeObject:client];
+                int requestCount = [queueRequestsArr count];
+                for(int i = 0;i<requestCount;i++)
+                {
+                    
+                    ZCSNetClient *client = [queueRequestsArr objectAtIndex:i];
+                    NSDictionary *addParam = [NSDictionary dictionaryWithObject:self.gToken forKey:@"token"];
+                    [client reComposetRequestAddParam:addParam];
+                    //sleep(10);
+                    [self startRequest:client];
+                    [requestsWorkingDict setObject:client forKey:client.requestKey];
+                    //[queueRequestsArr removeObject:client];
+                }
+                [queueRequestsArr removeAllObjects];
             }
-            [queueRequestsArr removeAllObjects];
         }
+        
+       
     }
-    else 
+   // else 
+    if(request.otherRequest == nil)
     {
+        id retData = [restData objectForKey:kNEFYJsonData];
+        if(retData==nil)
+        {
+            retData = [NSDictionary dictionary];
+        }
         NSDictionary *ntfData = [NSDictionary dictionaryWithObjectsAndKeys:
-                                restData,@"data",
+                                 retData,@"data",
                                  request ,@"request",
                                  nil];
         
@@ -463,12 +504,12 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
 }
 #pragma mark -
 #pragma mark request domain error
--(void)checkRequestDomainError:(ZCSNetClient*)request withData:(NSData*)data
+-(void)checkRequestDomainError:(ZCSNetClient*)request withData:(id)data
 {
-    isLogin = NO;
+    
     if(request.followRequest!=nil &&[request.resourceKey isEqualToString:@"login"])
     {
-       
+       isLogin = NO;
     }
     else 
     {
@@ -481,7 +522,20 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
 -(void)checkServerRespondDataError:(ZCSNetClient*)request withResult:(NSDictionary*)dataDict
 {
     NE_LOG(@"error info :%@",[dataDict description]);
-    [ZCSNotficationMgr postMSG:kZCSNetWorkRespondFailed obj:dataDict];
+    id data = [dataDict objectForKey:@"data"];
+    if([[data objectForKey:@"code"]isEqualToString:@"102"])
+    {
+        //[request reloadRequest];
+        isLogin = NO;
+        ZCSNetClient *newRequest = [self startAnRequestByResKey:request.resourceKey needLogIn:YES withParam:request.requestParam withMethod:request.request.httpMethod withData:request.isPostData];
+        
+        [ZCSNotficationMgr postMSG:kZCSNetWorkReloadRequest obj:newRequest];
+    }
+    else 
+    {
+        [ZCSNotficationMgr postMSG:kZCSNetWorkRespondFailed obj:dataDict];
+    }
+    
 }
 -(void)cancelRequest:(ZCSNetClient*)request
 {

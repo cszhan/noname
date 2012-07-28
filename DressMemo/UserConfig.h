@@ -10,6 +10,9 @@
 #define DressMemo_UserConfig_h
 
 #define kUserIconBtnTextColor       HexRGB(70,70,70)
+#define kUserUpdateSeperatorLineColor HexRGB(170,170,170)
 #define kUserIconBtnCountTextColor  [UIColor blackColor]
+
+#define kUserHeadBackGroundColor    HexRGBA(26,0,0,0.88)
 
 #endif

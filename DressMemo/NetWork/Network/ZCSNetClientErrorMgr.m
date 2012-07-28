@@ -26,8 +26,13 @@ static NSString* mapArr[] =
     @"212",@"昵称太短，最少4个字符",
     @"213",@"昵称包含用空格",
     @"214",@"该昵称已被注册",
+    @"215",@"用户不存在",
     @"316",@"memo上传时未传递图片",
     @"402",@"邮件发送失败",
+    //@"402	邮件发送失败
+    @"501",@"自己不能操作自己",
+    @"502",@"已经关注过该用户",
+    @"503",@"尚未关注过该用户",
 };
 static ZCSNetClientErrorMgr *sharedInstance = nil;
 @interface ZCSNetClientErrorMgr()
@@ -62,17 +67,18 @@ static ZCSNetClientErrorMgr *sharedInstance = nil;
 -(void)processError:(NSNotification*)ntf 
 {
     //[SVProgressHUD dismissWithError:@""];
-    NSDictionary *resDict = [ntf object];
+    id obj = [ntf object];
+    NSDictionary *resDict = [obj objectForKey:@"data"];
     //int errCode = [[resDict objectForKey:@"code"]intValue];
     NSString *key = [resDict objectForKey:@"code"];
     NSString *msg = [self.errorMap objectForKey:key];
-    [self alertMsg:msg];
+    [self performSelectorOnMainThread:@selector(alertMsg:) withObject:msg waitUntilDone:NO]; //alertMsg:msg];
     
 }
 -(void)alertMsg:(NSString*)errMsg
 {
     //NSString *errMsg = [obj localizedDescription];
-    UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:nil message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok",nil) otherButtonTitles:nil, nil]autorelease];
+    UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:@"请求错误" message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok",nil) otherButtonTitles:nil, nil]autorelease];
     [alertErr show];
 }
 @end

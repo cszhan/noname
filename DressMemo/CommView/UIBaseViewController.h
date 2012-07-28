@@ -24,6 +24,7 @@
     id<UIBaseViewControllerDelegate> delegate;
     NSString                *objIDKey;
 }
+
 -(void)setBgImage:(UIImage*)image;
 
 -(void)setRightBtnEnable:(BOOL)enable;

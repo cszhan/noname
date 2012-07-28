@@ -30,7 +30,7 @@
     
     //upload bg image
     UIImage *bgImage = nil;
-	UIImageWithFileName(bgImage,@"D-login_03.png");
+	UIImageWithFileName(bgImage,@"BG-login.png");
     UIImageView *bgImageView = [[UIImageView alloc ]initWithImage:bgImage];
     bgImageView.frame = CGRectMake(0,0,bgImage.size.width/kScale, bgImage.size.height/kScale);
     NE_LOGRECT(bgImageView.frame);
@@ -53,7 +53,7 @@
 	//UIImageWithFileName(bg
     UIButton * btn = [UIBaseFactory forkUIButtonByRect:CGRectZero text:NSLocalizedString(@"Login", @"") image:bgImage];
 	//[btn setBackgroundImage:bgImage forState:UIControlStateNormal];
-    btn.showsTouchWhenHighlighted = YES;
+    //btn.showsTouchWhenHighlighted = YES;
     /*
      UIImageWithFileName(bgImage,@"Btn_back.png");
      [btn setBackgroundImage:bgImage forState:UIControlStateHighlighted];
@@ -62,6 +62,8 @@
 	btn.frame = CGRectMake(kLoginAndSignupMainLogoStartX,kLoginAndSignupMainLoginButtonStartY,bgImage.size.width/kScale, bgImage.size.height/kScale);
     [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag = 0;
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+   // btn.titleLabel.textColor = [UIColor whiteColor];
     [mainView addSubview:btn];
 	NE_LOGRECT(btn.frame);
     
@@ -76,8 +78,10 @@
      //|UIControlStateHighlighted|UIControlStateSelected
      */
 	btn.frame = CGRectMake(kLoginAndSignupMainLogoStartX,kLoginAndSignupMainSignupButtonStartY,bgImage.size.width/kScale, bgImage.size.height/kScale);
-    btn.showsTouchWhenHighlighted = YES;
+    //btn.showsTouchWhenHighlighted = YES;
     [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
+    //btn.titleLabel.textColor = [UIColor whiteColor];
+     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     btn.tag = 1;
     [mainView addSubview:btn];
 }

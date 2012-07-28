@@ -255,10 +255,122 @@ static DBManage *dbMgr = nil;
                                          withData:isHasData];
 
 }
--(id)getRequestByRequestKey:(NSString*)requestKey
+/**
+ /user/getuser	GET	用户id	获取用户信息接口
+ */
+-(id)getUserInfor:(NSDictionary*)param
 {
 
-    return  nil;
+return [dressMemoInterfaceMgr startAnRequestByResKey:@"getuser" 
+                                        needLogIn:YES
+                                        withParam:param
+                                       withMethod:@"GET"
+                                         withData:NO];
+    
+
+}
+/**
+ /follow/dofollow	POST	Token，关注用户uid	关注用户接口
+ /follow/docancel	POST	TOKEN,取消关注用户uid	取消关注接口
+ */
+-(id)followUser:(NSDictionary*)param
+{
+    return [dressMemoInterfaceMgr startAnRequestByResKey:@"dofollow" 
+                                        needLogIn:YES
+                                        withParam:param
+                                       withMethod:@"POST"
+                                         withData:NO];
+
+
+}
+-(id)unfollowUser:(NSDictionary*)param
+{
+    return [dressMemoInterfaceMgr startAnRequestByResKey:@"docancel" 
+                                        needLogIn:YES
+                                        withParam:param
+                                       withMethod:@"POST"
+                                         withData:NO];
+
+}
+/*
+ * @"/follow/getfollows",   @"getfollows",
+ @"/follow/getfollowbys", @"getfollowbys",
+ */
+-(id)getFollowingUserList:(NSDictionary*)param
+{
+    return [dressMemoInterfaceMgr startAnRequestByResKey:@"getfollows" 
+                                        needLogIn:YES
+                                        withParam:param
+                                       withMethod:@"GET"
+                                         withData:NO];
+
+}
+-(id)getFollowedUserList:(NSDictionary*)param
+{
+    return [dressMemoInterfaceMgr startAnRequestByResKey:@"getfollowbys" 
+                                               needLogIn:YES
+                                               withParam:param
+                                              withMethod:@"GET"
+                                                withData:NO];
+
+}
+-(id)userInforUpdate:(NSDictionary*)param
+{
+    BOOL isHasData = NO;
+    if([param objectForKey:@"avatar"])
+    {
+        
+        isHasData  = YES;
+        
+    }
+    return [dressMemoInterfaceMgr startAnRequestByResKey:@"update" 
+                                               needLogIn:YES
+                                               withParam:param
+                                              withMethod:@"POST"
+                                                withData:isHasData];
+}
+#pragma mark -
+#pragma mark memo
+/*
+ *Pageno
+ pagesize
+ memo/getmemos
+ /memo/getmemobys
+ /follow/getfollows
+ /follow/getfollowbys
+ /notify/getnotifies
+ */
+-(id)getPostMemos:(NSDictionary*)param
+{
+
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getmemos" 
+                                        needLogIn:YES
+                                        withParam:param
+                                       withMethod:@"GET"
+                                         withData:NO];
+    return request;
+}
+-(id)getFavMemos:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getmemobys" 
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"GET"
+                                                      withData:NO];
+    return request;
+
+}
+#pragma mark -
+#pragma mark msg
+-(id)getMessageList:(NSDictionary*)param{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getnotifies" 
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"POST"
+                                                      withData:NO];
+    return request;
+
+
 }
 #pragma mark  -
 #pragma mark net respond msg
@@ -285,20 +397,25 @@ static DBManage *dbMgr = nil;
 {
 
     id obj = [ntf object];
-    /*
+    
     id request = [obj objectForKey:@"request"];
     id data = [obj objectForKey:@"data"];
-     */
+
     /*
     [ dismissWithError:(NSString*)errorString afterDelay:(NSTimeInterval)seconds;
      */
-    if([obj isKindOfClass:[NSError class]])
+    if([data isKindOfClass:[NSError class]])
     {
-        NSString *errMsg = [obj localizedDescription];
-        UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:@"NetWorkError" message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Done",nil) otherButtonTitles:nil, nil]autorelease];
+        NSString *errMsg = [data localizedDescription];
+        UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"NetWorkError",@"") message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Done",nil) otherButtonTitles:nil, nil]autorelease];
         [alertErr show];
     }
-    [SVProgressHUD dismiss];
+    //[SVProgressHUD dismiss];
+}
+-(id)getRequestByRequestKey:(NSString*)requestKey
+{
+    
+    return  nil;
 }
 -(void)dealloc
 {

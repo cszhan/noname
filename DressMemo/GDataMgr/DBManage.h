@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 
 
-@interface DBManage : NSObject {
+@interface DBManage : NSObject 
+{
 	NSMutableDictionary *lrcCacheDict;
-    
+    NSDictionary        *loginUserData;
 }
+//@property(nonatomic,retain)NSDictionary *loginUserData;
 @property(nonatomic,retain)NSMutableArray *imageFileNameArr;
 @property(nonatomic,retain)NSMutableDictionary *uploadPicIdDict;
 //use to map request and image file name ,which use to identify the up load pic
@@ -25,6 +27,8 @@
 - (void)saveImageTagDataById:(NSString*)key withData:(id)data;
 
 
+
+-(UIImage*)getItemCellUserIconImageDefault;
 
 - (id)getTagDataById:(NSString*)lrcKey;
 -(BOOL)isExistFile:(NSString *)fileName;

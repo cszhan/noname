@@ -13,6 +13,7 @@
 @property(nonatomic,retain)NSString *text;
 -(void)setTextFont:(UIFont*)font;
 -(id)initWithFrame:(CGRect)frame withText:(NSString*)text isWindow:(BOOL)isWindow;
+-(id)initWithFrame:(CGRect)frame withText:(NSString *)text withImages:(NSArray*)imageArr;
 - (void)setBGContent:(UIImage*)image;
 - (void)hiddenAfterDelay:(NSTimeInterval)duration;
 - (void)hiddenUpAnimation:(NSTimeInterval)duration;

@@ -15,10 +15,18 @@
 #import "DressWhatViewController.h"
 #import "PhotoUploadViewController.h"
 #import "MyProfileViewController.h"
+
+#define USER_LOGIN
+
+#ifdef  USER_LOGIN
+#import "LoginAndResignMainViewController.h"
+#import "AppSetting.h"
+#endif
 @class GMusicPlayMgr;
 
 static AppMainUIViewManage *sharedObj = nil;
 static NETabNavBar *currentTabBar = nil;
+static NTESMBMainMenuController *mainVC = nil;
 static UINavigationController *currentNavgationController = nil;
 @implementation AppMainUIViewManage
 @synthesize isShouldHiddenTabBarWhenPush;
@@ -30,9 +38,10 @@ static UINavigationController *currentNavgationController = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNewViewControllerFromMsg:) name:kPushNewViewController object:nil];
     [ZCSNotficationMgr addObserver:self call:@selector(popAllViewControllerFromMsg:) msgName:kPopAllViewController];
     [ZCSNotficationMgr addObserver:self call:@selector(presentViewControllerFromMsg:) msgName:kPresentModelViewController];
-    
+    [ZCSNotficationMgr addObserver:self call:@selector(dismissViewControllerFromMsg:) msgName:kDisMissModelViewController]; 
     //addObserver:s forKeyPath:<#(NSString *)keyPath#> options:<#(NSKeyValueObservingOptions)options#> context:<#(void *)context#> ]
-	
+	[ZCSNotficationMgr addObserver:self call:@selector(didUserLoginOkFromMsg:) msgName:kUserDidLoginOk];
+    [ZCSNotficationMgr addObserver:self call:@selector(didUserResignOkFromMsg:) msgName:kUserDidResignOK];
 }
 #endif
 +(id)getSingleTone{
@@ -51,7 +60,7 @@ static UINavigationController *currentNavgationController = nil;
 	 */
 	//UIView *mainView = [[UIView alloc]initWithFrame:CGRectMake(0.f, 0.f, kDeviceScreenWidth, kDeviceScreenHeight)];
 
-	NTESMBMainMenuController *mainVC = [[NTESMBMainMenuController alloc]init];
+	mainVC = [[NTESMBMainMenuController alloc]init];
     mainVC.delegate = self;
     
 #if 1
@@ -64,6 +73,23 @@ static UINavigationController *currentNavgationController = nil;
 #else
 	[self.window addSubview:mainVC.view];
 #endif
+    NSString *loginUser = [AppSetting getCurrentLoginUser];
+    NSString *loginUserId = [AppSetting getLoginUserId];
+    NSDictionary *loginUserData = nil;
+    if(loginUser)
+    {
+        loginUserData = [AppSetting getLoginUserInfo:loginUser];
+    }
+    if(loginUser == nil ||loginUserData == nil||loginUserId== nil)
+    {
+        LoginAndResignMainViewController *loginMainVc = [[LoginAndResignMainViewController alloc]init];
+        UINavigationController *navCtrl = [[UINavigationController alloc]initWithRootViewController:loginMainVc];
+        //navCtrl.navigationBar.tintColor = [UIColor redColor];//[UIColor colorWithPatternImage:];
+        [loginMainVc release];
+        navCtrl.navigationBarHidden = YES;
+        [ZCSNotficationMgr postMSG:kPresentModelViewController obj:navCtrl];
+         
+    }
 	//[mainView addSubview:navCtrl.view];
 	
 }
@@ -134,6 +160,17 @@ static UINavigationController *currentNavgationController = nil;
 	}
 
 }
+#ifdef USER_LOGIN
+#pragma mark user login and resign
+-(void)didUserLoginOkFromMsg:(NSNotification*)ntf
+{
+    [self dismissViewControllerFromMsg:nil];
+}
+-(void)didUserResignOkFromMsg:(NSNotification*)ntf{
+    [mainVC didSelectorTabItem:2];
+    [self dismissViewControllerFromMsg:nil];
+}
+#endif  
 #pragma mark -
 #pragma mark navgation
 
@@ -155,6 +192,18 @@ static UINavigationController *currentNavgationController = nil;
 {
     id obj = [ntfObj object];
     [currentNavgationController presentModalViewController:obj animated:YES];
+}
+-(void)dismissViewControllerFromMsg:(NSNotification*)ntfOjb
+{
+    BOOL animation = NO;
+    if(ntfOjb)
+    {
+        if([ntfOjb isKindOfClass:[NSNumber class]])
+        {
+            animation = [ntfOjb boolValue];
+        }
+    }
+    [currentNavgationController dismissModalViewControllerAnimated:animation];
 }
 +(UINavigationController*)sharedAppNavigationController{
 	return currentNavgationController;

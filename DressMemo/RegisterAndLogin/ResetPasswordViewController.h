@@ -9,5 +9,5 @@
 #import "UIBaseViewController.h"
 #import "LoginViewController.h"
 @interface ResetPasswordViewController :LoginViewController
-
+@property(nonatomic,retain)NSString *userEmail;
 @end

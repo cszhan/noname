@@ -73,7 +73,7 @@
     {
         // Custom initialization
         [self initPickSourceData];
-         [ZCSNotficationMgr addObserver:self call:@selector(inputKeyBoradViewWillApprear:) msgName:UIKeyboardWillShowNotification];
+        [ZCSNotficationMgr addObserver:self call:@selector(inputKeyBoradViewWillApprear:) msgName:UIKeyboardWillShowNotification];
         [ZCSNotficationMgr addObserver:self call:@selector(inputTextViewWillEdit:) msgName:UITextViewTextDidBeginEditingNotification];
         [ZCSNotficationMgr addObserver:self call:@selector(inputKeyBoradViewWillDisappear:) msgName:UIKeyboardWillHideNotification];
     }

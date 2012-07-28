@@ -12,6 +12,9 @@
 -(void)didTouchEvent:(id)sender;
 @end    
 @interface UIButtonLikeCell : UITableViewCell
++(id)getFromNibFile;
 @property(nonatomic,assign)id touchDelegate;
-@property(nonatomic,retain)UILabel *labelText;
+@property(nonatomic,retain)IBOutlet UILabel *labelText;
+@property(nonatomic,retain)IBOutlet UIImageView *iconImageView;
+@property(nonatomic,retain)IBOutlet UILabel *labelCountText;
 @end

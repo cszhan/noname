@@ -15,10 +15,12 @@
 /**
  * NSNotification object NSDictionary object 
  */
-#define kZCSNetWorkOK     @"ZCSNetWorkOk"
-#define kZCSNetWorkServerFailed  @"ZCSNetWorkServerFailed"
-#define kZCSNetWorkRespondFailed  @"ZCSNetWorkRespondFailed"
-#define kZCSNetWorkRequestFailed  @"ZCSNetWorkRequestFailed"
+#define kZCSNetWorkOK               @"ZCSNetWorkOk"
+#define kZCSNetWorkReloadRequest    @"ZCSNetWorkReloadRequest"
+#define kZCSNetWorkNeedReLogin      @"ZCSNetWorkNeedReLogin"
+#define kZCSNetWorkServerFailed     @"ZCSNetWorkServerFailed"
+#define kZCSNetWorkRespondFailed    @"ZCSNetWorkRespondFailed"
+#define kZCSNetWorkRequestFailed    @"ZCSNetWorkRequestFailed"
 /*
  photo pick 
  */
@@ -33,6 +35,12 @@
 #define   kUploadProcessStart @"uploadProcessStart"
 #define   kUploadProcessUpdate @"uploadProcessUpdate"
 #define   kUploadProcessEnd   @"uploadProcessEnd"
+
+/**
+ login and register
+ */
+#define  kUserDidLoginOk           @"userLoginOk"
+#define  kUserDidResignOK           @"userDidResignOk"
 
 
 

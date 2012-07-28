@@ -10,6 +10,11 @@
 #import "DataTypeDef.h"
 #import "NERequest.h"
 
+typedef enum ReqEngType
+{
+    REQ_SIMPLE = 0,
+    REQ_ASI,
+}ReqEngType;
 @protocol NERequestDelegate;
 @interface ZCSNetClient : NSObject<NERequestDelegate>{
 	NERequest       *_request;
@@ -30,6 +35,7 @@
     NSString            *filePath;
    
 }
+@property(nonatomic,retain)NSDictionary *requestParam;
 @property(nonatomic,retain) NERequest *request;
 @property(nonatomic,retain) id respondData;
 @property(nonatomic,retain) id otherRequest;
@@ -42,6 +48,8 @@
 @property(nonatomic,readonly)BOOL isWaitting;
 @property(nonatomic,readonly)NSStringEncoding respDataEncode;
 @property(nonatomic,retain)NSString            *filePath;
+@property(nonatomic,assign)ReqEngType  reqEngType;
+@property(nonatomic,retain)NSDictionary *inputParam;
 +(NSString*)sharedNetCookie;
 +(id)getSigleton;
 /*

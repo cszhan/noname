@@ -20,6 +20,9 @@
 #import "UIImage+Extend.h"
 
 #import "ZCSNetClientDataMgr.h"
+
+#import "AppSetting.h"
+
 #define kLoginAccountCell 0
 #define kLoginPasswordCell 1
 
@@ -44,7 +47,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self) 
+    {
         // Custom initialization
     }
     return self;
@@ -71,6 +75,7 @@
     [ZCSNotficationMgr addObserver:self call:@selector(didLoginOK:) msgName:kZCSNetWorkOK];
      [ZCSNotficationMgr addObserver:self call:@selector(didLoginFailed:) msgName:
        kZCSNetWorkRespondFailed];
+    [ZCSNotficationMgr addObserver:self call:@selector(didLoginFailed:) msgName:kZCSNetWorkRequestFailed];
 }
 - (void)viewDidLoad
 {
@@ -93,12 +98,13 @@
 	//logInfo.contentInset
     
 	logInfo.allowsSelectionDuringEditing = NO;
-	logInfo.backgroundColor = [UIColor clearColor];
+	//logInfo.backgroundColor = [UIColor clearColor];
 	logInfo.delegate = self;
 	logInfo.dataSource = self;
 	logInfo.scrollEnabled = NO;
 	logInfo.allowsSelection = YES;
     //logInfo.clipsToBounds = YES;
+    logInfo.separatorStyle = UITableViewCellSeparatorStyleNone;
 	logInfo.separatorColor = kLoginAndSignupCellLineColor;
     //logInfo.layer.cornerRadius = kLoginViewRadius;
     //CGPoint origin = bgView.frame.origin;
@@ -385,7 +391,7 @@
 {
     //NSIndex
     LabelFieldCell *cell = (LabelFieldCell*)[logInfo  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    self.account = cell.cellField.text;
+    self.account = [NSString stringWithString:cell.cellField.text];
     if(!account||[account isEqualToString:@""])
     {
         [self alertMsg:NSLocalizedString(@"Please input login account", @"")]; 
@@ -393,7 +399,7 @@
         return NO;
     }
     cell = (LabelFieldCell*)[logInfo  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    self.password = cell.cellField.text;
+    self.password = [NSString stringWithString:cell.cellField.text];
     if(!password||[password isEqualToString:@""])
     {
         [self alertMsg:NSLocalizedString(@"Please input login password", @"")];
@@ -435,7 +441,8 @@
     {
         return;
     }
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Login...", @"") networkIndicator:YES];
+  
+    kNetStartShow(NSLocalizedString(@"Login...",@""),self.view);
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
                          	  
                                                 self.account,@"email",
@@ -451,14 +458,28 @@
 -(void)didLoginOK:(NSNotification*)ntf
 {
     //save use name and passwor;
-    [SVProgressHUD dismiss];
+    kNetEnd(self.view);
+    [self performSelectorOnMainThread:@selector(didNetOK:) withObject:ntf waitUntilDone:NO];
+}
+-(void)didNetOK:(NSNotification*)ntf
+{
+    
     id obj = [ntf object];
     id request = [obj objectForKey:@"request"];
     id data = [obj objectForKey:@"data"];
     NSString *resKey = [request resourceKey];
-    if([resKey isEqualToString:@"register"])
-        [self.navigationController popViewControllerAnimated:YES];
-    
+    if([resKey isEqualToString:@"login"])
+    {
+        NSDictionary *loginData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   account,@"email",
+                                   password,@"pass",
+                                   nil];
+        [AppSetting setLoginUserInfo:loginData withUserKey:self.account];
+        [AppSetting setCurrentLoginUser:account];
+        [self.navigationController popViewControllerAnimated:NO];
+        [ZCSNotficationMgr  postMSG:kUserDidLoginOk obj:nil];
+    }
+
 }
 /*
  *
@@ -468,7 +489,11 @@
  */
 -(void)didLoginFailed:(NSNotification*)ntf
 {
-     [SVProgressHUD dismiss];
-
+    kNetEnd(self.view);
+    //self.view.userInteractionEnabled = YES;
+}
+-(void)didNetFailed:(NSNotification*)ntf
+{
+    [self performSelectorOnMainThread:@selector(didLoginFailed:) withObject:ntf waitUntilDone:NO];
 }
 @end

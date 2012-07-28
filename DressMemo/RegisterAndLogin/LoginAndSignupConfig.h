@@ -37,7 +37,7 @@
 
 #define  kLoginCellItemHeight                          44.f
 
-#define  kRegisterCellImageItemHeight                  82.5f
+#define  kRegisterCellImageItemHeight                  82.f
 
 //
 //  LoginConst.h

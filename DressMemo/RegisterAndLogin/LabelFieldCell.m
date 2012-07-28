@@ -36,6 +36,7 @@ NSString *TextFieldShouldResign = @"TextFieldShouldResign";
         //subView.backgroundColor = [UIColor clearColor];
         //[self insertSubview:self.cellLeftBGView belowSubview:cellName];
 		cellName.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+        NE_LOGRECT(cellName.frame);
         cellName.layer.masksToBounds = YES;
         cellName.radius = 10.0;
         //cellName.clipsToBounds = YES;
@@ -56,6 +57,22 @@ NSString *TextFieldShouldResign = @"TextFieldShouldResign";
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
++(id)getLabelOnlyCellFromNibFile
+{
+    
+    
+    NSArray *nibItems = [[NSBundle mainBundle] loadNibNamed:@"LabelFieldCell" owner:self options:nil];
+    LabelFieldCell *instance = [nibItems objectAtIndex:0];
+    instance.cellName.bgColor = [UIColor whiteColor];
+    CGRect rect = instance.cellName.frame;
+    instance.cellName.frame = CGRectMake(0.f,rect.origin.y,250,instance.frame.size.height);
+    instance.cellName.layer.masksToBounds = YES;
+    instance.cellName.textAlignment = UITextAlignmentLeft;
+    //instance.cellName.backgroundColor = [UIColor whiteColor];
+    instance.cellField.hidden = YES;
+    return instance;
+
 }
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withLoadXIB:(BOOL)isfromXIB
 {
@@ -191,5 +208,16 @@ NSString *TextFieldShouldResign = @"TextFieldShouldResign";
     CGContextFillEllipseInRect( context, holeRect );
     */
     [super drawRect:rect];
+}
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // if(CGRectContainsPoint(self.frame, point))
+    {
+        if(delegate&&[delegate respondsToSelector:@selector(didTouchEvent:)])
+        {
+            [delegate didTouchEvent:self];
+        }
+        // return self;
+    }
 }
 @end

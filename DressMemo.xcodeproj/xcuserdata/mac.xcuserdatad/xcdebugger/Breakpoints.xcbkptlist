@@ -7,39 +7,52 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DressMemo/NetWork/ZCSNetClientDataMgr.m"
-         timestampString = "363523448.091427"
+         filePath = "DressMemo/CommView/ZCSAlertInforView.m"
+         timestampString = "364639073.105793"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "46"
-         endingLineNumber = "46"
-         landmarkName = "-startMemoImageUpload:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "DressMemo/PhotoUpload/PhotoUploadProcess.m"
-         timestampString = "363594701.075868"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
-         landmarkName = "-didNetWorkEnd:"
+         startingLineNumber = "41"
+         endingLineNumber = "41"
+         landmarkName = "-initWithFrame:withText:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DressMemo/CommView/UIBaseViewController.m"
-         timestampString = "363846981.743531"
+         filePath = "DressMemo/CommView/ZCSAlertInforView.m"
+         timestampString = "364639520.744204"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "281"
-         endingLineNumber = "281"
-         landmarkName = "-loadView"
+         startingLineNumber = "209"
+         endingLineNumber = "209"
+         landmarkName = "-layoutSubviews"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DressMemo/NetWork/DressMemoNetInterfaceMgr.m"
+         timestampString = "365184381.804629"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "526"
+         endingLineNumber = "526"
+         landmarkName = "-checkServerRespondDataError:withResult:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DressMemo/UIViewController/MyProfileViewController.m"
+         timestampString = "365185266.975298"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "192"
+         endingLineNumber = "192"
+         landmarkName = "-initHomePageTimelineNavBar:withIndex:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -11,6 +11,7 @@
 #import "MoreViewController.h"
 #import "PlayListViewController.h"
 */
+#import "DeviceVersion.h"
 #import "UIParamsCfg.h"
 /*
 #import "NTESMBHomePageTimelineViewController.h"
@@ -91,26 +92,35 @@
     {
 		UINavigationController *nav = (UINavigationController*)self.currentViewController;
 		//UIViewController *Vc = nav.visibleViewController;
-#if __IPHONE_OS_VERSION_MIN_ALLOWED>=50000
-#else
-        //for(UIViewController *item in _navControllersArr)
-        NE_LOG(@"below 5.0");
-		[self.currentViewController viewWillAppear:animated];
-
-		[self.currentViewController viewDidAppear:animated];
-#endif
-
-	}
+        
+        if(SYSTEM_VERSION_GREATER_THAN(@"5.0"))
+        {
+        }
+        else 
+        {
+            //for(UIViewController *item in _navControllersArr)
+            NE_LOG(@"below 5.0");
+            [self.currentViewController viewWillAppear:animated];
+            
+            [self.currentViewController viewDidAppear:animated];
+        }
+            
+               
+            
+        
+    }
 }
 -(void)viewDidAppear:(BOOL)animated{
 	//[[_navControllersArr objectAtIndex:0] viewDidAppear:animated];
 	//[[_navControllersArr objectAtIndex:1] viewDidAppear:animated];
     [super viewDidAppear:animated];
-#if __IPHONE_OS_VERSION_MIN_ALLOWED>=50000
-#else
+    if(SYSTEM_VERSION_GREATER_THAN(@"5.0")){
+    }
+    else{
     //for(UIViewController *item in _navControllersArr)
     [self.currentViewController viewDidAppear:animated];
-#endif
+    }
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

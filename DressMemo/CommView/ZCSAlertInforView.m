@@ -14,13 +14,14 @@
 #define kTopPendingY 5.f
 @interface ZCSAlertInforView()
 @property(nonatomic,assign)BOOL isWindowAlert;
+@property(nonatomic,retain)UIImageView *animationView;
 @end
 @implementation ZCSAlertInforView
 static UILabel *label = nil;
 @synthesize text;
 @synthesize isHiddenAuto;
 @synthesize isWindowAlert;
-
+@synthesize animationView;
 - (id)initWithFrame:(CGRect)frame {
     
     self = [super initWithFrame:frame];
@@ -72,7 +73,7 @@ static UILabel *label = nil;
 		label.textColor = [UIColor whiteColor];
 		label.textAlignment = UITextAlignmentCenter;
 		label.backgroundColor = [UIColor clearColor];
-		label.center = self.center;
+		label.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2);
 		self.backgroundColor = [UIColor blackColor];
 		self.alpha = 0;
         if(isWindow)
@@ -86,6 +87,60 @@ static UILabel *label = nil;
     return self;
 	
 }
+-(id)initWithFrame:(CGRect)frame withText:(NSString *)_text withImages:(NSArray*)imageArr
+{
+    self.text = _text;
+    if(self = [self initWithFrame:frame withText:self.text isWindow:NO])
+    {
+        self.frame = frame;
+        label.frame = CGRectMake(40+9.f,36.f/2.f,46.f,18.f/2.f);
+        label.textAlignment = UITextAlignmentLeft;
+        label.font = kAppTextBoldSystemFont(9.f);
+        label.textColor = [UIColor whiteColor];
+        self.animationView = [[[UIImageView alloc]initWithFrame:CGRectZero]autorelease];
+        animationView.animationImages = imageArr;
+        animationView.frame = CGRectMake(24.f/2.f,18.f/2.f, 56./2.f, 36/2.f);
+        [self addSubview:animationView];
+        [animationView release];
+        self.frame = CGRectOffset(self.frame,0.f, self.frame.size.height);
+        self.alpha = 1.0;
+    }
+    return self;
+
+}
+-(void)startShowImageAnimation:(NSTimeInterval)duration
+{
+    [animationView startAnimating];
+    [UIView animateWithDuration:duration 
+					 animations:^
+     {
+         self.frame = CGRectOffset(self.frame, 0.f,-self.frame.size.height);
+     } 
+					 completion:^(BOOL finished)
+     { 
+         
+         
+     }
+	 ];
+    
+}
+-(void)stopShowImageAnimation:(NSTimeInterval)duration
+{
+    [animationView stopAnimating];
+    [UIView animateWithDuration:duration 
+					 animations:^
+     {
+         self.frame = CGRectOffset(self.frame, 0.f,self.frame.size.height);
+     } 
+					 completion:^(BOOL finished)
+     { 
+         
+         
+     }
+	 ];
+    
+}
+
 -(void)setTextFont:(UIFont*)font{
     label.font = font;
 }
@@ -151,7 +206,7 @@ static UILabel *label = nil;
 -(void)layoutSubviews{
 	label.text = text;
 	//self.center = CGPointMake(kDeviceScreenWidth/2, kDeviceScreenHeight/2);
-	label.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2);
+	//label.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2);
 	//NE_LOGRECT(label.frame);
 }
 // Only override drawRect: if you perform custom drawing.
@@ -163,6 +218,7 @@ static UILabel *label = nil;
 }
 
 - (void)dealloc {
+    self.animationView = nil;
 	self.text = nil;
     [super dealloc];
 }

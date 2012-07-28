@@ -31,6 +31,7 @@
 @property(nonatomic,readonly) NETopNavBar	*curSelTopNavBar;
 -(IBAction)menuNavItemPress:(id)sender;
 +(id)sharedAppNavigationController;
+-(void)didSelectorTabItem:(NSInteger)index;
 @end
 
 @protocol NTESMBMainMenuControllerDelegate<NSObject>

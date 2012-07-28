@@ -36,7 +36,7 @@ static  ZCSAlertInforView *naimationView = nil;
 +(ZCSAlertInforView*)forkNetLoadingImageAnimationView
 {
     
-    if(naimationView == nil)
+    //if(naimationView == nil)
     {
         CGRect rect =  CGRectMake(kDeviceScreenWidth-182.f/2.f,kMBAppRealViewHeight,182.f/2.f,84.f/2.f);
         NSMutableArray *imageArr = [NSMutableArray array];
@@ -54,6 +54,7 @@ static  ZCSAlertInforView *naimationView = nil;
         naimationView = [[ZCSAlertInforView alloc]initWithFrame:rect withText:@"加载中..." withImages:imageArr];
     }
     NE_LOGRECT(naimationView.frame);
-    return naimationView;
+    return [naimationView autorelease];
 }
+
 @end

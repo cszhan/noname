@@ -17,6 +17,7 @@
     UIButton *regButton;
     
     UITableView *logInfo;
+    UINavigationController *gnv;
 }
 @property(nonatomic,retain)UITableViewCell *reSetPwdcell;
 @end

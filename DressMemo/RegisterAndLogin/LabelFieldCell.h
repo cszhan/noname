@@ -19,10 +19,11 @@ extern NSString *TextFieldShouldResign;
 	IBOutlet UITextField *cellField;
 }
 
-@property (nonatomic, retain)IBOutlet UILabel *cellName;
+@property (nonatomic, retain)IBOutlet ZCSRoundLabel *cellName;
 @property (nonatomic, retain)IBOutlet UITextField *cellField;
 @property (nonatomic, assign) id delegate;
 //@property (nonatomic, retain)IBOutlet UIImageView *cellLeftBGView;
++(id)getLabelOnlyCellFromNibFile;
 
 -(void)setLabelName:(NSString *)name;
 -(void)setFieldName:(NSString *)name;

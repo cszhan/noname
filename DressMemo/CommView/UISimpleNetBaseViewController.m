@@ -13,7 +13,8 @@
 @end
 
 @implementation UISimpleNetBaseViewController
-
+@synthesize request;
+@synthesize isVisitOther;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,5 +67,14 @@
 -(void)didNetWorkFailed:(NSNotification*)ntf
 {
     [self performSelectorOnMainThread:@selector(didNetDataFailed:) withObject:ntf waitUntilDone:NO];
+}
+-(void)didReloadRequest:(NSNotification*)ntf
+{
+    @synchronized(self)
+    {
+        //we should renew the request 
+        self.request = [ntf object];
+        
+    }
 }
 @end

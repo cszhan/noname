@@ -8,6 +8,6 @@
 
 #import "LoginViewController.h"
 
-@interface UserInforEditViewController : LoginViewController
-
+@interface UserInforEditViewController : LoginViewController<UITextViewDelegate>
+@property(nonatomic,retain)NSDictionary *userData;
 @end

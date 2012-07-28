@@ -65,7 +65,7 @@
 	btn.frame = CGRectMake(kUploadFromCameraX,kUpladFromCameraY,bgImage.size.width/kScale, bgImage.size.height/kScale);
     [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
     btn.tag = 0;
-    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(52.f,(572.f-252.f)/2.f, 30.f, 20.f)];
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(52.f,(572.f-252.f)/2.f, 100.f, 20.f)];
     textLabel.text = NSLocalizedString(@"From Camera", @"");
     textLabel.font = kAppTextSystemFont(15.f);
     textLabel.textColor = [UIColor blackColor];

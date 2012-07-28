@@ -9,5 +9,6 @@
 #import "UIBaseViewController.h"
 
 @interface UISimpleNetBaseViewController : UIBaseViewController
-
+@property(nonatomic,assign)id request;
+@property(nonatomic,assign)BOOL   isVisitOther;
 @end

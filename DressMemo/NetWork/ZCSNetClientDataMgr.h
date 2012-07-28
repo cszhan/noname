@@ -11,4 +11,14 @@
 @interface ZCSNetClientDataMgr : NSObject
 +(id)getSingleTone;
 -(void)startUserLogin:(NSDictionary*)param;
+/*user*/
+-(id)getUserInfor:(NSDictionary*)param;
+/*follow*/
+-(id)getFollowingUserList:(NSDictionary*)param;
+-(id)getFollowedUserList:(NSDictionary*)param;
+/*memos*/
+-(id)getPostMemos:(NSDictionary*)param;
+-(id)getFavMemos:(NSDictionary*)param;
+/*msg*/
+-(id)getMessageList:(NSDictionary*)param;
 @end

@@ -288,9 +288,9 @@ static NSInteger tabCount;
 	UIImageWithFileName(bgImage,@"Background.png");
 	//assert(bgImage);
 	mainView.bgImage = bgImage;
-    self.view = mainView;
+    
 	[self initTopNavBarViews];
-	
+	self.view = mainView;
 	//[mainView release];
 	//[self.view addSubview:mainView];
 	NE_LOGRECT(self.view.frame);

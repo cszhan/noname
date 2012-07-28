@@ -15,7 +15,8 @@
 #import "ZCSNetClientDataMgr.h"
 #import "DBManage.h"
 #import "UIImage+Extend.h"
-static     UINavigationController *gnv = nil;
+#import "AppSetting.h"
+
 @interface RegisterViewController ()
 @property(nonatomic,retain)NSMutableDictionary *resignData;
 @property(nonatomic,retain)NSString *imagePath;
@@ -52,9 +53,10 @@ static     UINavigationController *gnv = nil;
 - (void)viewDidLoad
 {
     //[super viewDidLoad];
-    [self addObservers];
-    logInfo = [[UITableView alloc] initWithFrame:CGRectMake(0.f, kMBAppTopToolBarHeight-2.f, kDeviceScreenWidth, kLoginCellItemHeight*3+kRegisterCellImageItemHeight)
+    //[self addObservers];
+    logInfo = [[UITableView alloc] initWithFrame:CGRectMake(0.f, kMBAppTopToolBarHeight-2.f, kDeviceScreenWidth, kLoginCellItemHeight*3+kRegisterCellImageItemHeight+100.f)
                                            style:UITableViewStyleGrouped];
+    logInfo.contentSize = CGSizeMake(kDeviceScreenWidth, kLoginCellItemHeight*3+kRegisterCellImageItemHeight);
 	//logInfo.contentInset
     
 	logInfo.allowsSelectionDuringEditing = NO;
@@ -64,14 +66,16 @@ static     UINavigationController *gnv = nil;
 	logInfo.scrollEnabled = NO;
 	logInfo.allowsSelection = NO;
     logInfo.clipsToBounds   = YES;
-	logInfo.separatorColor = kLoginAndSignupCellLineColor;
+	logInfo.separatorStyle = UITableViewCellSeparatorStyleNone;
+    logInfo.separatorColor = kLoginAndSignupCellLineColor;
     
 	[self.view addSubview:logInfo];
     //UITextField *resetTextFiled = [[UITextField alloc]initWithCoder:nil];
     self.reSetPwdcell.hidden = YES;
     CGRect rect = logInfo.frame;
     logInfo.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height+100.f);
-    gnv = [AppMainUIViewManage sharedAppNavigationController];//self.navigationController; 
+    //gnv = [AppMainUIViewManage sharedAppNavigationController];
+    gnv = self.navigationController; 
 	// Do any additional setup after loading the view.
 }
 
@@ -195,7 +199,7 @@ static     UINavigationController *gnv = nil;
             cell = [[LabelImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LabelTextFieldCell];
             [cell setTouchDelegate:self];
             ((LabelImageCell*)cell).cellLabel.text = NSLocalizedString(@"选择上传你的头像", @"");
-            ((LabelImageCell*)cell).cellLabel.textColor = kLoginAndSignupInputTextColor;
+            ((LabelImageCell*)cell).cellLabel.textColor = kLoginAndSignupHintTextColor;
         }
         ((LabelImageCell*)cell).cellImage.frame = CGRectOffset([cell cellImage].frame, 8.5, 8.5);
         UIImage *image = [self.resignData objectForKey:@"avatar"];
@@ -234,7 +238,7 @@ static     UINavigationController *gnv = nil;
     }
 }
 #pragma mark
-#pragma mark uitableView
+#pragma mark  image edit uitableView
 -(void)didTouchEvent:(id)sender
 {
     [self shouldActionSheetChoose:0];
@@ -373,11 +377,12 @@ switch (type)
     LabelImageCell *cell = (LabelImageCell*)[logInfo  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     UIImage *image = nil;
     UIImageWithFullPathName(image, self.imagePath);
-    /*
-    UIImage *scaleImage = [UIImage_Extend imageScaleToFitSize:CGSizeMake(65.f, 65.f) withData:image];
-     */
-    [cell.cellImage setImage:image];
-    [self.resignData setValue:image forKey:@"avatar"];
+    
+    UIImage *scaleImage = [UIImage_Extend imageScaleToFitSize:CGSizeMake(300.f, 300.f) withData:image];
+    
+    [cell.cellImage setImage:scaleImage];
+    [cell.textLabel setText:@""];
+    [self.resignData setValue:scaleImage forKey:@"avatar"];
     [SVProgressHUD dismiss];
 }
 #pragma mark -
@@ -486,7 +491,7 @@ switch (type)
     {
         return;
     }
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"Resign...", @"") networkIndicator:YES];
+    kNetStartShow(NSLocalizedString(@"Resign...", @""),self.view);
     /*
     NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:
                            
@@ -497,5 +502,45 @@ switch (type)
     ZCSNetClientDataMgr *netClientMgr = [ZCSNetClientDataMgr getSingleTone];
     [netClientMgr  startUserResign:self.resignData];
 }
-#
+-(void)didLoginOK:(NSNotification*)ntf
+{
+    //save use name and passwor;
+    //save use name and passwor;
+    [self performSelectorOnMainThread:@selector(didNetOK:) withObject:ntf waitUntilDone:NO];
+}
+-(void)didNetOK:(NSNotification*)ntf
+{
+     kNetEnd(self.view);
+    
+    id obj = [ntf object];
+    id request = [obj objectForKey:@"request"];
+    id data = [obj objectForKey:@"data"];
+    NSString *resKey = [request resourceKey];
+    NSString *account =  [self.resignData objectForKey:@"email"];
+    if([resKey isEqualToString:@"register"])
+    {
+        NSDictionary *loginData = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   account,@"email",
+                                   [self.resignData objectForKey:@"pass"],@"pass",
+                                   nil];
+        [AppSetting setLoginUserInfo:loginData withUserKey:account];
+        [AppSetting setCurrentLoginUser:account];
+        [self.navigationController popViewControllerAnimated:NO];
+        [ZCSNotficationMgr  postMSG:kUserDidResignOK obj:nil];
+    }
+}
+/*
+ *
+ 3.	邮箱不正确       用语：该用户名尚未注册
+ 4.	密码不正确       用语：密码不正确
+ 5。不是正确的email
+ */
+-(void)didLoginFailed:(NSNotification*)ntf
+{
+    kNetEnd(self.view);
+    //self.view.userInteractionEnabled = YES;
+}
+-(void)didNetFailed:(NSNotification*)ntf{
+    [self performSelectorOnMainThread:@selector(didLoginFailed:) withObject:ntf waitUntilDone:NO];
+}
 @end

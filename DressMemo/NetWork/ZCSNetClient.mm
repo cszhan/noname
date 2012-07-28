@@ -21,6 +21,8 @@ static NSString *gNetCookie = @"dressmemo_sess=0a0bf3fd0dd62a28b39a614e73585c652
 static NSArray *gNetCookieArray = nil;
 @implementation ZCSNetClient
 
+@synthesize requestParam;
+@synthesize inputParam;
 @synthesize delegate = _delegate;
 @synthesize request = _request;
 @synthesize paserDataType = _pdataType;
@@ -33,6 +35,7 @@ static NSArray *gNetCookieArray = nil;
 @synthesize respDataEncode=_respDataEncode;
 @synthesize respondData;
 @synthesize filePath;
+@synthesize reqEngType;
 
 +(NSString*)sharedNetCookie{
 	return gNetCookie;
@@ -65,6 +68,7 @@ static NSArray *gNetCookieArray = nil;
 -(void)cancelRequest
 {
 	[_request.connection cancel];
+    _request.delegate = nil;
 	_delegate = nil;
 }
 -(void)reloadRequest
@@ -86,6 +90,7 @@ withMethod:(NSString*)method
                     ];
 	_request.isNeedCookie = YES;
     self.request.rsTxType = JSON;
+    self.requestParam = params;
 	//_requestType = NTC_GETSESSION;
 	
 	[_request connect:isPostData];
@@ -100,6 +105,7 @@ withMethod:(NSString*)method
                                           delegate:self
                                         requestURL:url
                     ];
+    self.requestParam = params;
 	_request.isNeedCookie = YES;
     self.request.rsTxType = JSON;
 }
@@ -241,6 +247,9 @@ withMethod:(NSString*)method
 {
 	//[sel release];
     NE_LOG(@"ZCSNetClient dealloc");
+    self.inputParam = nil;
+    self.delegate = nil;
+    self.request.delegate = nil;
 	self.request = nil;
 	self.requestKey = nil;
     self.otherRequest = nil;

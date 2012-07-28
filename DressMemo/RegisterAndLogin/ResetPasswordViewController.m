@@ -15,6 +15,7 @@
 
 @implementation ResetPasswordViewController
 @synthesize subClassInputTextField;
+@synthesize userEmail;
 - (void)dealloc
 {
     self.subClassInputTextField = nil;
@@ -39,7 +40,7 @@
 - (void)viewDidLoad
 {
     //[super viewDidLoad];
-    [self addObservers];
+    //[self addObservers];
     [self setNavgationBarTitle:NSLocalizedString(@"Reset Password", @"")];
     
     [self setRightTextContent:NSLocalizedString(@"Send", @"")];
@@ -52,6 +53,10 @@
     subClassInputTextField.textColor = kLoginAndSignupInputTextColor;
     subClassInputTextField.adjustsFontSizeToFitWidth = NO;
     subClassInputTextField.text = @"";
+    if(userEmail)
+    {
+        subClassInputTextField.text = userEmail;
+    }
     subClassInputTextField.placeholder = NSLocalizedString(@"Please input resign email", @"");
     subClassInputTextField.returnKeyType = UIReturnKeyDone;
     UIImage *bgImage = nil;

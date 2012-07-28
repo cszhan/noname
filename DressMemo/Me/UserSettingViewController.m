@@ -240,7 +240,7 @@ static NSString *kSectionOneArr[] = {
         [self.navigationController popToRootViewControllerAnimated:NO];
         [AppSetting setCurrentLoginUser:@""];
         
-        LoginAndResignMainViewController *loginVc = [[  LoginAndResignMainViewController alloc]init];
+        LoginAndResignMainViewController *loginVc = [[LoginAndResignMainViewController alloc]init];
         //[self.navigationController pushViewController:tagchooseBrandVc animated:YES];
         UINavigationController *loginNav  = [[UINavigationController alloc]initWithRootViewController:loginVc];
         loginNav.navigationBarHidden = YES;
