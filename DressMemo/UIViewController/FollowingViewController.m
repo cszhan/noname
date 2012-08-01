@@ -15,7 +15,6 @@
 #import "MyProfileViewController.h"
 static DBManage *dbMgr = nil;
 @interface FollowingViewController ()
-
 @end
 
 @implementation FollowingViewController
@@ -43,22 +42,20 @@ static DBManage *dbMgr = nil;
 {
   
     
-    NSString *defaultBGStr = @"";
-    NSString *firstString = @"你还没有上传任何穿着哦";
+    //NSString *defaultBGStr = @"";
+    NSString *firstString = @"你关注任何人";
     NSString *secondString = @"点击,";
-    NSString *thirdString = @"现在就去上传吧";
-    NSString *imageFileName = [NSString stringWithFormat:@"%@/icon-info-takephoto.png", [[NSBundle mainBundle]bundlePath]]; 
+    NSString *thirdString = @"就可以关注你喜欢的人!";
+    NSString *imageFileName = @"icon-info-like.png";// [NSString stringWithFormat:@"%@/icon-info-takephoto.png", [[NSBundle mainBundle]bundlePath]];
+    NSString *cssText = @"<style type='text/css'>html,body {margin: 0;padding: 0;width: 100%;height: 100%;}html {display: table;}body {display: table-cell;vertical-align: middle;padding: 20px;text-align: center;-webkit-text-size-adjust: none;}</style>";
     //upload bg image
     UIImage *bgImage = nil;
 	UIImageWithFileName(bgImage,@"textblock.png");
     UIImageView *bgImageView = [[UIImageView alloc ]initWithImage:bgImage];
     bgImageView.frame = CGRectMake(0,(404-40)/2.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
     NE_LOGRECT(bgImageView.frame);
-    [mainView addSubview:bgImageView];
-    [bgImageView release];
-    
     UIWebView *tWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,320,bgImageView.frame.size.height)];
-	NSString *htmlStr = [NSString stringWithFormat:@"<html><body><p align=\"center\" style=\"display:inline-block;text-align:center;vertical-align:middle;\"><font style=\"font-size:13px;color:#000000\">%@<br/>%@<img src=\"%@\"height=\"24\" width=\"24\"/>%@</p></body></html>",firstString,secondString,@"icon-info-takephoto.png",thirdString];
+	NSString *htmlStr = [NSString stringWithFormat:@"<html><head>%@</head><body><p class=\"className\"><font style=\"font-size:13px;color:#000000\">%@<br/>%@<img src=\"%@\"height=\"24\" width=\"24\"/>%@</p></body></html>",cssText,firstString,secondString,@"icon-info-takephoto.png",thirdString];
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
 	tWebView.backgroundColor = [UIColor clearColor];
@@ -72,8 +69,13 @@ static DBManage *dbMgr = nil;
 		}
 	}
 	tWebView.opaque = NO;
-	[bgImageView addSubview:tWebView];
-
+	
+    [bgImageView addSubview:tWebView];
+    [tWebView release];
+    [mainView addSubview:bgImageView];
+    [bgImageView release];
+    self.myEmptyBgView = bgImageView;
+    self.myEmptyBgView.hidden = YES;
 }
 - (void)viewDidLoad
 {
@@ -92,8 +94,11 @@ static DBManage *dbMgr = nil;
     
     currentPageNum = 1;
     tweetieTableView.separatorStyle = UITableViewCellAccessoryNone;
+#if 1
     [self  shouldLoadOlderData:tweetieTableView];
+#else
     
+#endif
     self.headBgView = [UIButton buttonWithType:UIButtonTypeCustom];
     self.headBgView.backgroundColor = kUserHeadBackGroundColor;
     self.headBgView.frame = CGRectMake(0,(122.f-40.f)/2.f, kDeviceScreenWidth,64.f/2.f);
@@ -102,17 +107,27 @@ static DBManage *dbMgr = nil;
     self.headBgView.enabled = NO;
     [self.view addSubview:self.headBgView];
     
-    NSString *headViewTitle = [NSString stringWithFormat:NSLocalizedString(@"You  following %d users", @""),self.itemCount];
-    
+    NSString *headViewTitle = @"";
+    if(!self.isVisitOther)
+    {
+        //[self setNavgationBarTitle:NSLocalizedString(@"My Following", @"")];
+        headViewTitle = [NSString stringWithFormat:NSLocalizedString(@"You following %d users", @""),self.itemCount];
+        
+       
+        
+    }
+    else
+    {
+         headViewTitle = [NSString stringWithFormat:NSLocalizedString(@"共关注了%d个用户", @""),self.itemCount];
+    }
     [self.headBgView setTitle:headViewTitle forState:UIControlStateNormal];
-    
     UIImage *bgImage = nil;
     UIImageWithFileName(bgImage,@"BG-user.png");
     //assert(bgImage);
     mainView.bgImage = bgImage;
     tweetieTableView.hidden = NO;
     tweetieTableView.frame = CGRectMake(0,(122.f-40.f)/2.f+64.f/2.f,kDeviceScreenWidth, kMBAppRealViewHeight-64/2.f);
-    //[self setEmptyDataUI];
+   
 	//[htmlStr release];
 	// Do any additional setup after loading the view.
 }
@@ -192,7 +207,12 @@ static DBManage *dbMgr = nil;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
+    
     NSDictionary *itemData= [self.dataArray objectAtIndex:indexPath.row];
+    if([[itemData objectForKey:@"uid"] isEqualToString:[AppSetting getLoginUserId]])
+    {
+        return;
+    }
     MyProfileViewController *userProfileVc = [[MyProfileViewController alloc]init];
     userProfileVc.userId = [itemData objectForKey:@"uid"];
     userProfileVc.userData = itemData;
@@ -320,6 +340,7 @@ static DBManage *dbMgr = nil;
         [self processReturnData:data];
         currentPageNum++;
         [self reloadAllData];
+        
     }
     if([resKey isEqualToString:@"dofollow"])
     {

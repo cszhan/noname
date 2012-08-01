@@ -16,8 +16,13 @@
 	CGSize size = [string sizeWithFont:font constrainedToSize:CGSizeMake(width, height) lineBreakMode:UILineBreakModeTailTruncation];
 	return size.height;
 }
-+(CGFloat)getWidthForText:(NSString *)string font:(UIFont *)font{
++(CGFloat)getWidthForText:(NSString *)string font:(UIFont *)font
+{
 	return [string sizeWithFont:font].width; 
+}
++(CGSize)getSizeForText:(NSString *)string font:(UIFont *)font
+{
+	return [string sizeWithFont:font forWidth:320.f lineBreakMode:UILineBreakModeTailTruncation];
 }
 
 +(CGFloat)getHeightForText:(NSString *)string font:(UIFont *)font{

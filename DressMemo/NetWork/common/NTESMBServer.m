@@ -99,7 +99,7 @@ static NTESMBServer *instance = nil;
 	//avoid the requestTable has the same request
 	if ([requestTable objectForKey:[NSString stringWithFormat:@"%d",[request hash]]]!=nil) {
 		NE_LOG(@"dup request!");
-		return;
+		return nil;
 	}
 #ifdef REQUEST_DEBUG
 	NE_LOG(@"request arguments : %@", request.postArguments);

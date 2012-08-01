@@ -268,6 +268,10 @@ static NSInteger tabCount;
 {
     [super viewWillAppear:animated];
 }
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }

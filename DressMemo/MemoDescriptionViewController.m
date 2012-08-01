@@ -27,6 +27,7 @@
 @property(nonatomic,assign)int preSelect;
 @property(nonatomic,assign)UIButton *preSelectBtn;
 @property(nonatomic,retain)UIScrollView *bgScrollerView;
+@property(nonatomic,retain)NSArray *subCityData;
 @end
 
 @implementation MemoDescriptionViewController
@@ -52,6 +53,7 @@
 @synthesize preSelectBtn;
 @synthesize bgScrollerView;
 @synthesize  gMainFrameSize;
+@synthesize subCityData;
 //@synthesize indicatorTextLabel;
 -(void)dealloc
 {
@@ -61,6 +63,7 @@
     self.rightText = nil;
     self.alldataDict = nil;
     self.bgScrollerView = nil;
+    self.subCityData = nil;
     //self.indicatorTextLabel = nil;
     [ZCSNotficationMgr removeObserver:self];
     self.pickDataSource = nil;
@@ -508,8 +511,22 @@
 }
 #pragma mark -
 #pragma mark pickView delegate
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {   
+    if(classBtn == AddressBtn)
+    {
+        if(component == 0)
+        {
+        
+            return [data objectAtIndex:row];
+        }
+        if(component == 1)
+        {
+        
+            return [self.subCityData objectAtIndex:row];
+        }
+    }
     return [data  objectAtIndex:row];
     
 }

@@ -170,7 +170,7 @@ static NSString *iconTextArr[]=
         UINetActiveIndicatorButton *btn = [UINetActiveIndicatorButton buttonWithType:UIButtonTypeCustom];
         self.relationBtn = btn;
         UIImage *bgImage = nil;
-        CGRect rect ;
+        CGRect rect = CGRectZero;
         NSString *followTag = [self.userData objectForKey:@"status"];
         int relationTag = [followTag intValue];
         if([followTag isEqualToString:@"1"])//followed
@@ -185,7 +185,7 @@ static NSString *iconTextArr[]=
       
         self.relationBtn.tag = relationTag;
         self.relationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [self.relationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.f,0.f,0.f,0.f)];
+        [self.relationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.f,0.f,0.f,5.f)];
         // self.relationBtn.rowIndex = indexPath.row;
         [self.relationBtn addTarget:self action:@selector(relationButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         //CGRect rect = CGRectMake(kDeviceScreenWidth-bgImage.size.width/kScale-kMBAppTopToolXPending,kMBAppTopToolYPending,bgImage.size.width/kScale, bgImage.size.height/kScale);
@@ -477,10 +477,11 @@ static NSString *iconTextArr[]=
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getUserInforFromNet];
+    [self performSelectorInBackground:@selector(getUserInforFromNet) withObject:nil];
 
 }
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     //[self.request cancelRequest:<#(NTESMBRequest *)#>]
 }
@@ -592,8 +593,11 @@ static NSString *iconTextArr[]=
 #pragma mark 
 -(void)didSelectorTopNavItem:(id)navObj{
 	NE_LOG(@"select item:%d",[navObj tag]);
-    if([navObj isKindOfClass:[UINetActiveIndicatorButton class]])
+    if([navObj isKindOfClass:[UINetActiveIndicatorButton class]]){
+    
+       
         return;
+    }
 	switch ([navObj tag])
 	{
 		case 0:

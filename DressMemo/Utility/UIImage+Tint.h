@@ -13,3 +13,4 @@
 - (UIImage *)imageTintedWithColor:(UIColor *)color fraction:(CGFloat)fraction;
 
 @end
+

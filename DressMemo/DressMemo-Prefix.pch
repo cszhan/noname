@@ -14,6 +14,7 @@
     #import "NEDebugTool.h"
     #import "UIParamsCfg.h"
 #import "SVProgressHUD.h"
+#import "AppSetting.h"
 
 #import "ZCSNotficationMgr.h"
 #import "AppMSGDef.h"

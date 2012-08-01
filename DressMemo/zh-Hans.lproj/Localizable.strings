@@ -57,9 +57,9 @@
 "Invite Friends" = "邀请好友";
 
 
-"You have %d followed" = "您有%d个粉丝";
-
-"You have %d following you" = "共有%d个人关注了您";
+"You following %d users" = "您有%d个粉丝";
+//You   %d users
+"You have %d followed" = "有%d个人关注了您";
 
 
 "Message" ="消息";

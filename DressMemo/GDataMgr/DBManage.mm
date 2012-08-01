@@ -234,6 +234,7 @@ static DBManage *sharedInstance = nil;
     //NSString *filePath = @"lrcMapkey.plist";
     NSString *filePath = [NSString stringWithFormat:@"%@/ImageTagDataSource.plist",[[NSBundle mainBundle]bundlePath]];
     NSMutableDictionary* plistDict = [[[NSMutableDictionary alloc] initWithContentsOfFile:filePath] autorelease];
+    NSLog(@"%@",[data description]);
     [plistDict setValue:data forKey:key];
     if([plistDict writeToFile:filePath atomically: YES])
     {

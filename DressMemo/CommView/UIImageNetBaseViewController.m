@@ -23,6 +23,7 @@
 @synthesize animationView;
 #endif
 @synthesize memoTimelineDataSource;
+@synthesize myEmptyBgView;
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
@@ -36,7 +37,8 @@
 }
 - (void)dealloc 
 {
-	[tweetieTableView release];
+	self.myEmptyBgView = nil;
+    [tweetieTableView release];
 	[allIconDownloaders release];
     self.requestDict = nil;
     self.dataArray = nil;
@@ -51,12 +53,22 @@
     [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkRequestFailed:) msgName:kZCSNetWorkRequestFailed];
 #endif
 }
+- (void)setEmptyDataUI
+{
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if(isVisitOther)
+    //self.view.autoresizingMask = YES;
+    self.view.autoresizingMask = YES;
+    //if(isVisitOther)
     {
          [self setHiddenRightBtn:YES];
+    }
+    if(!isVisitOther)
+    {
+        [self setEmptyDataUI];
     }
     CGRect tweetieTableViewFrame = CGRectMake(0,kMBAppTopToolBarHeight, kMBAppRealViewWidth,kMBAppRealViewHeight);
 	NE_LOG(@"FrameTableViewFrame:");
@@ -297,10 +309,13 @@
         currentPageNum++;
         [self reloadAllData];
     }
+    if([self.dataArray count]==0&&!isVisitOther)
+    {
+        self.myEmptyBgView.hidden = NO;
+    }
     
 }
-/*
- *{"memoid":"101","uid":"2","addtime":"1343109729","emotionid":"2","occasionid":"1","countryid":"1","location":"kkk","picid":"289","picpath":"\/memo\/2012\/07\/24\/20120724140209_6mSq_e955570c.jpg","isrecommend":"0"}
+/*{"memoid":"101","uid":"2","addtime":"1343109729","emotionid":"2","occasionid":"1","countryid":"1","location":"kkk","picid":"289","picpath":"\/memo\/2012\/07\/24\/20120724140209_6mSq_e955570c.jpg","isrecommend":"0"}
  */
 -(void)processReturnData:(id)data
 {

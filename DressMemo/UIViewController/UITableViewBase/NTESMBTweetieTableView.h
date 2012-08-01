@@ -33,6 +33,7 @@
 	//控制是否出现搜索框
 	BOOL hasSearchbar;
 	UISearchBar *searchBar;
+    CGFloat lastContentOffset;
 	
 	id <TweetieTableViewDelegate> tweetieTableViewDelegate;
 }
@@ -42,6 +43,7 @@
 @property (nonatomic, readonly) BOOL isRefreshing;
 @property (nonatomic, readonly) UISearchBar *searchBar;
 @property (nonatomic,assign)BOOL hasDownDragEffect;
+@property (nonatomic,assign)int scrollDirection;
 - (id)initWithFrame:(CGRect)frame hasDragEffect:(BOOL)has hasSearchBar:(BOOL) _hasSearchbar;
 - (id)initWithFrame:(CGRect)frame hasDragEffect:(BOOL)has hasSearchBar:(BOOL) _hasSearchbar withStyle:(UITableViewStyle)_style;
 - (void) tableViewDidScroll;

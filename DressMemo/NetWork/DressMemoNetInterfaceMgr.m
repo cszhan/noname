@@ -84,10 +84,12 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
                                @"/follow/getfollowbys", @"getfollowbys",
                                
                                @"/memo/add",           @"add",
-                               @"/memo/getOccasions",  @"getOccasions",
-                               @"/memo/getEmotions",   @"getEmotions",
-                               @"/memo/getCountries",  @"getCountries",
-                               @"/memo/getCats",       @"getCats",
+                               
+                               @"/util/getOccasions",  @"getOccasions",
+                               @"/util/getEmotions",   @"getEmotions",
+                               @"/util/getCountries",  @"getCountries",
+                               @"/util/getCats",       @"getCats",
+                               
                                @"/memo/uploadpic",     @"uploadpic",
                                
                                @"/memo/getmemos",      @"getmemos",
@@ -288,15 +290,23 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         return;
     }
 #endif
+    /*
     if([client.resourceKey isEqualToString:@"login"])
         [client startRequest:YES];
-    else 
-    {
-        [client startRequest:YES];
-    }
-    [ZCSNotficationMgr postMSG:kZCSNetWorkStart obj:client]; 
+    else
+    */
+    [NSThread detachNewThreadSelector:@selector(didStartNetThread:) toTarget:self withObject:client];
 }
+-(void)didStartNetThread:(id)sender{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
+    
+    {
+        [sender startRequest:YES];
+    }
+    [ZCSNotficationMgr postMSG:kZCSNetWorkStart obj:sender];
+    [pool release];
 
+}
 -(ZCSASIRequest*)useASIRequest:(NSString*)filePath withRequestKey:(NSString*)requestKey
 {
 	//NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"png"];
@@ -400,7 +410,7 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
 {
     NSDictionary *resultDict = (NSDictionary*)data;
     ZCSNetClient *request = [resultDict objectForKey:@"sender"];
-    if([request.requestKey isEqualToString:@"login"])
+    if([request.resourceKey isEqualToString:@"login"])
     {
         isLoginLoading = NO;
     }
@@ -487,11 +497,26 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
    // else 
     if(request.otherRequest == nil)
     {
+        
+#if 0
+        static int i = 0;
+        i++;
+        if(i >=3)
+        {
+            i = 0;
+            isLogin = NO;
+            ZCSNetClient *newRequest = [self startAnRequestByResKey:request.resourceKey needLogIn:YES withParam:request.requestParam withMethod:request.request.httpMethod withData:request.isPostData];
+            [ZCSNotficationMgr postMSG:kZCSNetWorkReloadRequest obj:newRequest];
+            return;
+        }
+#endif
+            
         id retData = [restData objectForKey:kNEFYJsonData];
         if(retData==nil)
         {
             retData = [NSDictionary dictionary];
         }
+        
         NSDictionary *ntfData = [NSDictionary dictionaryWithObjectsAndKeys:
                                  retData,@"data",
                                  request ,@"request",
@@ -509,13 +534,15 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
     
     if(request.followRequest!=nil &&[request.resourceKey isEqualToString:@"login"])
     {
-       isLogin = NO;
+        isLogin = NO;
+        [queueRequestsArr removeAllObjects];
+
     }
-    else 
+    else
     {
     
     }
-    [ZCSNotficationMgr postMSG:kZCSNetWorkRequestFailed obj:data]; 
+    [ZCSNotficationMgr postMSG:kZCSNetWorkRequestFailed obj:data];
 }
 #pragma mark -
 #pragma mark server respond data error
@@ -523,13 +550,13 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
 {
     NE_LOG(@"error info :%@",[dataDict description]);
     id data = [dataDict objectForKey:@"data"];
-    if([[data objectForKey:@"code"]isEqualToString:@"102"])
+    if([[data objectForKey:@"code"]isEqualToString:@"102"])//need to relogin 
     {
         //[request reloadRequest];
         isLogin = NO;
         ZCSNetClient *newRequest = [self startAnRequestByResKey:request.resourceKey needLogIn:YES withParam:request.requestParam withMethod:request.request.httpMethod withData:request.isPostData];
-        
         [ZCSNotficationMgr postMSG:kZCSNetWorkReloadRequest obj:newRequest];
+        //[self startRequest:newRequest];
     }
     else 
     {

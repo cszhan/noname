@@ -30,29 +30,29 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DressMemo/NetWork/DressMemoNetInterfaceMgr.m"
-         timestampString = "365184381.804629"
+         filePath = "DressMemo/UIViewController/Cell/MessageTableViewCell.m"
+         timestampString = "365327615.627176"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "526"
-         endingLineNumber = "526"
-         landmarkName = "-checkServerRespondDataError:withResult:"
+         startingLineNumber = "118"
+         endingLineNumber = "118"
+         landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DressMemo/UIViewController/MyProfileViewController.m"
-         timestampString = "365185266.975298"
+         filePath = "DressMemo/UIViewController/UITableViewBase/NTESMBTweetieTableView.m"
+         timestampString = "365356055.332528"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
-         landmarkName = "-initHomePageTimelineNavBar:withIndex:"
+         startingLineNumber = "245"
+         endingLineNumber = "245"
+         landmarkName = "-closeInfoViewWhenError"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

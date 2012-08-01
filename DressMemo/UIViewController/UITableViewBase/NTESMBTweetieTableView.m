@@ -10,6 +10,8 @@
 //#import "UIParamsCfg.h"
 #define     kDragDownHasSearchBar  100.f
 #define     kDragDownNoSearchBar   60.f 
+#define     DOWN   0
+#define     UP     1
 @interface NTESMBTweetieTableView (TweetieTableViewPrivate)
 
 - (void) initInfoView;
@@ -24,12 +26,14 @@
 @synthesize isRefreshing;
 @synthesize searchBar;
 @synthesize hasDownDragEffect;
+@synthesize scrollDirection;
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         // Initialization code
 		hasDragEffect = YES;
 		hasDownDragEffect = YES;
 		hasUpDragEffect = YES;
+        lastContentOffset = 0;
 		[self initInfoView];
 	}
     return self;
@@ -168,7 +172,11 @@
 		CGFloat offset = self.contentOffset.y;
         [self tableViewDragDownRefresh:offset];
 	}
-    
+   // NSLog(@"KKKK:%lf",scrollView.contentOffset.y);
+    if (lastContentOffset > self.contentOffset.y)
+        scrollDirection = DOWN;
+    else if (lastContentOffset < self.contentOffset.y)
+        scrollDirection = UP;
     //[self tableViewDidEndDragging];
 }
 -(void)tableViewDragDownRefresh:(CGFloat)offset{
@@ -235,7 +243,8 @@
 }
 - (void) closeInfoViewWhenError{
 	isRefreshing = NO;
-	if (hasDragEffect) {
+	if (hasDragEffect)
+    {
 		[topInfoView setState:DragDownInfoViewStateNormal];
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];

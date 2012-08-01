@@ -17,15 +17,16 @@
 #import "RegisterViewController.h"
 
 @interface DressWhatViewController ()
-
+@property(nonatomic,retain)UIView *navBarBGView;
 @end
 
 @implementation DressWhatViewController
-
+@synthesize navBarBGView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -34,10 +35,49 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self startLoadNetData];
+    tweetieTableView.hasDownDragEffect = YES;
+    [self initSubViews];
+    //[self startLoadNetData];
 	// Do any additional setup after loading the view.
 }
-
+-(void)initSubViews
+{
+    
+    //upload bg image
+    UIImage *bgImage = nil;
+	UIImageWithFileName(bgImage,@"title.png");
+    UIImageView *bgImageView = [[UIImageView alloc ]initWithImage:bgImage];
+    bgImageView.backgroundColor = [UIColor blueColor];
+    //bgImageView.frame = CGRectMake(0,0,bgImage.size.width/kScale, bgImage.size.height/kScale);
+    bgImageView.frame = CGRectMake(0,0,40.f,30.f);
+    bgImageView.center = CGPointMake(mainView.topBarView.frame.size.width/2.f, mainView.topBarView.frame.size.height/2.f);
+    NE_LOGRECT(bgImageView.frame);
+    [mainView.topBarView addSubview:bgImageView];
+    [bgImageView release];
+    
+    navBarBGView = [[UIView alloc] initWithFrame:CGRectMake(9.f,44.f+8.f,kDeviceScreenWidth-9.f*2,30.f)];
+    navBarBGView.backgroundColor = [UIColor redColor];
+    [self.view insertSubview:navBarBGView aboveSubview:tweetieTableView];
+    [navBarBGView release];
+    
+    [self.view bringSubviewToFront:mainView.topBarView];
+    
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	[tweetieTableView tableViewDidScroll];
+    if(tweetieTableView.contentOffset.y>=0&&tweetieTableView.scrollDirection == 0)//scroll up
+    {
+        tweetieTableView.contentOffset = CGPointMake(0.f,-44.f);
+    }
+    NSLog(@"%lf",tweetieTableView.contentOffset.y);
+    if(tweetieTableView.contentOffset.y<0)
+    {
+        NSLog(@"%lf",tweetieTableView.contentOffset.y);
+        // tweetieTableView.contentOffset = CGPointMake(0.f,0.f);
+        return ;
+    }
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -46,10 +86,25 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
-#pragma mark
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+
+    NSLog(@"test");
+}
+#pragma mark 
+#pragma mark tableCell
+
 #pragma mark net work
+#pragma mark start get data
+- (void) shouldLoadNewerData:(NTESMBTweetieTableView *) tweetieTableView
+{
+    NSLog(@"loader new data");
+    //    if(isRefreshing)
+    //        return;
+    [tweetieTableView closeInfoView];
+}
 -(void)startLoadNetData
 {
     DressMemoNetInterfaceMgr *dressMemoInterfaceMgr = [DressMemoNetInterfaceMgr getSingleTone];

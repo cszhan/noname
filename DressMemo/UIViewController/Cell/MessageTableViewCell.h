@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FriendItemCell.h"
+typedef enum MessageCell_Type{
+	MessageCell_Follow = 0,
+	MessageCell_Comment,
+    MessageCell_ReComment,
+	//TimelineCell_ReTweet,
+}MessageCell_Type;
 
-@interface MessageTableViewCell : UITableViewCell
-
+@interface MessageTableViewCell : FriendItemCell
+@property(nonatomic,retain)UIButton *nickNameBtn;
+//@property(nonatomic,retain)UIImageView *userIconView;
+@property(nonatomic,assign)MessageCell_Type cellType;
+@property(nonatomic,retain)UILabel *timeLabel;
+@property(nonatomic,retain)UILabel *commentLabel;
+@property(nonatomic,retain)UILabel *reCommentLabel;
+@property(nonatomic,retain)NSDictionary *msgData;
 @end

@@ -87,9 +87,11 @@
 
 }
 
--(void) updateStateText{
+-(void) updateStateText
+{
 	NSString *text = @"";
-	switch (_state) {
+	switch (_state)
+    {
 		case DragDownInfoViewStateNormal:
 			text = @"下拉可以刷新";
 			break;
@@ -100,7 +102,8 @@
 			text = @"正在刷新中,请稍候";
 			break;
 	}
-	if (lastUpdateDate!=nil) {
+	if (lastUpdateDate!=nil)
+    {
 		text = [NSString stringWithFormat:@"%@\n最后更新于 %@",text, [lastUpdateDate timeIntervalStringSinceNow]];
 	}
 	
@@ -132,7 +135,8 @@
 	{
 		//self.backgroundColor = [UIColor redColor];
 //		infoLabel.text = @"正常";
-		if (_state == DragDownInfoViewStateRefresh) {
+		if (_state == DragDownInfoViewStateRefresh)
+        {
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:.18];
 			arrowImage.transform = CATransform3DIdentity;
@@ -160,7 +164,6 @@
 	{
 		//self.backgroundColor = [UIColor blueColor];
 //		infoLabel.text = @"正在刷新";
-		
 		[activityView startAnimating];
 		[CATransaction begin];
 		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 

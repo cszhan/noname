@@ -6,8 +6,9 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIBaseViewController.h"
-
-@interface DressWhatViewController : UIBaseViewController
+//#import "UIBaseViewController.h"
+#import "UIImageNetBaseViewController.h"
+#import "DressMemoViewController.h"
+@interface DressWhatViewController : DressMemoViewController
 
 @end

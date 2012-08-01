@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface DressMemoMSGModel : NSObject
-
+#import "NTESMBUserModel.h"
+@interface DressMemoMSGModel : NTESMBUserModel
+///@property(nonatomic,retain)
 @end

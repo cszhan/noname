@@ -211,7 +211,7 @@ static DBManage *dbMgr = nil;
         }
         [requestResourceDict setValue:[NSNumber numberWithBool:YES] forKey:item];
         [dressMemoInterfaceMgr startAnRequestByResKey:item 
-                                         needLogIn:NO
+                                         needLogIn:YES
                                          withParam:param
                                         withMethod:@"GET"
                                           withData:NO];
@@ -383,7 +383,7 @@ return [dressMemoInterfaceMgr startAnRequestByResKey:@"getuser"
     if([requestResourceDict objectForKey:resKey])
     {
         if([data isKindOfClass:[NSDictionary class]])
-            [dbMgr saveImageTagDataById:resKey withData:[data objectForKey:@"info"]];
+            [dbMgr saveImageTagDataById:resKey withData:data];
     
     }
     if([resKey isEqualToString:@"add"])

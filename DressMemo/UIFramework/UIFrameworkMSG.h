@@ -9,9 +9,9 @@
 #ifndef DressMemo_UIFrameworkMSG_h
 #define DressMemo_UIFrameworkMSG_h
 
-#define  kPushNewViewController  @"pushNewViewController"
-#define  kPopAllViewController      @"popAllViewController"
-#define  kPresentModelViewController @"presentModelViewController"
-#define kDisMissModelViewController @"dismissModelViewController"
+#define  kPushNewViewController         @"pushNewViewController"
+#define  kPopAllViewController          @"popAllViewController"
+#define  kPresentModelViewController    @"presentModelViewController"
+#define  kDisMissModelViewController    @"dismissModelViewController"
 
 #endif

@@ -16,6 +16,8 @@
 + (CGFloat) getHeightForText:(NSString *) string maxWidth:(CGFloat) width maxHeight:(CGFloat) height font:(UIFont *) font;
 +(CGFloat) getWidthForText:(NSString *)string font:(UIFont *)font;
 +(CGFloat)getHeightForText:(NSString *)string font:(UIFont *)font;
++(CGSize)getSizeForText:(NSString *)string font:(UIFont *)font;
+
 + (NSNumber *) objectToNSNumber:(id) aObject;
 + (UIImage *)roundCornersOfImage:(UIImage *)source;
 + (UIImage*)rotateImage:(UIImage*)img scaledToSize:(CGSize)newSize;

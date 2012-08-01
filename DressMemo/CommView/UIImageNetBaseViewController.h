@@ -35,6 +35,7 @@
     
     id<MemoTimelineDataSource> memoTimelineDataSource;
 }
+@property(nonatomic,retain)UIImageView  *myEmptyBgView;
 @property(nonatomic,retain)NSDictionary *requestDict;
 @property(nonatomic,assign)BOOL   isVisitOther;
 @property(nonatomic,retain)NSString *userId;

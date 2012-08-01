@@ -21,3 +21,7 @@ typedef enum {
 - (UIImage *)imageScaledToFitSize:(CGSize)size; // uses MGImageResizeScale
 
 @end
+
+@interface NSString(Extend)
+-(NSString*)getUUIDString;
+@end

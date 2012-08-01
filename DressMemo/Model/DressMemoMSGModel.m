@@ -9,5 +9,5 @@
 #import "DressMemoMSGModel.h"
 
 @implementation DressMemoMSGModel
-
+//@synthesize nickName;
 @end

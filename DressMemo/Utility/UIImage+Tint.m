@@ -56,7 +56,16 @@
 	
 	return self;
 }
-
-
-
 @end
+@implementation NSString(Ex)
+
++(NSString*)generateNonce
+{
+CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+NSString* nonce = (NSString*)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+CFRelease(uuid);
+[nonce autorelease];
+return nonce;
+}
+@end
+

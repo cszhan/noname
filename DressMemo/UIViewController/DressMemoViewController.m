@@ -10,6 +10,7 @@
 #import "ZCSNetClientDataMgr.h"
 
 #import "MemoImageItemCell.h"
+#import "DressMemoDetailViewController.h"
 
 #define kItemCellCount 3
 
@@ -28,7 +29,45 @@
     }
     return self;
 }
-
+- (void)setEmptyDataUI
+{
+    
+    
+    //NSString *defaultBGStr = @"";
+    NSString *firstString = @"你还没有上传任何穿着哦";
+    NSString *secondString = @"点击,";
+    NSString *thirdString = @"现在就去上传吧";
+    NSString *imageFileName = @"icon-info-takephoto.png";//[NSString stringWithFormat:@"%@/icon-info-takephoto.png", [[NSBundle mainBundle]bundlePath]];
+    NSString *cssText = @"<style type='text/css'>html,body {margin: 0;padding: 0;width: 100%;height: 100%;}html {display: table;}body {display: table-cell;vertical-align: middle;padding: 20px;text-align: center;-webkit-text-size-adjust: none;}</style>";
+    //upload bg image
+    UIImage *bgImage = nil;
+	UIImageWithFileName(bgImage,@"textblock.png");
+    UIImageView *bgImageView = [[UIImageView alloc ]initWithImage:bgImage];
+    bgImageView.frame = CGRectMake(0,(404-40)/2.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
+    NE_LOGRECT(bgImageView.frame);
+    UIWebView *tWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,320,bgImageView.frame.size.height)];
+	NSString *htmlStr = [NSString stringWithFormat:@"<html><head>%@</head><body><p class=\"className\"><font style=\"font-size:13px;color:#000000\">%@<br/>%@<img src=\"%@\"height=\"24\" width=\"24\"/>%@</p></body></html>",cssText,firstString,secondString,@"icon-info-takephoto.png",thirdString];
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+	tWebView.backgroundColor = [UIColor clearColor];
+	[tWebView loadHTMLString:htmlStr baseURL:baseURL];
+	for (id subview in tWebView.subviews)
+    {
+		if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+        {
+			((UIScrollView *)subview).bounces = NO;
+			((UIScrollView *)subview).scrollEnabled= NO;
+		}
+	}
+	tWebView.opaque = NO;
+	
+    [bgImageView addSubview:tWebView];
+    [tWebView release];
+    [mainView addSubview:bgImageView];
+    [bgImageView release];
+    self.myEmptyBgView = bgImageView;
+    self.myEmptyBgView.hidden = YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,8 +85,13 @@
                                                      )];
     }
     tweetieTableView.separatorStyle = UITableViewCellAccessoryNone;
+#if 1
     [self  shouldLoadOlderData:tweetieTableView];
+#else
+    self.myEmptyBgView.hidden = NO;
+#endif
 	// Do any additional setup after loading the view.
+    
 }
 
 
@@ -75,7 +119,15 @@
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.dataArray count]/kItemCellCount;
+	int row = [self.dataArray count]/kItemCellCount;
+    if([self.dataArray count]%kItemCellCount == 0)
+    {
+        return row;
+    }
+    else
+    {
+        return row +1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,11 +135,13 @@
 	
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MemoImageItemCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) 
     {
         cell = [MemoImageItemCell getFromNibFile];
+        
     }
+    cell.delegate = self;
 	//cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
     
     return cell;
@@ -95,6 +149,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 134.f;
+}
+#pragma mark 
+-(void)didTouchItemCell:(id)cell subItem:(id)sender
+{
+ 
+    DressMemoDetailViewController * dressMemoVc = [[DressMemoDetailViewController alloc]init];
+    [self.navigationController pushViewController:dressMemoVc animated:YES];
+    [dressMemoVc release];
 }
 #pragma mark start get data
 - (void) shouldLoadNewerData:(NTESMBTweetieTableView *) tweetieTableView
@@ -151,10 +213,14 @@
         currentPageNum++;
         [self reloadAllData];
     }
+   
     
 }
-/*
- *{"memoid":"101","uid":"2","addtime":"1343109729","emotionid":"2","occasionid":"1","countryid":"1","location":"kkk","picid":"289","picpath":"\/memo\/2012\/07\/24\/20120724140209_6mSq_e955570c.jpg","isrecommend":"0"}
+-(void)test{
+
+}
+
+/*{"memoid":"101","uid":"2","addtime":"1343109729","emotionid":"2","occasionid":"1","countryid":"1","location":"kkk","picid":"289","picpath":"\/memo\/2012\/07\/24\/20120724140209_6mSq_e955570c.jpg","isrecommend":"0"}
  */
 //-(void)processReturnData:(id)data
 //{

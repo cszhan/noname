@@ -24,7 +24,45 @@
     }
     return self;
 }
-
+- (void)setEmptyDataUI
+{
+    
+    
+    //NSString *defaultBGStr = @"";
+    NSString *firstString = @"暂时还没有人关注您";
+    NSString *secondString = @"";
+    NSString *thirdString = @"多上传穿着可以提升人气哦";
+//NSString *imageFileName = nil;//[NSString stringWithFormat:@"%@/icon-info-takephoto.png", [[NSBundle mainBundle]bundlePath]];
+    NSString *cssText = @"<style type='text/css'>html,body {margin: 0;padding: 0;width: 100%;height: 100%;}html {display: table;}body {display: table-cell;vertical-align: middle;padding: 20px;text-align: center;-webkit-text-size-adjust: none;}</style>";
+    //upload bg image
+    UIImage *bgImage = nil;
+	UIImageWithFileName(bgImage,@"textblock.png");
+    UIImageView *bgImageView = [[UIImageView alloc ]initWithImage:bgImage];
+    bgImageView.frame = CGRectMake(0,(404-40)/2.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
+    NE_LOGRECT(bgImageView.frame);
+    UIWebView *tWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,320,bgImageView.frame.size.height)];
+	NSString *htmlStr = [NSString stringWithFormat:@"<html><head>%@</head><body><p class=\"className\"><font style=\"font-size:13px;color:#000000\">%@<br/>%@%@</p></body></html>",cssText,firstString,secondString,thirdString];
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+	tWebView.backgroundColor = [UIColor clearColor];
+	[tWebView loadHTMLString:htmlStr baseURL:baseURL];
+	for (id subview in tWebView.subviews)
+    {
+		if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+        {
+			((UIScrollView *)subview).bounces = NO;
+			((UIScrollView *)subview).scrollEnabled= NO;
+		}
+	}
+	tWebView.opaque = NO;
+	
+    [bgImageView addSubview:tWebView];
+    [tWebView release];
+    [mainView addSubview:bgImageView];
+    [bgImageView release];
+    self.myEmptyBgView = bgImageView;
+    self.myEmptyBgView.hidden = YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,7 +77,18 @@
         [self setRightBtnEnable:NO];
     }
     
-    NSString *headViewTitle = [NSString stringWithFormat:NSLocalizedString(@"You have %d followed", @""),self.itemCount];
+    NSString *headViewTitle = @"";
+    if(!self.isVisitOther)
+    {
+        //[self setNavgationBarTitle:NSLocalizedString(@"My Following", @"")];
+        headViewTitle = [NSString stringWithFormat:NSLocalizedString(@"You have %d followed", @""),self.itemCount];
+        
+    }
+    else
+    {
+        headViewTitle = [NSString stringWithFormat:NSLocalizedString(@"共%d个粉丝", @""),self.itemCount];
+    }
+    
     [self.headBgView setTitle:headViewTitle forState:UIControlStateNormal];
   
 #if 0  
