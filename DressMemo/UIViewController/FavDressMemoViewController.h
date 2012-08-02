@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "DressMemoViewController.h"
-@interface FavDressMemoViewController : DressMemoViewController
+#import "UIImageNetBaseViewController.h"
+@interface FavDressMemoViewController : UIImageNetBaseViewController
 
 @end

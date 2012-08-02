@@ -20,12 +20,13 @@
 
 @implementation DressMemoViewController
 @synthesize request;
-
+@synthesize isNeedReflsh;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -85,15 +86,28 @@
                                                      )];
     }
     tweetieTableView.separatorStyle = UITableViewCellAccessoryNone;
-#if 1
-    [self  shouldLoadOlderData:tweetieTableView];
-#else
-    self.myEmptyBgView.hidden = NO;
-#endif
+     NSString *loginUserId = [AppSetting getLoginUserId];
+    if(loginUserId&&![loginUserId isEqualToString:@""])
+    {
+        [self  shouldLoadOlderData:tweetieTableView];
+        
+    }
 	// Do any additional setup after loading the view.
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:animated];
+    if(isNeedReflsh)
+    {
+#if 1
+        [self  shouldLoadOlderData:tweetieTableView];
+#else
+        self.myEmptyBgView.hidden = NO;
+#endif
+    }
+}
 
 - (void)viewDidUnload
 {
@@ -213,8 +227,10 @@
         currentPageNum++;
         [self reloadAllData];
     }
-   
-    
+}
+-(void)didUserLogin:(NSNotification*)ntf
+{
+    isNeedReflsh = YES;
 }
 -(void)test{
 

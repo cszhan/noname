@@ -31,6 +31,7 @@ static UINavigationController *currentNavgationController = nil;
 @implementation AppMainUIViewManage
 @synthesize isShouldHiddenTabBarWhenPush;
 @synthesize window;
+
 #if 1
 -(void)addObserveMsg
 {
@@ -69,7 +70,7 @@ static UINavigationController *currentNavgationController = nil;
 	navCtrl.navigationBarHidden = YES;
 	currentNavgationController = navCtrl;
 	//navCtrl.delegate = self;
-	[self.window addSubview:navCtrl.view];
+    [self.window addSubview:navCtrl.view];
 #else
 	[self.window addSubview:mainVC.view];
 #endif
@@ -90,6 +91,8 @@ static UINavigationController *currentNavgationController = nil;
         [ZCSNotficationMgr postMSG:kPresentModelViewController obj:navCtrl];
          
     }
+    
+  
 	//[mainView addSubview:navCtrl.view];
 	
 }

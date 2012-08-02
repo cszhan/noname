@@ -75,7 +75,12 @@
         [self setNavgationBarTitle:NSLocalizedString(@"Favarator", @""
                                                      )];
     }
-    
+    tweetieTableView.separatorStyle = UITableViewCellAccessoryNone;
+#if 1
+    [self  shouldLoadOlderData:tweetieTableView];
+#else
+    self.myEmptyBgView.hidden = NO;
+#endif
     //[self getMyFavMemos];
 	// Do any additional setup after loading the view.
 }

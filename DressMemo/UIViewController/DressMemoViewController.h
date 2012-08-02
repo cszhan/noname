@@ -11,5 +11,6 @@
  *
  */
 @interface DressMemoViewController : UIImageNetBaseViewController
+@property(nonatomic,assign)BOOL isNeedReflsh;
 @property(nonatomic,assign)id request;
 @end

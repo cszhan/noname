@@ -51,6 +51,7 @@
     [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkOK:) msgName:kZCSNetWorkOK];
     ///[ZCSNotficationMgr addObserver:self call:@selector(didNetWorkFailed:) msgName:kZCSNetWorkRespondFailed];
     [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkRequestFailed:) msgName:kZCSNetWorkRequestFailed];
+    [ZCSNotficationMgr addObserver:self call:@selector(didUserLogin:) msgName:kUserDidLoginOk];
 #endif
 }
 - (void)setEmptyDataUI
