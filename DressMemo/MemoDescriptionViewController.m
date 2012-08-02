@@ -19,7 +19,7 @@
 @property(nonatomic,retain) UILabel *rightText;
 @property(nonatomic,retain) NSMutableDictionary *alldataDict;
 @property(nonatomic,retain)UIPickViewDataSourceBase    *pickDataSource;
-@property(nonatomic,assign)NSArray *data;
+@property(nonatomic,retain)NSArray *data;
 @property(nonatomic,assign) UIButton *classBtn;
 @property(nonatomic,assign)BOOL isFromViewUnload;
 @property(nonatomic,retain)NSDictionary *imageDataInfor;
@@ -28,6 +28,9 @@
 @property(nonatomic,assign)UIButton *preSelectBtn;
 @property(nonatomic,retain)UIScrollView *bgScrollerView;
 @property(nonatomic,retain)NSArray *subCityData;
+//@property(nonatomic,assign)NSDictionary *allSubCityData;
+@property(nonatomic,retain)NSString *province;
+@property(nonatomic,retain)NSString *city;
 @end
 
 @implementation MemoDescriptionViewController
@@ -54,6 +57,9 @@
 @synthesize bgScrollerView;
 @synthesize  gMainFrameSize;
 @synthesize subCityData;
+@synthesize province;
+@synthesize city;
+//@synthesize <#property#>
 //@synthesize indicatorTextLabel;
 -(void)dealloc
 {
@@ -64,6 +70,8 @@
     self.alldataDict = nil;
     self.bgScrollerView = nil;
     self.subCityData = nil;
+    self.province = nil;
+    self.city  = nil;
     //self.indicatorTextLabel = nil;
     [ZCSNotficationMgr removeObserver:self];
     self.pickDataSource = nil;
@@ -104,6 +112,7 @@
                             NSLocalizedString(@"Choose emotion", @""),   @"emotionid",
                             NSLocalizedString(@"Descripton", @""),           @"desc",
                             nil];
+    
     preSelect = -1;
     
 }
@@ -275,7 +284,7 @@
     //pickerView = [[UIPickerView alloc]initWithFrame:CGRectZero];
     pickerView.delegate = self;
     pickerView.showsSelectionIndicator = YES;
-    pickerView.dataSource = pickDataSource;
+    pickerView.dataSource = self;
     
     [self.view addSubview:pickerView];
     //[classPickView release]
@@ -301,7 +310,43 @@
     [self setButtonAttribute:AddressBtn];
     [self setButtonAttribute:motionBtn];
     [self setButtonAttribute:senceBtn];
-    
+    NSString *userId= [AppSetting getLoginUserId];
+    NSDictionary *userData = [AppSetting getLoginUserInfo:userId];
+    if(userData)
+    {
+#if 1
+        self.province = [userData objectForKey:@"prov"];
+        self.city = [userData objectForKey:@"city"];
+#else
+        self.province = @"18";
+        self.city = @"268";
+        
+#endif
+        if(![self.province isEqualToString:@"0"]&&![self.city isEqualToString:@"0"])
+        {
+            
+            NSString *countryValue = nil;
+            DBManage *dbMgr = [DBManage getSingleTone];
+            NSDictionary *provinceData = [dbMgr getTagDataByIdRaw:@"getCountries"];
+            //[self.alldataDict objectForKey:@"getCountries"];
+            NSDictionary*proviceItem = [provinceData objectForKey:self.province];
+            self.province = [proviceItem objectForKey:@"district"];
+            NSDictionary *cityDta =  [proviceItem objectForKey:@"sub"];
+            
+            self.city = [[cityDta objectForKey:city]objectForKey:@"district"];
+            
+            NSDictionary *allSubCityData = [self.alldataDict objectForKey:@"getCountries"];
+            //self.data = [allSubCityData objectForKey:self.province];
+            //self.subCityData = [];
+            [AddressBtn setTitle:self.city forState:UIControlStateNormal];
+            [AddressBtn setTitleColor:kUploadChooseTextColor forState:UIControlStateNormal];
+        }
+        else
+        {
+             self.province = @"上海";
+             self.city = @"上海";
+        }
+    }
     UIScrollView *scrollerView = [[UIScrollView alloc]initWithFrame:
                                   CGRectMake(0.f,kMBAppTopToolBarHeight,kDeviceScreenWidth, kDeviceScreenHeight-kMBAppTopToolBarHeight-kMBAppStatusBar)];
     [scrollerView addSubview:mainFrameView];
@@ -319,8 +364,6 @@
     //btn.titleLabel.textColor = kUploadDataTextColor;
     [btn setTitleColor:kUploadNoChooseTextColor forState:UIControlStateNormal];
     btn.titleEdgeInsets = UIEdgeInsetsMake(0.f,kInputTextPenndingX, 0,0.f);
-    
-
 }
 - (void)viewDidUnload
 {
@@ -374,7 +417,16 @@
 //static BOOL isShowPickView;
 -(void)setPickerViewBtnStatus:(UIButton*)setClassBtn withIndex:(NSInteger)row
 {
-    NSString *selText = [data objectAtIndex:row];
+    
+    NSString *selText = @"";
+    if(classBtn == AddressBtn)
+    {
+        selText = [self.subCityData objectAtIndex:row];
+    }
+    else
+    {
+        selText = [data objectAtIndex:row];
+    }
     [setClassBtn setTitle:selText forState:UIControlStateNormal];
     [setClassBtn setTitleColor:kUploadChooseTextColor forState:UIControlStateNormal];
 }
@@ -397,18 +449,45 @@
         [self savePrePickViewData];
     }
     NSInteger index = [sender tag];
+    int provIndex = 0;
     switch (index) 
     {
         case 0:
             //[self pickerCountryView];
-            data = [[alldataDict objectForKey:@"getCountries"]allKeys];
-            //classBtn = 
+            if(![self.province isEqualToString:@"0"])
+            {
+                self.data = [[alldataDict objectForKey:@"getCountries"]allKeys];
+                //int i = 0;
+                for( provIndex = 0;provIndex<[data count];provIndex++)
+                {
+                
+                    if([[data objectAtIndex:provIndex] isEqualToString:self.province]){
+                        break;
+                    }
+                }
+                
+                NSDictionary *allSubCityData = [alldataDict objectForKey:@"getCountries"];
+                self.subCityData = [self  getSubData:allSubCityData byKey:self.province];
+            }
+            /*
+            else
+            {
+                data = [[alldataDict objectForKey:@"getCountries"]allKeys];
+               
+                NSDictionary *allSubCityData = [alldataDict objectForKey:@"getCountries"];
+                self.subCityData = [self  getSubData:allSubCityData byKey:self.province];
+                //[pickDataSource setSubData:self.subData];
+                [pickerView  reloadComponent:1];
+                return;
+            }
+            */
+            //classBtn =
             break;
         case 1:
-            data = [[alldataDict objectForKey:@"getEmotions"]allKeys];
+            self.data = [[alldataDict objectForKey:@"getEmotions"]allKeys];
             break;
         case 2:
-            data = [[alldataDict objectForKey:@"getOccasions"]allKeys];
+            self.data = [[alldataDict objectForKey:@"getOccasions"]allKeys];
             break;
         default:
             assert(nil);
@@ -434,8 +513,13 @@
         assert(nil);
         break;
     }
-    [pickDataSource setSourceData:data];
+    //[pickDataSource setSourceData:data];
     [pickerView reloadAllComponents];
+    if(classBtn == AddressBtn)
+    {
+        [pickerView selectRow:provIndex inComponent:0 animated:NO];
+    }
+   
     [self showPickView:YES];
     preSelect = [sender tag];
     preSelectBtn = classBtn;
@@ -523,12 +607,32 @@
         }
         if(component == 1)
         {
-        
+            /*
+            NSString *key = [self.data objectAtIndex:<#(NSUInteger)#>]
+            self.subCityData = [self getSubData:data byKey:];
+             */
             return [self.subCityData objectAtIndex:row];
         }
     }
     return [data  objectAtIndex:row];
     
+}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    if(classBtn ==AddressBtn)
+    {
+        return 2;
+    }
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if(classBtn ==AddressBtn)
+    {
+        if(component == 1)
+            return [self.subCityData count];
+    }
+    return [self.data count];
 }
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
@@ -555,6 +659,16 @@
             break;
     }
 #endif
+    if(classBtn == AddressBtn && component ==0)
+    {
+        self.province = [self.data objectAtIndex:row];
+        //[self.tempDict setValue:key forKey:@"Cats1"];
+        NSDictionary *allSubCityData = [alldataDict objectForKey:@"getCountries"];
+        self.subCityData = [self  getSubData:allSubCityData byKey:self.province];
+        //[pickDataSource setSubData:self.subData];
+        [pickerView  reloadComponent:1];
+        return ;
+    }
     [self setPickerViewBtnStatus:classBtn withIndex:row];
     if(classBtn == senceBtn)
     {
@@ -592,10 +706,11 @@
                                   self.motionBtn.titleLabel.text,   @"emotionid",
                                   self.despTextView.text,           @"desc",
                                   nil];
-
             
             NSString *countryValue = nil;
-            countryValue = [[self.alldataDict objectForKey:@"getCountries"] objectForKey:self.AddressBtn.titleLabel.text];
+            NSDictionary *provinceData = [self.alldataDict objectForKey:@"getCountries"];
+            NSDictionary*secondCityData = [provinceData objectForKey:self.province];
+            countryValue = [secondCityData objectForKey:self.AddressBtn.titleLabel.text];
             NSString *senceValue = [[self.alldataDict objectForKey:@"getOccasions"] objectForKey:self.senceBtn.titleLabel.text];
             NSString *motionValue = [[self.alldataDict objectForKey:@"getEmotions"] objectForKey:self.motionBtn.titleLabel.text];
             
@@ -693,5 +808,12 @@
 - (void)inputKeyBoradViewWillDisappear:(NSNotification*)ntf
 {
     [self ChangeScrollerContentSize:0.f];
+}
+#pragma mark getSubCity data
+-(NSArray*)getSubData:(NSDictionary*)srcData byKey:(NSString*)key
+{
+    NSDictionary *subClassDict = [srcData objectForKey:key];
+    NSDictionary *subClassItem = [subClassDict objectForKey:@"sub"];
+    return [subClassItem allKeys];
 }
 @end

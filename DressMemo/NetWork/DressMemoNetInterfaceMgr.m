@@ -87,14 +87,15 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
                                
                                @"/util/getOccasions",  @"getOccasions",
                                @"/util/getEmotions",   @"getEmotions",
-                               @"/util/getCountries",  @"getCountries",
+                               @"/util/getdistricts",  @"getCountries",
                                @"/util/getCats",       @"getCats",
                                
                                @"/memo/uploadpic",     @"uploadpic",
                                
-                               @"/memo/getmemos",      @"getmemos",
+                               @"/memo/getList",      @"getmemos",
                                
-                               @"/memo/getmemobys",    @"getmemobys",
+                               @"/favor/getfavorlist",    @"getmemobys",
+                               
                                 @"/notify/getnotifies",@"getnotifies",
                                nil];
         

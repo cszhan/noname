@@ -15,6 +15,7 @@
 @synthesize seperateHLineView;
 @synthesize seperateVLineView;
 @synthesize userIconEditBtn;
+@synthesize cityBtn;
 -(void)dealloc{
     self.seperateHLineView = nil;
     self.seperateVLineView = nil;
@@ -22,6 +23,7 @@
     self.nickNameTextField = nil;
     self.locationTextField = nil;
     self.userIconImageView = nil;
+    self.cityBtn = nil;
     [super dealloc];
 }
 +(id)getFromNibFile

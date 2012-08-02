@@ -372,7 +372,8 @@ static UITextField *subClassInputTextField = nil;
 {
     classPickView.hidden = YES;
 }
-- (void)initPickView{
+- (void)initPickView
+{
 
 
 }

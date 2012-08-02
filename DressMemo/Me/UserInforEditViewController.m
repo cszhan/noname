@@ -17,11 +17,21 @@
 #import "UIImage+Extend.h"
 #import "AppMainUIViewManage.h"
 #import "ZCSNetClientDataMgr.h"
+#import "UIPickViewDataSourceBase.h"
+#define TWO_CLASS
 @interface UserInforEditViewController ()
 @property(nonatomic,retain)UIScrollView *bgScrollerView;
 @property(nonatomic,assign)CGSize gMainFrameSize;
 @property(nonatomic,retain)NSString *imagePath;
 @property(nonatomic,retain)NSMutableDictionary *postData ;
+@property(nonatomic,retain)NSArray *data;
+@property(nonatomic,retain)NSArray *subData;
+@property(nonatomic,retain)UIPickerView *classPickView;
+@property(nonatomic,retain)UIPickViewDataSourceBase* pickDataSource;
+@property(nonatomic,retain)NSString *province;
+@property(nonatomic,retain)NSString *city;
+@property(nonatomic,assign)UIButton *classBtn;
+@property(nonatomic,retain)NSDictionary *classAllData;
 @end
 
 @implementation UserInforEditViewController
@@ -30,11 +40,25 @@
 @synthesize bgScrollerView;
 @synthesize imagePath;
 @synthesize postData;
+@synthesize data;
+@synthesize subData;
+@synthesize classPickView;
+@synthesize pickDataSource;
+@synthesize province;
+@synthesize city;
+@synthesize classBtn;
+@synthesize classAllData;
 -(void)dealloc{
+    self.data = nil;
+    self.subData = nil;
     self.userData = nil;
     self.bgScrollerView = nil;
     self.imagePath = nil;
     self.postData = nil;
+    self.pickDataSource = nil;
+    self.province = nil;
+    self.classAllData = nil;
+    self.city = nil;
     [super dealloc];
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,13 +67,21 @@
     if (self) 
     {
         // Custom initialization
-       self.postData = [NSMutableDictionary dictionary];
+        [self initData];
     }
     return self;
 }
 -(void)setInitData:(NSDictionary*)data{
     //self.userData = [NSDictionary dictionary];
     //[self.userData setValue:@"" forKey:@"email"];
+}
+- (void)initData
+{
+    DBManage *dbMgr = [DBManage getSingleTone];
+    self.classAllData    =  [dbMgr getTagDataById:@"getCountries"];
+    self.data           =    [self.classAllData allKeys];
+    self.postData = [NSMutableDictionary dictionary];
+    //self.tempDict = [NSMutableDictionary dictionary];
 }
 - (void)addObservers{
     [ZCSNotficationMgr addObserver:self call:@selector(didLoginOK:) msgName:kZCSNetWorkOK];
@@ -92,6 +124,89 @@
     gMainFrameSize = bgScrollerView.frame.size;
     scrollerView.clipsToBounds = YES;
     [self.view addSubview:scrollerView];
+    
+    
+    
+    UIPickViewDataSourceBase    *tempDataSource = [[UIPickViewDataSourceBase alloc]initWithData:self.data];
+    
+    NSString *key = [self.userData objectForKey:@"prov"];
+    
+    if([key isEqualToString:@"0"])
+    {
+        key = [self.data objectAtIndex:0];
+    }
+    //NSString *key = [self.data objectAtIndex:0];
+    
+    self.subData = [self getSubDataByKey:key];
+    
+    [tempDataSource setSubData:self.subData];
+    
+    self.pickDataSource = tempDataSource;
+    [tempDataSource release];
+    
+    classPickView = [[UIPickerView alloc]initWithFrame:CGRectZero];
+    classPickView.delegate = self;
+    classPickView.showsSelectionIndicator = YES;
+    classPickView.dataSource = pickDataSource;
+    
+    
+    //for selector sub class
+    self.city = [self.userData objectForKey:@"city"]; //[self.srcData objectAtIndex:0];
+    
+    //for selector top class
+    self.province = [self.userData objectForKey:@"prov"];
+    
+    if(![self.province isEqualToString:@"0"]&&![self.city isEqualToString:@"0"])
+    {
+        
+        DBManage *dbMgr = [DBManage getSingleTone];
+        NSDictionary *provinceData = [dbMgr getTagDataByIdRaw:@"getCountries"];
+        //[self.alldataDict objectForKey:@"getCountries"];
+        NSDictionary*proviceItem = [provinceData objectForKey:self.province];
+        self.province = [proviceItem objectForKey:@"district"];
+        NSDictionary *cityDta =  [proviceItem objectForKey:@"sub"];
+        
+        self.city = [[cityDta objectForKey:city]objectForKey:@"district"];
+       
+    }
+    
+    if([self.city isEqualToString:@"0"])
+    {
+        [classPickView selectRow:0 inComponent:1 animated:NO];
+    }
+    else
+    {
+        for(int i = 0;i<[self.subData count];i++)
+        {
+            if([city isEqualToString:[self.subData objectAtIndex:i]])
+            {
+                [classPickView selectRow:i inComponent:1 animated:NO];
+                break;
+            }
+        }
+    }
+    
+
+    if([self.province isEqualToString:@"0"])
+    {
+        [classPickView selectRow:0 inComponent:0 animated:NO];
+    }
+    else
+    {
+        for(int i = 0;i<[self.data count];i++)
+        {
+            if([self.province isEqualToString:[self.data objectAtIndex:i]])
+            {
+                [classPickView selectRow:i inComponent:0 animated:NO];
+                break;
+            }
+        }
+    }
+    [self.view addSubview:classPickView];
+    //[classPickView release]
+    [classPickView release];
+    classPickView.frame = CGRectOffset(classPickView.frame,0,kDeviceScreenHeight-classPickView.frame.size.height-20.f);
+    classPickView.hidden = YES;
     
 	// Do any additional setup after loading the view.
 }
@@ -156,7 +271,14 @@
             firstCell.nickNameTextField.delegate = self;
             firstCell.locationTextField.textColor = kUserIconBtnTextColor;
             firstCell.nickNameTextField.text = [self.userData objectForKey:@"uname"];
-            firstCell.locationTextField.text = [self.userData objectForKey:@"city"];
+            
+            if(![self.city isEqualToString:@"0"])
+            {
+                [firstCell.cityBtn setTitle:self.city forState:UIControlStateNormal];
+            }
+            self.classBtn = firstCell.cityBtn;
+            [firstCell.cityBtn addTarget:self action:@selector(didSelectorClassBtn:) forControlEvents:UIControlEventTouchUpInside];
+            //firstCell.locationTextField.text = [self.userData objectForKey:@"city"];
             firstCell.seperateVLineView.backgroundColor = kUserUpdateSeperatorLineColor;
             firstCell.seperateHLineView.backgroundColor = kUserUpdateSeperatorLineColor;
             [firstCell.userIconEditBtn addTarget:self action:@selector(didTouchEditButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -348,6 +470,66 @@
     
     
 }
+#pragma mark -
+#pragma mark pickView delegate
+
+- (void)didSelectorClassBtn:(id)sender
+{
+    //[self initPickView];
+    classPickView.hidden = NO;
+    //[subClassInputTextField resignFirstResponder];
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+#ifdef TWO_CLASS
+    if(component == 0)
+    {
+        return  [self.data objectAtIndex:row];
+    }
+    else {
+        return  [self.subData objectAtIndex:row];
+    }
+#else
+    return [self.data  objectAtIndex:row];
+#endif
+    
+}
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+#ifdef TWO_CLASS
+    if(component == 0)
+    {
+        NSString *key = [self.data objectAtIndex:row];
+        //[self.tempDict setValue:key forKey:@"Cats1"];
+        self.subData = [self  getSubDataByKey:key];
+        
+        [pickDataSource setSubData:self.subData];
+        [pickerView  reloadComponent:1];
+    }
+    if(component == 1)
+    {
+        
+        NSString *selText = [self.subData objectAtIndex:row];
+        
+        [classBtn setTitle:selText forState:UIControlStateNormal];
+        [classBtn setTitleColor:kUserIconBtnTextColor forState:UIControlStateNormal];
+        
+        //[subClassInputTextField becomeFirstResponder];
+        
+    }
+#else
+    NSString *selText = [data objectAtIndex:row];
+    [classBtn setTitle:selText forState:UIControlStateNormal];
+    [subClassInputTextField becomeFirstResponder];
+#endif
+}
+-(NSArray*)getSubDataByKey:(NSString*)key
+{
+    NSDictionary *subClassDict = [self.classAllData objectForKey:key];
+    NSDictionary *subClassItem = [subClassDict objectForKey:@"sub"];
+    return [subClassItem allKeys];
+}
+
 #pragma mark image edit message
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -491,7 +673,7 @@
     id request = [obj objectForKey:@"request"];
     id data = [obj objectForKey:@"data"];
     NSString *resKey = [request resourceKey];
-    if([resKey isEqualToString:@"login"])
+    if([resKey isEqualToString:@"update"])
     {
        
         [SVProgressHUD dismissWithStatus:NSLocalizedString(@"资料已更新",@"") error:NO];

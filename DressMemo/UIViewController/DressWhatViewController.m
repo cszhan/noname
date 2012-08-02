@@ -149,6 +149,19 @@
 	{
 		case 0:
         {
+            
+            MemoDescriptionViewController *desVc = [[MemoDescriptionViewController alloc]initWithNibName:@"MemoDescriptionViewController" bundle:nil];
+            
+            //[self.navigationController pushViewController:playMenuVc animated:YES];
+            //[[NSNotificationCenter defaultCenter] postNotificationName: object:playMenuVc];
+#if 0
+            [ZCSNotficationMgr postMSG:kPushNewViewController obj:desVc];
+#else
+            [self.navigationController pushViewController:desVc animated:YES];
+#endif
+            [desVc release];
+            return;
+            
 #if 0
             TagChooseBrandViewController *tagchooseBrandVc = [[TagChooseBrandViewController alloc]init];
             
@@ -199,18 +212,7 @@
             return ;
 #endif
 
-            MemoDescriptionViewController *desVc = [[MemoDescriptionViewController alloc]initWithNibName:@"MemoDescriptionViewController" bundle:nil];
-            
-            //[self.navigationController pushViewController:playMenuVc animated:YES];
-            //[[NSNotificationCenter defaultCenter] postNotificationName: object:playMenuVc];
-#if 0
-            [ZCSNotficationMgr postMSG:kPushNewViewController obj:desVc];
-#else
-            [self.navigationController pushViewController:desVc animated:YES];
-#endif  
-            [desVc release];
         }
-             
     }
 }
 @end

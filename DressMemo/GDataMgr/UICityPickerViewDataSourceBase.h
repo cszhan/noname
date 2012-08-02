@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface UICityPickerViewDataSourceBase : UIPickerViewDataSourceBase
+#import "UIPickViewDataSourceBase.h"
+@interface UICityPickerViewDataSourceBase : UIPickViewDataSourceBase
 
 @end

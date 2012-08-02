@@ -205,13 +205,13 @@ static DBManage *dbMgr = nil;
     NSDictionary *param = nil;
     for(NSString* item in resourceArray)
     {
-        if([item isEqualToString:@"getCats"])
+        if([item isEqualToString:@"getCats"]||[item isEqualToString:@"getCountries"])
         {
             param = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"all",nil];
         }
         [requestResourceDict setValue:[NSNumber numberWithBool:YES] forKey:item];
         [dressMemoInterfaceMgr startAnRequestByResKey:item 
-                                         needLogIn:YES
+                                         needLogIn:NO
                                          withParam:param
                                         withMethod:@"GET"
                                           withData:NO];

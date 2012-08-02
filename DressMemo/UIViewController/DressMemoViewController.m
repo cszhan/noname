@@ -99,14 +99,7 @@
 {
     
     [super viewWillAppear:animated];
-    if(isNeedReflsh)
-    {
-#if 1
-        [self  shouldLoadOlderData:tweetieTableView];
-#else
-        self.myEmptyBgView.hidden = NO;
-#endif
-    }
+
 }
 
 - (void)viewDidUnload
@@ -231,6 +224,7 @@
 -(void)didUserLogin:(NSNotification*)ntf
 {
     isNeedReflsh = YES;
+    [self performSelectorOnMainThread:@selector(shouldLoadOlderData:) withObject:nil waitUntilDone:NO];
 }
 -(void)test{
 

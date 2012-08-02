@@ -163,8 +163,18 @@ static DBManage *sharedInstance = nil;
 #pragma  mark -
 #pragma  mark  save net work imag tag relate infor
 
-
-
+//use to from server to client  map
+-(id)getTagDataByIdRaw:(NSString *)lrcKey
+{
+    NSString *filePath = [NSString stringWithFormat:@"%@/ImageTagDataSource.plist",[[NSBundle mainBundle]bundlePath]];
+    NSMutableDictionary* plistDict = [[[NSMutableDictionary alloc] initWithContentsOfFile:filePath] autorelease];
+    
+    id value;
+    value = [plistDict objectForKey:lrcKey];
+   
+    return value;
+}
+//use for client to server map
 - (id)getTagDataById:(NSString*)lrcKey
 {
    // NSString *filePath = @"lrcMapkey.plist";
@@ -185,12 +195,29 @@ static DBManage *sharedInstance = nil;
             NSString *realClassKey = [valueDict objectForKey:@"catname"];
            
             
-            NSDictionary *newSubData = [self switchKeyForDictionary:valueDict];
+            NSDictionary *newSubData = [self switchKeyForDictionary:valueDict withKeyName:@"catname"];
          
             [retData setValue:newSubData forKey:realClassKey];
         }
         value = retData;
     
+    }
+    else if([lrcKey isEqualToString:@"getCountries"])
+    {
+        NSArray *keys = [value allKeys];
+        NSDictionary *retData = [NSMutableDictionary dictionary];
+        for (id item in keys)
+        {
+            NSDictionary *valueDict = [value objectForKey:item];
+            
+            NSString *realClassKey = [valueDict objectForKey:@"district"];
+            
+            
+            NSDictionary *newSubData = [self switchKeyForDictionary:valueDict withKeyName:@"district"];
+            
+            [retData setValue:newSubData forKey:realClassKey];
+        }
+        value = retData;
     }
     else 
     {
@@ -210,7 +237,7 @@ static DBManage *sharedInstance = nil;
     return value;
     /* You could now call the string "value" from somewhere to return the value of the string in the .plist specified, for the specified key. */
 }
--(NSDictionary*)switchKeyForDictionary:(NSDictionary*)valueDict
+-(NSDictionary*)switchKeyForDictionary:(NSDictionary*)valueDict withKeyName:(NSString*)keyName
 {
     
      NSDictionary *subData = [valueDict objectForKey:@"sub"];
@@ -221,7 +248,7 @@ static DBManage *sharedInstance = nil;
     for(id item in subKeys)
     {
         NSDictionary *subItemData = [subData objectForKey:item];
-        NSString *realSubClassKey = [subItemData objectForKey:@"catname"];
+        NSString *realSubClassKey = [subItemData objectForKey:keyName];
         [newSubData setValue:subItemData forKey:realSubClassKey];
     }
     

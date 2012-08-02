@@ -47,7 +47,6 @@
     NSUserDefaults *usrDefaults = [NSUserDefaults standardUserDefaults];
     return [usrDefaults objectForKey:userId];
 }
-
 +(NSString*)getCurrentLoginUser
 {
     
