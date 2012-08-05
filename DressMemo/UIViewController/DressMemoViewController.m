@@ -10,7 +10,7 @@
 #import "ZCSNetClientDataMgr.h"
 
 #import "MemoImageItemCell.h"
-#import "DressMemoDetailViewController.h"
+#import "DressMemoDetailNetViewController.h"
 
 
 
@@ -180,7 +180,7 @@
     NSDictionary *cellData = [self.dataArray objectAtIndex:dataIndex];
     NSLog(@"cell data:%@",[cellData description]);
     
-    DressMemoDetailViewController * dressMemoVc = [[DressMemoDetailViewController alloc]init];
+    DressMemoDetailNetViewController * dressMemoVc = [[DressMemoDetailNetViewController alloc]init];
     dressMemoVc.data = cellData;
     [self.navigationController pushViewController:dressMemoVc animated:YES];
     [dressMemoVc release];

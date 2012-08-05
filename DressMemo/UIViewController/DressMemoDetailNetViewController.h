@@ -8,5 +8,5 @@
 
 #import "UIImageNetBaseViewController.h"
 
-@interface DressMemoDetailViewController : UIImageNetBaseViewController
+@interface DressMemoDetailNetViewController : UIImageNetBaseViewController
 @end

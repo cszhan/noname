@@ -50,7 +50,7 @@
 		040C342A1595E48E00558846 /* UIBaseFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C34291595E48E00558846 /* UIBaseFactory.m */; };
 		040C661415C9258B0049204E /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C661115C9258B0049204E /* UIImage+ProportionalFill.m */; };
 		040C661515C9258B0049204E /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C661315C9258B0049204E /* UIImage+Tint.m */; };
-		040C661815C927C80049204E /* DressMemoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C661715C927C70049204E /* DressMemoDetailViewController.m */; };
+		040C661815C927C80049204E /* DressMemoDetailNetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040C661715C927C70049204E /* DressMemoDetailNetViewController.m */; };
 		0414027A15BE92A2003148C2 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0414027915BE8CE5003148C2 /* TDBadgedCell.m */; };
 		0415A31215B962E900D7121E /* ZCSImageDownloaderBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0415A31115B962E900D7121E /* ZCSImageDownloaderBase.m */; };
 		0415A31C15BA7CEB00D7121E /* UISimpleNetBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0415A31B15BA7CEB00D7121E /* UISimpleNetBaseViewController.m */; };
@@ -341,8 +341,8 @@
 		040C661115C9258B0049204E /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ProportionalFill.m"; path = "Utility/UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		040C661215C9258B0049204E /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Tint.h"; path = "Utility/UIImage+Tint.h"; sourceTree = "<group>"; };
 		040C661315C9258B0049204E /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Tint.m"; path = "Utility/UIImage+Tint.m"; sourceTree = "<group>"; };
-		040C661615C927C70049204E /* DressMemoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressMemoDetailViewController.h; sourceTree = "<group>"; };
-		040C661715C927C70049204E /* DressMemoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressMemoDetailViewController.m; sourceTree = "<group>"; };
+		040C661615C927C70049204E /* DressMemoDetailNetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressMemoDetailNetViewController.h; sourceTree = "<group>"; };
+		040C661715C927C70049204E /* DressMemoDetailNetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressMemoDetailNetViewController.m; sourceTree = "<group>"; };
 		0414027815BE8CE3003148C2 /* TDBadgedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
 		0414027915BE8CE5003148C2 /* TDBadgedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
 		0415A31015B962E900D7121E /* ZCSImageDownloaderBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZCSImageDownloaderBase.h; path = DressMemo/UIViewController/imagedownload/ZCSImageDownloaderBase.h; sourceTree = SOURCE_ROOT; };
@@ -1173,8 +1173,6 @@
 				04EB3B4415B7CE5A0003B10F /* UserConfig.h */,
 				04EB3B8615B8030E0003B10F /* UserSettingViewController.h */,
 				04EB3B8715B8030E0003B10F /* UserSettingViewController.m */,
-				04ACB6C715CD271C008776D5 /* MemoLikeUserViewController.h */,
-				04ACB6C815CD271D008776D5 /* MemoLikeUserViewController.m */,
 			);
 			name = User;
 			path = RegisterAndLogin;
@@ -1315,8 +1313,10 @@
 				04EB810B1590283C00C3DBCC /* PhotoUploadViewController.m */,
 				04EB810D1590287100C3DBCC /* MyProfileViewController.h */,
 				04EB810E1590287100C3DBCC /* MyProfileViewController.m */,
-				040C661615C927C70049204E /* DressMemoDetailViewController.h */,
-				040C661715C927C70049204E /* DressMemoDetailViewController.m */,
+				04ACB6C715CD271C008776D5 /* MemoLikeUserViewController.h */,
+				04ACB6C815CD271D008776D5 /* MemoLikeUserViewController.m */,
+				040C661615C927C70049204E /* DressMemoDetailNetViewController.h */,
+				040C661715C927C70049204E /* DressMemoDetailNetViewController.m */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -1660,7 +1660,7 @@
 				0403AC3615C65BCE00A2C9FA /* DressMemoMSGModel.m in Sources */,
 				040C661415C9258B0049204E /* UIImage+ProportionalFill.m in Sources */,
 				040C661515C9258B0049204E /* UIImage+Tint.m in Sources */,
-				040C661815C927C80049204E /* DressMemoDetailViewController.m in Sources */,
+				040C661815C927C80049204E /* DressMemoDetailNetViewController.m in Sources */,
 				041C36C715CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m in Sources */,
 				04ACB6C915CD271E008776D5 /* MemoLikeUserViewController.m in Sources */,
 			);

@@ -6,15 +6,21 @@
 //
 //
 
-#import "DressMemoDetailViewController.h"
+#import "DressMemoDetailNetViewController.h"
 #import "ZCSNetClientDataMgr.h"
 #import "ZCSNetClient.h"
 #import "MemoLikeUserViewController.h"
-@interface DressMemoDetailViewController ()
-
+@interface DressMemoDetailNetViewController ()
+@property(nonatomic,assign)ZCSNetClient *dofavorRequest;
+@property(nonatomic,assign)ZCSNetClient *unDofavorRequest;
+@property(nonatomic,assign)ZCSNetClient *getMemoDetailRequest;
+@property(nonatomic,retain)NSDictionary *memoDetailData;
 @end
 
-@implementation DressMemoDetailViewController
+@implementation DressMemoDetailNetViewController
+@synthesize dofavorRequest;
+@synthesize unDofavorRequest;
+@synthesize getMemoDetailRequest;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,7 +125,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [self.data objectForKey:@"memoid"] ,@"memoid",
                                   nil];
-    self.request = [netMgr doFavorMemo:param];
+    self.dofavorRequest = [netMgr doFavorMemo:param];
 
 
 }
@@ -131,7 +137,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [self.data objectForKey:@"memoid"] ,@"memoid",
                                   nil];
-    self.request = [netMgr unDoFavorMemo:param];
+    self.unDofavorRequest = [netMgr unDoFavorMemo:param];
     
 }
 -(void)getMemoDetail
@@ -141,7 +147,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [self.data objectForKey:@"memoid"] ,@"memoid",
                                   nil];
-    self.request = [netMgr getMemoDetail:param];
+    self.getMemoDetailRequest = [netMgr getMemoDetail:param];
 
 }
 -(void)addMemoComment
@@ -206,7 +212,8 @@
         [self reloadAllData];
         
     }
-    if([resKey isEqualToString:@"dofavorCancel"])
+    //the dofavorCancel
+    if(self.dofavorRequest == respRequest &&[resKey isEqualToString:@"dofavorCancel"])
     {
        /*
         NSDictionary *inputData = [respRequest inputParam];
@@ -223,7 +230,7 @@
         }
        */
     }
-    if([resKey isEqualToString:@"dofavor"])
+    if(self.unDofavorRequest == respRequest &&[resKey isEqualToString:@"dofavor"])
     {
 //        NSDictionary *inputData = [respRequest inputParam];
 //        if(inputData)
@@ -239,8 +246,59 @@
 //            [self setItemCell:cell withImage:bgImage withActive:NO];
 //        }
     }
+    if(self.getMemoDetailRequest == respRequest)
+    {
+
+    }
     
 }
+/*
+ *memo detail data
+ {
+ "ret":"success",
+ "code":"200",
+ "info":{
+ "memoid":"103",
+ "uid":"2",
+ "addtime":"1343751316",
+ "emotionid":"41",
+ "occasionid":"20",
+ "prov":"0",
+ "city":"0",
+ "location":"",
+ "picid":"292",
+ "picpath":"/memo/2012/08/01/20120801001516_jbLU_3daabfa0.jpg",
+ "isrecommend":"0",
+ "favornum":"1",
+ "commentnum":"4",
+ "user":{
+ "uid":"2",
+ "uname":"cszhan",
+ "avatar":"/avatar/20120803152024_lY52_ebe8dd2f.png"
+ },
+ "pic":{
+ "292":{
+ "picid":"292",
+ "memoid":"103",
+ "uid":"2",
+ "addtime":"1343751316",
+ "path":"/memo/2012/08/01/20120801001516_jbLU_3daabfa0.jpg",
+ "tags":[
+ {
+ "picid":"292",
+ "tagid":"429",
+ "catid":"103",
+ "brandid":"31",
+ "x":"56995",
+ "y":"8154"
+ }
+ ]
+ }
+ }
+ }
+ }
+ 
+ */
 -(void)setItemCell:(id)cell withImage:(UIImage*)bgImage withActive:(BOOL)activeTag
 {
 //    [cell.relationBtn setImage:bgImage forState:UIControlStateNormal];
