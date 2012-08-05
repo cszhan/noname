@@ -12,14 +12,15 @@
 #import "MemoImageItemCell.h"
 #import "DressMemoDetailViewController.h"
 
-#define kItemCellCount 3
+
 
 @interface DressMemoViewController ()
-
+@property(nonatomic,assign)NSInteger cellEmptyCount;
 @end
 
 @implementation DressMemoViewController
 @synthesize request;
+@synthesize cellEmptyCount;
 @synthesize isNeedReflsh;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -86,8 +87,8 @@
                                                      )];
     }
     tweetieTableView.separatorStyle = UITableViewCellAccessoryNone;
-     NSString *loginUserId = [AppSetting getLoginUserId];
-    if(loginUserId&&![loginUserId isEqualToString:@""])
+    NSString *loginUserId = [AppSetting getLoginUserId];
+    if(loginUserId&&![loginUserId isEqualToString:@""]&&!isFromViewUnload)
     {
         [self  shouldLoadOlderData:tweetieTableView];
         
@@ -127,6 +128,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	int row = [self.dataArray count]/kItemCellCount;
+    self.cellEmptyCount = [self.dataArray count]%kItemCellCount;
     if([self.dataArray count]%kItemCellCount == 0)
     {
         return row;
@@ -149,6 +151,15 @@
         
     }
     cell.delegate = self;
+    if(indexPath.row ==([self.dataArray count]/kItemCellCount)&&self.cellEmptyCount)
+    {
+        [cell showCellItemWithNum:self.cellEmptyCount];
+    }
+    else
+    {
+        [cell showCellItemWithNum:kItemCellCount];
+    }
+    //cell
 	//cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
     
     return cell;
@@ -160,8 +171,17 @@
 #pragma mark 
 -(void)didTouchItemCell:(id)cell subItem:(id)sender
 {
- 
+    int dataIndex = -1;
+    if([cell isKindOfClass:[MemoImageItemCell class]])
+    {
+        MemoImageItemCell *targetCellItem = (MemoImageItemCell*)cell;
+        dataIndex = targetCellItem.indexPath.row*kItemCellCount+[sender tag];
+    }
+    NSDictionary *cellData = [self.dataArray objectAtIndex:dataIndex];
+    NSLog(@"cell data:%@",[cellData description]);
+    
     DressMemoDetailViewController * dressMemoVc = [[DressMemoDetailViewController alloc]init];
+    dressMemoVc.data = cellData;
     [self.navigationController pushViewController:dressMemoVc animated:YES];
     [dressMemoVc release];
 }

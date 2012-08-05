@@ -153,6 +153,22 @@
 
 
 }
+-(void)didTouchNickNameTitle:(id)sender
+{
+    int index = [sender tag];
+    NSDictionary *itemData = [self.dataArray objectAtIndex:index];
+    NSMutableDictionary *newitemData = [NSMutableDictionary dictionaryWithDictionary:itemData];
+    //[newitemData setValue:@"1" forKey:@"status"];
+    MyProfileViewController *userProfileVc = [[MyProfileViewController alloc]init];
+    userProfileVc.userId = [itemData objectForKey:@"fuid"];
+    
+    userProfileVc.userData = newitemData;
+    userProfileVc.isVisitOther = YES;
+    assert(userProfileVc.userId);
+    [self.navigationController pushViewController:userProfileVc animated:YES];
+    [userProfileVc release];
+    
+}
 #pragma mark 
 -(void)didSelectorTopNavItem:(id)navObj{
 	NE_LOG(@"select item:%d",[navObj tag]);
@@ -188,20 +204,5 @@
         
     }
 }
--(void)didTouchNickNameTitle:(id)sender
-{
-    int index = [sender tag];
-    NSDictionary *itemData = [self.dataArray objectAtIndex:index];
-    NSMutableDictionary *newitemData = [NSMutableDictionary dictionaryWithDictionary:itemData];
-    [newitemData setValue:@"1" forKey:@"status"];
-    MyProfileViewController *userProfileVc = [[MyProfileViewController alloc]init];
-    userProfileVc.userId = [itemData objectForKey:@"fuid"];
-    
-    userProfileVc.userData = newitemData;
-    userProfileVc.isVisitOther = YES;
-    assert(userProfileVc.userId);
-    [self.navigationController pushViewController:userProfileVc animated:YES];
-    [userProfileVc release];
 
-}
 @end

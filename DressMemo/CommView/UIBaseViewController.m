@@ -335,6 +335,7 @@ static NSInteger tabCount;
 -(void)viewDidUnload
 {
     [super viewDidUnload];
+    isFromViewUnload = YES;
     //[self removeObservers];
     
 }

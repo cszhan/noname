@@ -127,7 +127,7 @@ static DBManage *dbMgr = nil;
     mainView.bgImage = bgImage;
     tweetieTableView.hidden = NO;
     tweetieTableView.frame = CGRectMake(0,(122.f-40.f)/2.f+64.f/2.f,kDeviceScreenWidth, kMBAppRealViewHeight-64/2.f);
-   
+
 	//[htmlStr release];
 	// Do any additional setup after loading the view.
 }
@@ -227,6 +227,7 @@ static DBManage *dbMgr = nil;
     NSDictionary *itemData = [self.dataArray objectAtIndex:indexPath.row];
     
     cell.nickNameLabel.text = [itemData objectForKey:@"uname"];
+    
     cell.locationLabel.text = [itemData objectForKey:@"city"];
     NSString *iconUrl = [itemData objectForKey:@"avatar"];
     if(iconUrl == nil||[iconUrl isEqualToString:@""])

@@ -14,4 +14,7 @@
 +(id)getSingleTone;
 -(NSString*)startAnRequestByKey:(NSString*)requestKey withParam:(NSDictionary*)params withMethod:(NSString*)method;
 -(NSString*)startAnRequestByResKey:(NSString*)resKey needLogIn:(BOOL)needLogin withParam:(NSDictionary*)params withMethod:(NSString*)method;
+
+-(id)startAnRequestByResKey:(NSString*)resKey needLogIn:(BOOL)needLogin withParam:(NSDictionary*)params withMethod:(NSString*)method withData:(BOOL)hasData;
+-(id)startAnRequestByResKey:(NSString*)resKey needLogIn:(BOOL)needLogin withParam:(NSDictionary*)params withMethod:(NSString*)method withData:(BOOL)hasData withFileName:(NSString*)fileName;
 @end

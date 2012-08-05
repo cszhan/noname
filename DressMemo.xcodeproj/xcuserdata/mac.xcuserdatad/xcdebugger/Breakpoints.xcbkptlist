@@ -33,19 +33,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DressMemo/UIViewController/Cell/MessageTableViewCell.m"
-         timestampString = "365327615.627176"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "118"
-         endingLineNumber = "118"
-         landmarkName = "-layoutSubviews"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "DressMemo/UIViewController/UITableViewBase/NTESMBTweetieTableView.m"
          timestampString = "365356055.332528"
          startingColumnNumber = "9223372036854775807"
@@ -59,13 +46,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "DressMemo/Me/UserInforEditViewController.m"
-         timestampString = "365617417.670805"
+         filePath = "DressMemo/UIViewController/MyProfileViewController.m"
+         timestampString = "365774386.931677"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "132"
-         endingLineNumber = "132"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "661"
+         endingLineNumber = "661"
+         landmarkName = "-relationButtonAction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "DressMemo/UIViewController/MyProfileViewController.m"
+         timestampString = "365774494.477578"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "656"
+         endingLineNumber = "656"
+         landmarkName = "-relationButtonAction:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

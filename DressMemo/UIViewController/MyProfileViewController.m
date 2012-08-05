@@ -22,6 +22,7 @@
 #import "FollowedViewController.h"
 #import "FollowingViewController.h"
 #import "MesssageBoxViewController.h"
+#import "DBManage.h"
 
 #import "TDBadgedCell.h"
 
@@ -466,13 +467,32 @@ static NSString *iconTextArr[]=
         [self.leftBtn addSubview:msgView];
     }
     //for localiton
+#if 0
     self.userLocaltionLabel.text = [self.userData objectForKey:@"city"];
-    if(![self.userLocaltionLabel.text isEqualToString:@""])
+    if(![self.userLocaltionLabel.text isEqualToString:@"0"])
     {
         self.userLocaltionLabel.hidden = NO;
         self.locationTagBtn.hidden = NO;
     }
+#endif
+    [self setUserCityData];
     //self.userDiscriptionTextView  = nil;
+}
+-(void)setUserCityData
+{
+    DBManage *dbMgr = [DBManage getSingleTone];
+    if(self.userData)
+    {
+        NSDictionary *citData = [dbMgr getCityNameById:[self.userData objectForKey:@"city"] proviceId:[self.userData objectForKey:@"prov"]];
+        if([citData objectForKey:@"prov"]&&[citData objectForKey:@"city"])
+        {
+            self.userLocaltionLabel.text = [citData objectForKey:@"city"];
+            self.userLocaltionLabel.hidden = NO;
+            self.locationTagBtn.hidden = NO;
+            
+        }
+    }
+    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -511,17 +531,6 @@ static NSString *iconTextArr[]=
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)doFollowUser
-{
-    for(int i = 0;i<16;i++)
-    {
-        NSString *uid =  [[NSString  alloc ]initWithFormat:@"%d",i];
-        ZCSNetClientDataMgr *netMgr = [ZCSNetClientDataMgr getSingleTone];
-        NSDictionary *param = [NSDictionary dictionaryWithObject:uid forKey:@"fuid"];
-        [netMgr followUser:param];
-    
-    }
-}
 #pragma mark -
 #pragma mark user infor edit touch event
 -(void)didTouchEditUserInfoBtn:(id)sender

@@ -11,4 +11,6 @@
 @interface UISimpleNetBaseViewController : UIBaseViewController
 @property(nonatomic,assign)id request;
 @property(nonatomic,assign)BOOL   isVisitOther;
+@property(nonatomic,assign)NSInteger currentPageNum;
+@property(nonatomic,retain)NSDictionary *data;
 @end

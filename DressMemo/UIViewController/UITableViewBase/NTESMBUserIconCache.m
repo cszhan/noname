@@ -19,7 +19,8 @@ static NTESMBUserIconCache *instance = nil;
 @synthesize statusImageDefault;
 + (NTESMBUserIconCache *) getInstance
 {
-	@synchronized(self){
+	@synchronized(self)
+    {
 		if (instance == nil)
 		{
 			instance = [[NTESMBUserIconCache alloc] init];
@@ -45,7 +46,8 @@ static NTESMBUserIconCache *instance = nil;
 	[cache removeObjectForKey:userModel.screenName];
 }
 
-- (BOOL) hasCacheWithUserModel:(NTESMBUserModel *)userModel{
+- (BOOL) hasCacheWithUserModel:(NTESMBUserModel *)userModel
+{
 	return [cache objectForKey:userModel.screenName]!=nil;
 }
 - (BOOL) hasCacheWithUserImageKey:(NSString*)userImagekey{
@@ -79,7 +81,8 @@ static NTESMBUserIconCache *instance = nil;
 		NE_LOG(@"[cache:not hit][db:hit][%@]",userModel.screenName);
 #endif
 		[cache setObject:image forKey:userModel.screenName];
-	}else {
+	}else
+    {
 #ifdef DEBUG
 		NE_LOG(@"[cache:hit]");
 #endif
@@ -87,7 +90,8 @@ static NTESMBUserIconCache *instance = nil;
 	return image;
 }
 #if 0
--(UIImage*)getImageWithStatusModel:(NTESMBStatusModel *)status{
+-(UIImage*)getImageWithStatusModel:(NTESMBStatusModel *)status
+{
 	NSString *imageURLString = [status getStatusTinyImageUrl];
 	//NSString *imageFilePath = [self imageFilePath:imageURLString];
 	NSString *rootImageURLString = [status getRootTinyImageUrl];

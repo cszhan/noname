@@ -9,6 +9,7 @@
 #import "UIBaseViewController.h"
 #import "NTESMBTweetieTableView.h"
 #import "NTESMBServer.h"
+#import "ZCSNetClientDataMgr.h"
 //#import ""
 #define LOADING_VIEW
 #ifdef LOADING_VIEW
@@ -40,6 +41,7 @@
 @property(nonatomic,assign)BOOL   isVisitOther;
 @property(nonatomic,retain)NSString *userId;
 @property(nonatomic,retain)NSMutableArray *dataArray;
+@property(nonatomic,retain)NSDictionary *data;
 @property(nonatomic,assign)id request;
 @property(nonatomic, assign) BOOL isRefreshing;
 @property(nonatomic,assign)id<MemoTimelineDataSource> memoTimelineDataSource;

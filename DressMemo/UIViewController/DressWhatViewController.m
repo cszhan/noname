@@ -11,6 +11,7 @@
 #import "MemoDescriptionViewController.h"
 #import "TagChooseBrandViewController.h"
 #import "PhotoUploadProcess.h"
+#import "ZCSNetClientDataMgr.h"
 //for test only
 #import "LoginViewController.h"
 #import "LoginAndResignMainViewController.h"
@@ -37,6 +38,7 @@
     [super viewDidLoad];
     tweetieTableView.hasDownDragEffect = YES;
     [self initSubViews];
+    //[self doFollowUser];
     //[self startLoadNetData];
 	// Do any additional setup after loading the view.
 }
@@ -60,6 +62,7 @@
     [self.view insertSubview:navBarBGView aboveSubview:tweetieTableView];
     [navBarBGView release];
     
+   
     [self.view bringSubviewToFront:mainView.topBarView];
     
 }
@@ -213,6 +216,17 @@
 #endif
 
         }
+    }
+}
+- (void)doFollowUser
+{
+    for(int i = 0;i<20;i++)
+    {
+        NSString *uid =  [[NSString  alloc ]initWithFormat:@"%d",i];
+        ZCSNetClientDataMgr *netMgr = [ZCSNetClientDataMgr getSingleTone];
+        NSDictionary *param = [NSDictionary dictionaryWithObject:uid forKey:@"fuid"];
+        [netMgr followUser:param];
+        
     }
 }
 @end

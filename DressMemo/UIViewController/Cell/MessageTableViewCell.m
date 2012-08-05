@@ -91,13 +91,31 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    NSString *nickName = [self.msgData objectForKey:@"fname"];//self.nickNameBtn.titleLabel.text;
+    NSString *nickName = @"";//[self.msgData objectForKey:@"fname"];//self.nickNameBtn.titleLabel.text;
     switch (self.cellType)
     {
+        case MessageCell_Like:
+        {
+             nickName = [self.msgData objectForKey:@"uname"];
+            self.cellTypeIndicator.hidden = YES;
+            CGFloat width = 0.f;
+            CGSize size = [NTESMBUtility getSizeForText:nickName font:kAppTextSystemFont(kCellNickNameFontSize)];
+            CGSize sizeIndictor = [NTESMBUtility getSizeForText:kFollowText font:kAppTextSystemFont(kCellNickNameFontSize)];
+            width = size.width;
+            if(kUserImageIconPendingX*2+size.width +sizeIndictor.width>kDeviceScreenWidth)
+            {
+                width = kDeviceScreenWidth-kUserImageIconPendingX*2-sizeIndictor.width;
+            }
+            [self.nickNameBtn setTitle:nickName forState:UIControlStateNormal];
+            self.nickNameBtn.frame = CGRectMake(kCellContentStartX,kUserImageIconPendingY,width,size.height);
+            
+            self.timeLabel.frame = CGRectMake(kCellContentStartX,kUserImageIconPendingY+kUserImageIconW-kCellTimeFontSize,250.f,kCellTimeFontSize);
+            break;
+        }
         case MessageCell_Follow:
         {
-            //NSString *nickName = [self.msgData objectForKey:@"fname"];
-           
+            nickName = [self.msgData objectForKey:@"fname"];
+            
             CGFloat width = 0.f;
             CGSize size = [NTESMBUtility getSizeForText:nickName font:kAppTextSystemFont(kCellNickNameFontSize)];
             CGSize sizeIndictor = [NTESMBUtility getSizeForText:kFollowText font:kAppTextSystemFont(kCellNickNameFontSize)];

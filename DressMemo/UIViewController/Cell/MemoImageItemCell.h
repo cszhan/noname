@@ -20,4 +20,5 @@
 @property(nonatomic,retain)IBOutlet UIButton *imageTimeTitleBtn2;
 @property(nonatomic,retain)NSIndexPath *indexPath;
 @property(nonatomic,assign)id delegate;
+-(void)showCellItemWithNum:(NSInteger)num;
 @end

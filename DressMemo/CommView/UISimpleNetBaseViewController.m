@@ -15,12 +15,20 @@
 @implementation UISimpleNetBaseViewController
 @synthesize request;
 @synthesize isVisitOther;
+@synthesize data;
+@synthesize currentPageNum;
+-(void)dealloc
+{
+    self.data = nil;
+    [super dealloc];
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) 
     {
         // Custom initialization
+        currentPageNum = 0;
     }
     return self;
 }

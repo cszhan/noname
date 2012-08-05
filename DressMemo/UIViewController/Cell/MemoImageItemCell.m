@@ -41,7 +41,7 @@
 
     self.imageItemBtn0.tag = 0;
     self.imageItemBtn1.tag = 1;
-    self.imageItemBtn0.tag = 2;
+    self.imageItemBtn2.tag = 2;
     [self.imageItemBtn0  addTarget:self action:@selector(didTouchItem:) forControlEvents:UIControlEventTouchUpInside];
      [self.imageItemBtn1  addTarget:self action:@selector(didTouchItem:) forControlEvents:UIControlEventTouchUpInside];
      [self.imageItemBtn2  addTarget:self action:@selector(didTouchItem:) forControlEvents:UIControlEventTouchUpInside];
@@ -68,5 +68,33 @@
     {
         [delegate didTouchItemCell:self subItem:sender];
     }
+}
+-(void)showAllCellItem
+{
+    self.imageItemBtn0.hidden = NO;
+    self.imageItemBtn1.hidden = NO;
+    self.imageItemBtn2.hidden = YES;
+}
+-(void)showCellItemWithNum:(NSInteger)num{
+    switch (num) {
+        case 1:
+            self.imageItemBtn0.hidden = NO;
+            self.imageItemBtn1.hidden = YES;
+            self.imageItemBtn2.hidden = YES;
+            break;
+        case 2:
+            self.imageItemBtn0.hidden = NO;
+            self.imageItemBtn1.hidden = NO;
+            self.imageItemBtn2.hidden = YES;
+            break;
+        case 3:
+            self.imageItemBtn0.hidden = NO;
+            self.imageItemBtn1.hidden = NO;
+            self.imageItemBtn2.hidden = NO;
+            break;
+        default:
+            break;
+    }
+    
 }
 @end

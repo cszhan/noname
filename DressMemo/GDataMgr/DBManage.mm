@@ -174,6 +174,18 @@ static DBManage *sharedInstance = nil;
    
     return value;
 }
+-(NSDictionary*)getCityNameById:(NSString *)cityId proviceId:(NSString*)provId
+{
+    //DBManage *dbMgr = [DBManage getSingleTone];
+    NSMutableDictionary *cityDict = [NSMutableDictionary dictionary];
+    NSDictionary *provinceData = [self getTagDataByIdRaw:@"getCountries"];
+    //[self.alldataDict objectForKey:@"getCountries"];
+    NSDictionary*proviceItem = [provinceData objectForKey:provId];
+    [cityDict setValue:[proviceItem objectForKey:@"district"] forKey:@"prov"];
+    NSDictionary *cityDta = [proviceItem objectForKey:@"sub"];
+    [cityDict setValue:[[cityDta objectForKey:cityId]objectForKey:@"district"] forKey:@"city"];
+    return cityDict;
+}
 //use for client to server map
 - (id)getTagDataById:(NSString*)lrcKey
 {

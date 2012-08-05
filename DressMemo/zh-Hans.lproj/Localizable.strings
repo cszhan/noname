@@ -57,7 +57,7 @@
 "Invite Friends" = "邀请好友";
 
 
-"You following %d users" = "您有%d个粉丝";
+"You following %d users" = "您关注了%d个用户";
 //You   %d users
 "You have %d followed" = "有%d个人关注了您";
 
@@ -69,6 +69,7 @@
 "Favarator"= "喜欢";
 "Followed"= "粉丝";
 "Following" = "关注";
+"Like" = "喜欢";
 
 "My Dress"  = "我的穿着";
 "My Favarator" ="我的收藏";

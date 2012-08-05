@@ -129,7 +129,28 @@
     
     UIPickViewDataSourceBase    *tempDataSource = [[UIPickViewDataSourceBase alloc]initWithData:self.data];
     
-    NSString *key = [self.userData objectForKey:@"prov"];
+    //for selector sub class
+    self.city = [self.userData objectForKey:@"city"]; //[self.srcData objectAtIndex:0];
+    
+    //for selector top class
+    self.province = [self.userData objectForKey:@"prov"];
+    
+    if(![self.province isEqualToString:@"0"]&&![self.city isEqualToString:@"0"])
+    {
+        
+        DBManage *dbMgr = [DBManage getSingleTone];
+        NSDictionary *provinceData = [dbMgr getTagDataByIdRaw:@"getCountries"];
+        //[self.alldataDict objectForKey:@"getCountries"];
+        NSDictionary*proviceItem = [provinceData objectForKey:self.province];
+        self.province = [proviceItem objectForKey:@"district"];
+        NSDictionary *cityDta =  [proviceItem objectForKey:@"sub"];
+        
+        self.city = [[cityDta objectForKey:city]objectForKey:@"district"];
+       
+        
+    }
+    
+    NSString *key = self.province;
     
     if([key isEqualToString:@"0"])
     {
@@ -149,27 +170,7 @@
     classPickView.showsSelectionIndicator = YES;
     classPickView.dataSource = pickDataSource;
     
-    
-    //for selector sub class
-    self.city = [self.userData objectForKey:@"city"]; //[self.srcData objectAtIndex:0];
-    
-    //for selector top class
-    self.province = [self.userData objectForKey:@"prov"];
-    
-    if(![self.province isEqualToString:@"0"]&&![self.city isEqualToString:@"0"])
-    {
-        
-        DBManage *dbMgr = [DBManage getSingleTone];
-        NSDictionary *provinceData = [dbMgr getTagDataByIdRaw:@"getCountries"];
-        //[self.alldataDict objectForKey:@"getCountries"];
-        NSDictionary*proviceItem = [provinceData objectForKey:self.province];
-        self.province = [proviceItem objectForKey:@"district"];
-        NSDictionary *cityDta =  [proviceItem objectForKey:@"sub"];
-        
-        self.city = [[cityDta objectForKey:city]objectForKey:@"district"];
-       
-    }
-    
+
     if([self.city isEqualToString:@"0"])
     {
         [classPickView selectRow:0 inComponent:1 animated:NO];
@@ -269,12 +270,14 @@
             firstCell.nickNameTextField.textColor = kUserIconBtnTextColor;
             firstCell.nickNameTextField.returnKeyType = UIReturnKeyNext;
             firstCell.nickNameTextField.delegate = self;
+            firstCell.nickNameTextField.userInteractionEnabled = NO;
             firstCell.locationTextField.textColor = kUserIconBtnTextColor;
             firstCell.nickNameTextField.text = [self.userData objectForKey:@"uname"];
             
             if(![self.city isEqualToString:@"0"])
             {
                 [firstCell.cityBtn setTitle:self.city forState:UIControlStateNormal];
+                [firstCell.cityBtn setTitleColor:kUserIconBtnTextColor forState:UIControlStateNormal];
             }
             self.classBtn = firstCell.cityBtn;
             [firstCell.cityBtn addTarget:self action:@selector(didSelectorClassBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -343,12 +346,14 @@
         [resetPwdVc release];
     }
 }
+#pragma mark textview
 - (void)textViewDidBeginEditing:(UITextView*)textView
 {
     UITableViewCell *cellView = [logInfo cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     CGRect rect = [cellView frame];
     NE_LOGRECT(rect);
     [bgScrollerView scrollRectToVisible:rect animated:YES];
+    classPickView.hidden = YES;
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if([text isEqualToString:@"\n"])
@@ -501,16 +506,25 @@
     {
         NSString *key = [self.data objectAtIndex:row];
         //[self.tempDict setValue:key forKey:@"Cats1"];
+        self.province = key;
         self.subData = [self  getSubDataByKey:key];
-        
         [pickDataSource setSubData:self.subData];
         [pickerView  reloadComponent:1];
+        int cityIndex = [self.classPickView selectedRowInComponent:1];
+       // self.province = [self.data objectAtIndex:cityIndex];
+        NSString *selText = [self.subData objectAtIndex:cityIndex];
+        self.city = selText;
+        [classBtn setTitle:selText forState:UIControlStateNormal];
+        [classBtn setTitleColor:kUserIconBtnTextColor forState:UIControlStateNormal];
     }
     if(component == 1)
     {
         
-        NSString *selText = [self.subData objectAtIndex:row];
+        int provIndex = [self.classPickView selectedRowInComponent:0];
+        self.province = [self.data objectAtIndex:provIndex];
         
+        NSString *selText = [self.subData objectAtIndex:row];
+        self.city = selText;
         [classBtn setTitle:selText forState:UIControlStateNormal];
         [classBtn setTitleColor:kUserIconBtnTextColor forState:UIControlStateNormal];
         
@@ -637,7 +651,24 @@
         
     }
     [self.postData setValue:cell.nickNameTextField.text forKey:@"unname"];
-    [self.postData setValue:cell.locationTextField.text forKey:@"city"];
+    NSString *cityValueId = @"0";
+    NSString *provValueId = @"0";
+    //if(![self.province isEqualToString:@"0"]){
+    NSDictionary *provinceItem = [classAllData objectForKey:self.province];
+    if(provinceItem)
+    {
+       provValueId = [provinceItem objectForKey:@"districtid"];
+    }
+    NSDictionary*secondCityData = [[classAllData objectForKey:self.province]objectForKey:@"sub"];
+    if(secondCityData)
+    {
+        NSDictionary *cityItem = [secondCityData objectForKey:self.classBtn.titleLabel.text];
+        cityValueId = [cityItem objectForKey:@"districtid"];
+    }
+    
+    [self.postData setValue:provValueId forKey:@"prov"];
+    [self.postData setValue:cityValueId forKey:@"city"];
+    
     UITextViewInputCell *desCell = (UITextViewInputCell*)[logInfo  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     [self.postData setValue:desCell.inputTextView.text forKey:@"desc"];
     return YES;
@@ -676,7 +707,8 @@
     if([resKey isEqualToString:@"update"])
     {
        
-        [SVProgressHUD dismissWithStatus:NSLocalizedString(@"资料已更新",@"") error:NO];
+        kNetEndSuccStr(NSLocalizedString(@"资料已更新",@""),self.view);
+        //[SVProgressHUD dismissWithSuccess:NSLocalizedString(@"资料已更新",@"")];
         [self.navigationController popViewControllerAnimated:NO];
     }
     

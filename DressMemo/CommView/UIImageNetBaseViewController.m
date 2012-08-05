@@ -19,6 +19,7 @@
 @synthesize isVisitOther;
 @synthesize userId;
 @synthesize requestDict;
+@synthesize data;
 #ifdef LOADING_VIEW
 @synthesize animationView;
 #endif
@@ -32,6 +33,7 @@
         allIconDownloaders = [[NSMutableDictionary alloc] init];
         self.dataArray =[NSMutableArray array];
         self.requestDict = [[NSMutableDictionary alloc]init];
+        currentPageNum = 1;
     }
     return self;
 }
@@ -42,6 +44,7 @@
 	[allIconDownloaders release];
     self.requestDict = nil;
     self.dataArray = nil;
+    self.data = nil;
 	[super dealloc];
 }                     
 - (void)addObservers
@@ -364,5 +367,8 @@
 -(void)didRequestFailed:(NSNotification*)ntf
 {
     [self stopShowLoadingView];
+}
+-(void)didUserLogin:(NSNotification*)ntf{
+
 }
 @end

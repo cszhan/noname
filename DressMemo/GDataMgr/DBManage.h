@@ -26,6 +26,8 @@
 -(BOOL)saveUserImageTolocalPath:(UIImage*)imageData withFileName:(NSString*)fileName;
 - (void)saveImageTagDataById:(NSString*)key withData:(id)data;
 
+-(id)getTagDataByIdRaw:(NSString *)lrcKey;
+-(NSDictionary*)getCityNameById:(NSString *)cityId proviceId:(NSString*)provId;
 
 
 -(UIImage*)getItemCellUserIconImageDefault;

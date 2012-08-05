@@ -317,7 +317,7 @@ return [dressMemoInterfaceMgr startAnRequestByResKey:@"getuser"
 -(id)userInforUpdate:(NSDictionary*)param
 {
     BOOL isHasData = NO;
-    if([param objectForKey:@"avatar"])
+    if([[param objectForKey:@"avatar"]isKindOfClass:[UIImage class]])
     {
         
         isHasData  = YES;
@@ -360,15 +360,107 @@ return [dressMemoInterfaceMgr startAnRequestByResKey:@"getuser"
     return request;
 
 }
-#pragma mark -
-#pragma mark msg
--(id)getMessageList:(NSDictionary*)param{
-    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getnotifies" 
+-(id)getFavorMemoUsers:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getfavorusers"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"GET"
+                                                      withData:NO];
+    return request;
+
+}
+-(id)getMemoDetail:(NSDictionary*)param
+{
+  /*
+   * getMemos
+   */
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getmemo"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"GET"
+                                                      withData:NO];
+    return request;
+}
+/*
+ * @"/favor/dofavor",          @"dofavor",
+ @"/favor/docancel",          @"dofavorCancel",
+ */
+-(id)doFavorMemo:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"dofavor"
                                                      needLogIn:YES
                                                      withParam:param
                                                     withMethod:@"POST"
                                                       withData:NO];
     return request;
+
+}
+-(id)unDoFavorMemo:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"dofavorCancel"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"POST"
+                                                      withData:NO];
+    return request;
+    
+}
+#pragma mark -
+#pragma mark comment
+/*
+ @"/comment/addcomment",@"addcomment",
+ @"/comment/addreply",@"addreply",
+ @"/comment/getmemocomments",@"getmemocomments",
+ */
+-(id)getMemoComments:(NSDictionary*)param
+{
+    
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getmemocomments"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"GET"
+                                                      withData:NO];
+    return request;
+}
+-(id)addMemoComment:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"addcomment"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"POST"
+                                                      withData:NO];
+    return request;
+
+    
+}
+-(id)addCommentReply:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"addreply"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"POST"
+                                                      withData:NO];
+    return request;
+
+
+}
+#pragma mark -
+#pragma mark msg
+-(id)getMessageList:(NSDictionary*)param
+{
+    id request = [dressMemoInterfaceMgr startAnRequestByResKey:@"getnotifies"
+                                                     needLogIn:YES
+                                                     withParam:param
+                                                    withMethod:@"POST"
+                                                      withData:NO];
+    return request;
+
+
+}
+-(id)getMSGNotify:(NSDictionary*)param
+{
+
 
 
 }

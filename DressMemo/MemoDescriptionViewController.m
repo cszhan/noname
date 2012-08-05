@@ -259,6 +259,7 @@
      @"getCountries",
      */
     despTextView.placeholder = NSLocalizedString(@"Description", @"");
+    self.despTextView.text = @"";
     UIImageWithFileName(bgImage, @"inputboxL.png");
 #if 1
     UIEdgeInsets resizeEdgeInset = UIEdgeInsetsMake(12.f,12.f,12.f,12.f);
@@ -312,7 +313,7 @@
     [self setButtonAttribute:senceBtn];
     NSString *userId= [AppSetting getLoginUserId];
     NSDictionary *userData = [AppSetting getLoginUserInfo:userId];
-    if(userData)
+    if(userData&&!isFromViewUnload)
     {
 #if 1
         self.province = [userData objectForKey:@"prov"];
@@ -421,7 +422,15 @@
     NSString *selText = @"";
     if(classBtn == AddressBtn)
     {
+        int provIndex = [self.pickerView selectedRowInComponent:0];
+        self.province = [self.data objectAtIndex:provIndex];
+        //[self.tempDict setValue:key forKey:@"Cats1"];
+        NSDictionary *allSubCityData = [alldataDict objectForKey:@"getCountries"];
+        self.subCityData = [self  getSubData:allSubCityData byKey:self.province];
+        //[pickDataSource setSubData:self.subData];
+        //[pickerView  reloadComponent:1];
         selText = [self.subCityData objectAtIndex:row];
+        self.city = selText;
     }
     else
     {
@@ -434,6 +443,10 @@
 {
     //[preSelectBtn setTitle:selText forState:UIControlStateNormal];
     int selectIndex = [pickerView selectedRowInComponent:0];
+    if([pickerView numberOfComponents]==2)
+    {
+        selectIndex = [pickerView selectedRowInComponent:1];
+    }
     [self setPickerViewBtnStatus:preSelectBtn withIndex:selectIndex];
 }
 -(IBAction)didTouchButton:(id)sender
@@ -450,6 +463,7 @@
     }
     NSInteger index = [sender tag];
     int provIndex = 0;
+    int cityIndex = 0;
     switch (index) 
     {
         case 0:
@@ -461,13 +475,26 @@
                 for( provIndex = 0;provIndex<[data count];provIndex++)
                 {
                 
-                    if([[data objectAtIndex:provIndex] isEqualToString:self.province]){
+                    if([[data objectAtIndex:provIndex] isEqualToString:self.province])
+                    {
                         break;
                     }
                 }
                 
                 NSDictionary *allSubCityData = [alldataDict objectForKey:@"getCountries"];
                 self.subCityData = [self  getSubData:allSubCityData byKey:self.province];
+            }
+            if(self.city && ![self.city isEqualToString:@"0"])
+            {
+                for( cityIndex = 0;cityIndex<[subCityData count];cityIndex++)
+                {
+                    
+                    if([[self.subCityData objectAtIndex:cityIndex]isEqualToString:self.city])
+                    {
+                        break;
+                    }
+                }
+            
             }
             /*
             else
@@ -518,6 +545,7 @@
     if(classBtn == AddressBtn)
     {
         [pickerView selectRow:provIndex inComponent:0 animated:NO];
+        [pickerView selectRow:cityIndex inComponent:1 animated:NO];
     }
    
     [self showPickView:YES];
@@ -659,7 +687,7 @@
             break;
     }
 #endif
-    if(classBtn == AddressBtn && component ==0)
+    if(classBtn == AddressBtn&&component ==0)
     {
         self.province = [self.data objectAtIndex:row];
         //[self.tempDict setValue:key forKey:@"Cats1"];
@@ -667,6 +695,8 @@
         self.subCityData = [self  getSubData:allSubCityData byKey:self.province];
         //[pickDataSource setSubData:self.subData];
         [pickerView  reloadComponent:1];
+        int cityIndex = [pickerView selectedRowInComponent:1];
+        [self setPickerViewBtnStatus:classBtn withIndex:cityIndex];
         return ;
     }
     [self setPickerViewBtnStatus:classBtn withIndex:row];
@@ -707,19 +737,48 @@
                                   self.despTextView.text,           @"desc",
                                   nil];
             
-            NSString *countryValue = nil;
+            NSString *provValueId = @"0";
+            NSString *cityValueId = @"0";
             NSDictionary *provinceData = [self.alldataDict objectForKey:@"getCountries"];
-            NSDictionary*secondCityData = [provinceData objectForKey:self.province];
-            countryValue = [secondCityData objectForKey:self.AddressBtn.titleLabel.text];
-            NSString *senceValue = [[self.alldataDict objectForKey:@"getOccasions"] objectForKey:self.senceBtn.titleLabel.text];
-            NSString *motionValue = [[self.alldataDict objectForKey:@"getEmotions"] objectForKey:self.motionBtn.titleLabel.text];
+            NSDictionary*provinceItem = [provinceData objectForKey:self.province];
+            if(provinceItem)
+            {
+                provValueId = [provinceItem objectForKey:@"districtid"];
+            }
+            NSDictionary*secondCityData = [provinceItem objectForKey:@"sub"];
+            if(secondCityData)
+            {
+                NSDictionary *cityItem = [secondCityData objectForKey:self.AddressBtn.titleLabel.text];
+                cityValueId = [cityItem objectForKey:@"districtid"];
+            }
             
+            NSString *senceValue = [[self.alldataDict objectForKey:@"getOccasions"] objectForKey:self.senceBtn.titleLabel.text];
+            if(senceValue==nil)
+            {
+                senceValue = @"0";
+            }
+            NSString *motionValue = [[self.alldataDict objectForKey:@"getEmotions"] objectForKey:self.motionBtn.titleLabel.text];
+            if(motionValue==nil)
+            {
+                motionValue = @"0";
+            }
+            NSString *despValue =  self.despTextView.text;
+            if(despValue == nil)
+            {
+                despValue = @"";
+            }
+            NSString *addressValue = self.subAddressTextFied.text;
+            if(addressValue == nil)
+            {
+                addressValue = @"";
+            }
             NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  subAddressTextFied.text,@"location",
-                                  countryValue,@"countryid",
+                                  addressValue,@"location",
+                                  cityValueId,@"city",
+                                  provValueId,@"prov",
                                   senceValue,@"occasionid",
                                   motionValue,@"emotionid",
-                                  self.despTextView.text,@"desc",
+                                  despValue,@"desc",
                                   nil];
             
             PhotoUploadProcess *tagVc = [[PhotoUploadProcess alloc]initWithNibName:nil bundle:nil];

@@ -19,6 +19,14 @@
 /*memos*/
 -(id)getPostMemos:(NSDictionary*)param;
 -(id)getFavMemos:(NSDictionary*)param;
+-(id)getFavorMemoUsers:(NSDictionary*)param;
+-(id)getMemoDetail:(NSDictionary*)param;
+-(id)doFavorMemo:(NSDictionary*)param;
+-(id)unDoFavorMemo:(NSDictionary*)param;
+/*comment*/
+-(id)getMemoComments:(NSDictionary*)param;
+-(id)addMemoComment:(NSDictionary*)param;
+-(id)addCommentReply:(NSDictionary*)param;
 /*msg*/
 -(id)getMessageList:(NSDictionary*)param;
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FriendItemCell.h"
 typedef enum MessageCell_Type{
+    MessageCell_Like = -1,
 	MessageCell_Follow = 0,
 	MessageCell_Comment,
     MessageCell_ReComment,

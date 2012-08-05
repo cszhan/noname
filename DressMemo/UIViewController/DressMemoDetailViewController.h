@@ -6,8 +6,7 @@
 //
 //
 
-#import "UIBaseViewController.h"
+#import "UIImageNetBaseViewController.h"
 
-@interface DressMemoDetailViewController : UIBaseViewController
-
+@interface DressMemoDetailViewController : UIImageNetBaseViewController
 @end

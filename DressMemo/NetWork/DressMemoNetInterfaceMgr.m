@@ -83,18 +83,28 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
                                @"/follow/getfollows",   @"getfollows",
                                @"/follow/getfollowbys", @"getfollowbys",
                                
-                               @"/memo/add",           @"add",
+                               
                                
                                @"/util/getOccasions",  @"getOccasions",
                                @"/util/getEmotions",   @"getEmotions",
                                @"/util/getdistricts",  @"getCountries",
                                @"/util/getCats",       @"getCats",
                                
+                               @"/memo/add",           @"add",
                                @"/memo/uploadpic",     @"uploadpic",
-                               
                                @"/memo/getList",      @"getmemos",
+                               @"/memo/getmemo",       @"getmemo",
+                              // @"/memo/getmemo" ,       @"getmemo"
                                
                                @"/favor/getfavorlist",    @"getmemobys",
+                               @"/favor/dofavor",          @"dofavor",
+                               @"/favor/docancel",          @"dofavorCancel",
+                               @"/favor/getfavorusers",     @"getfavorusers",
+                               
+                               @"/comment/addcomment",@"addcomment",
+                               @"/comment/addreply",@"addreply",
+                               @"/comment/getmemocomments",@"getmemocomments",
+                               
                                
                                 @"/notify/getnotifies",@"getnotifies",
                                nil];

@@ -45,7 +45,9 @@
 
 #define kNetStartShow(x,y) [SVProgressHUD showWithStatus:x networkIndicator:YES]; [[SVProgressHUD sharedView]setCenter:y.center];y.userInteractionEnabled = NO
 #define kNetEnd(y)  [SVProgressHUD dismiss];y.userInteractionEnabled = YES
+#define kNetEndSuccStr(x,y) [SVProgressHUD dismissWithSuccess:x];y.userInteractionEnabled = YES
 
+#define kItemCellCount  3
 
 #endif
 

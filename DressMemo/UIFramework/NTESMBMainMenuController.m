@@ -88,7 +88,7 @@ BOOL isFromLowMemory = NO;
     if(topBarViewNavItemArr==nil)
        topBarViewNavItemArr = [[NSMutableArray alloc]init];
 	gnavViewController = self.navigationController;
-	NE_LOG(@"%x",gnavViewController);
+	//NE_LOG(@"%x",gnavViewController);
     if(isFromLowMemory && 0)
     {
         self.view = [self retriveArchiveData];
