@@ -62,6 +62,9 @@
 		0419CEA315BF0135007B9255 /* NSDate+Ex.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A8B82115B6A72500FBB5AB /* NSDate+Ex.m */; };
 		0419CEA715BF0465007B9255 /* MesssageBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419CEA615BF0465007B9255 /* MesssageBoxViewController.m */; };
 		041C36C715CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C36C615CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m */; };
+		0430B8A315CE997100E080A2 /* DataParserEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430B8A215CE997100E080A2 /* DataParserEngine.m */; };
+		0430B8A615CE9CDE00E080A2 /* NTESMBDecodeJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430B8A515CE9C2800E080A2 /* NTESMBDecodeJSONOperation.m */; };
+		0430B8A715CE9FCD00E080A2 /* DressMemoDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430B89C15CE801700E080A2 /* DressMemoDetailDataModel.m */; };
 		0436226215C0F11E0071B528 /* FriendItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436226115C0F11E0071B528 /* FriendItemCell.xib */; };
 		0436226515C0F1490071B528 /* FriendItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436226415C0F1490071B528 /* FriendItemCell.m */; };
 		04370CCE159B6684005EA66B /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04370CCD159B6684005EA66B /* libz.1.2.5.dylib */; };
@@ -361,6 +364,12 @@
 		0419CEA615BF0465007B9255 /* MesssageBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MesssageBoxViewController.m; path = ../UIViewController/MesssageBoxViewController.m; sourceTree = "<group>"; };
 		041C36C515CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICityPickerViewDataSourceBase.h; sourceTree = "<group>"; };
 		041C36C615CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICityPickerViewDataSourceBase.m; sourceTree = "<group>"; };
+		0430B89B15CE801700E080A2 /* DressMemoDetailDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DressMemoDetailDataModel.h; path = ../../../../../../../Downloads/DressMemoDetailDataModel.h; sourceTree = "<group>"; };
+		0430B89C15CE801700E080A2 /* DressMemoDetailDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DressMemoDetailDataModel.m; path = ../../../../../../../Downloads/DressMemoDetailDataModel.m; sourceTree = "<group>"; };
+		0430B8A115CE997100E080A2 /* DataParserEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataParserEngine.h; sourceTree = "<group>"; };
+		0430B8A215CE997100E080A2 /* DataParserEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataParserEngine.m; sourceTree = "<group>"; };
+		0430B8A415CE9C2800E080A2 /* NTESMBDecodeJSONOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESMBDecodeJSONOperation.h; sourceTree = "<group>"; };
+		0430B8A515CE9C2800E080A2 /* NTESMBDecodeJSONOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NTESMBDecodeJSONOperation.m; sourceTree = "<group>"; };
 		0436226115C0F11E0071B528 /* FriendItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FriendItemCell.xib; path = Cell/FriendItemCell.xib; sourceTree = "<group>"; };
 		0436226315C0F1490071B528 /* FriendItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendItemCell.h; path = Cell/FriendItemCell.h; sourceTree = "<group>"; };
 		0436226415C0F1490071B528 /* FriendItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendItemCell.m; path = Cell/FriendItemCell.m; sourceTree = "<group>"; };
@@ -726,6 +735,10 @@
 				040C33B2159FD2120082E357 /* DressClassDataSource.m */,
 				041C36C515CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.h */,
 				041C36C615CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m */,
+				0430B8A415CE9C2800E080A2 /* NTESMBDecodeJSONOperation.h */,
+				0430B8A515CE9C2800E080A2 /* NTESMBDecodeJSONOperation.m */,
+				0430B8A115CE997100E080A2 /* DataParserEngine.h */,
+				0430B8A215CE997100E080A2 /* DataParserEngine.m */,
 			);
 			path = GDataMgr;
 			sourceTree = "<group>";
@@ -1315,6 +1328,8 @@
 				04EB810E1590287100C3DBCC /* MyProfileViewController.m */,
 				04ACB6C715CD271C008776D5 /* MemoLikeUserViewController.h */,
 				04ACB6C815CD271D008776D5 /* MemoLikeUserViewController.m */,
+				0430B89B15CE801700E080A2 /* DressMemoDetailDataModel.h */,
+				0430B89C15CE801700E080A2 /* DressMemoDetailDataModel.m */,
 				040C661615C927C70049204E /* DressMemoDetailNetViewController.h */,
 				040C661715C927C70049204E /* DressMemoDetailNetViewController.m */,
 			);
@@ -1566,6 +1581,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0430B8A715CE9FCD00E080A2 /* DressMemoDetailDataModel.m in Sources */,
+				0430B8A615CE9CDE00E080A2 /* NTESMBDecodeJSONOperation.m in Sources */,
 				0419CEA215BF0135007B9255 /* NSData+Ex.m in Sources */,
 				0419CEA315BF0135007B9255 /* NSDate+Ex.m in Sources */,
 				0414027A15BE92A2003148C2 /* TDBadgedCell.m in Sources */,
@@ -1663,6 +1680,7 @@
 				040C661815C927C80049204E /* DressMemoDetailNetViewController.m in Sources */,
 				041C36C715CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m in Sources */,
 				04ACB6C915CD271E008776D5 /* MemoLikeUserViewController.m in Sources */,
+				0430B8A315CE997100E080A2 /* DataParserEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

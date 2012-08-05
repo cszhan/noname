@@ -7,6 +7,10 @@
 //
 
 #import "UIImageNetBaseViewController.h"
+#import "DressMemoDetailDataModel.h"
 
 @interface DressMemoDetailNetViewController : UIImageNetBaseViewController
+//for DressMemoCommentData dataArray;
+//for DressMemoDetailDataModel
+@property(nonatomic,retain)DressMemoDetailDataModel *memoDetailData;
 @end

@@ -10,18 +10,24 @@
 #import "ZCSNetClientDataMgr.h"
 #import "ZCSNetClient.h"
 #import "MemoLikeUserViewController.h"
+#import "DressMemoDetailDataModel.h"
 @interface DressMemoDetailNetViewController ()
 @property(nonatomic,assign)ZCSNetClient *dofavorRequest;
 @property(nonatomic,assign)ZCSNetClient *unDofavorRequest;
 @property(nonatomic,assign)ZCSNetClient *getMemoDetailRequest;
-@property(nonatomic,retain)NSDictionary *memoDetailData;
+
 @end
 
 @implementation DressMemoDetailNetViewController
 @synthesize dofavorRequest;
 @synthesize unDofavorRequest;
 @synthesize getMemoDetailRequest;
-
+@synthesize memoDetailData;
+- (void)dealloc
+{
+    self.memoDetailData = nil;
+    [super dealloc];
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -150,6 +156,7 @@
     self.getMemoDetailRequest = [netMgr getMemoDetail:param];
 
 }
+#pragma mark for comment 
 -(void)addMemoComment
 {
     ZCSNetClientDataMgr *netMgr = [ZCSNetClientDataMgr getSingleTone];
@@ -248,6 +255,7 @@
     }
     if(self.getMemoDetailRequest == respRequest)
     {
+        [self performSelectorInBackground:@selector(parserMemoDetailToModel:) withObject:data];
 
     }
     
@@ -354,7 +362,51 @@
      }
      [self.dataArray addObjectsFromArray:addData];
      */
-    [super processReturnData:data];
+    //[super processReturnData:data];
+    [self performSelectorInBackground:@selector(parserCommentJsonDataToTargetModel:) withObject:data];
+}
+#pragma mark parser comment list
+-(void)parserCommentJsonDataToTargetModel:(id)data
+{
+    NSArray *addData = nil;
+    if([data isKindOfClass:[NSDictionary class]])
+    {
+        id result = [data objectForKey:@"results"];
+        if([result isKindOfClass:[NSDictionary class]])
+        {
+            addData = [result allValues];
+        }
+        if([result  isKindOfClass:[NSArray class]])
+        {
+            addData = result;
+        }
+    }
+    else if([data isKindOfClass:[NSArray class]])
+    {
+        addData = data;
+    }
+    for(id item in addData)
+    {
+        DressMemoCommentModel *memoComentItem = [[DressMemoCommentModel alloc] initWithDictionary:item];
+        
+        [self.dataArray addObject:memoComentItem];
+        [memoComentItem release];
+    }
+    //[self.dataArray addObjectsFromArray:addData];
+
+}
+#pragma mark -
+#pragma mark parser memo detail to model
+-(void)parserMemoDetailToModel:(id)data
+{
+    //NSArray *addData = nil;
+    if([data isKindOfClass:[NSDictionary class]])
+    {
+        DressMemoDetailDataModel *memoDetail  = [[DressMemoDetailDataModel alloc]initWithDictionary:data];
+        self.memoDetailData = memoDetail;
+        [memoDetail release];
+    }
+  
 }
 -(void)didNetDataFailed:(NSNotification*)ntf
 {

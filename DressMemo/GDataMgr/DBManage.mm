@@ -178,6 +178,10 @@ static DBManage *sharedInstance = nil;
 {
     //DBManage *dbMgr = [DBManage getSingleTone];
     NSMutableDictionary *cityDict = [NSMutableDictionary dictionary];
+    if([cityId intValue] == 0&&[provId intValue]==0)
+    {
+        return nil;
+    }
     NSDictionary *provinceData = [self getTagDataByIdRaw:@"getCountries"];
     //[self.alldataDict objectForKey:@"getCountries"];
     NSDictionary*proviceItem = [provinceData objectForKey:provId];

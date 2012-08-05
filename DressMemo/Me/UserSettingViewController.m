@@ -13,7 +13,8 @@
 #import "AppSetting.h"
 #import "LoginAndResignMainViewController.h"
 
-static NSString *kSectionOneArr[] = {
+static NSString *kSectionOneArr[] =
+{
     @"点击个人信息",@"新浪微博",@"腾讯微博的绑定",
 };
 @interface UserSettingViewController ()
