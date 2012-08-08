@@ -6,11 +6,13 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIImageNetBaseViewController.h"
+#import "UIPhotoImageViewController.h"
 /*
  *
  */
-@interface DressMemoViewController : UIImageNetBaseViewController
+@interface DressMemoViewController : UIPhotoImageViewController
 @property(nonatomic,assign)BOOL isNeedReflsh;
 @property(nonatomic,assign)id request;
+
 @end
+

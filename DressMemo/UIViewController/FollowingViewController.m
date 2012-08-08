@@ -229,27 +229,35 @@ static DBManage *dbMgr = nil;
     cell.nickNameLabel.text = [itemData objectForKey:@"uname"];
     
     cell.locationLabel.text = [itemData objectForKey:@"city"];
-    NSString *iconUrl = [itemData objectForKey:@"avatar"];
-    if(iconUrl == nil||[iconUrl isEqualToString:@""])
+    
+    //NSString *iconUrl = [itemData objectForKey:@"avatar"];
+    //if(iconUrl == nil||[iconUrl isEqualToString:@""])
     {
         [cell.userIconImageView setImage:[dbMgr getItemCellUserIconImageDefault]];
     }
-    if(!self.isVisitOther)
+    //else
+    {
+        
+        [self startloadInitCell:cell  withIndexPath:indexPath];
+    }
+    //
+    if(!self.isVisitOther )
     {
         NSString *followTag = [itemData objectForKey:@"status"];
         UIImage *bgImage = nil;
         int relationTag = [followTag intValue];
-        if([followTag isEqualToString:@"1"])//followed
+        if([followTag isEqualToString:@"1"]||[followTag isEqualToString:@"0"])//followed
         {
             
             UIImageWithFileName(bgImage, @"btn-followedS.png");
             [cell.relationBtn setBackgroundImage:bgImage forState:UIControlStateNormal];
-            //cell.relationBtn.tag = relationTag
+            cell.relationBtn.tag = relationTag;
         }
-        if([followTag isEqualToString:@"0"])
+        if([followTag isEqualToString:@"2"])
         {
             UIImageWithFileName(bgImage, @"btn-followS.png");
             [cell.relationBtn setBackgroundImage:bgImage forState:UIControlStateNormal];
+            relationTag = 2;
         }
         cell.relationBtn.tag = relationTag;
         cell.relationBtn.rowIndex = indexPath.row;
@@ -258,14 +266,47 @@ static DBManage *dbMgr = nil;
     }
 
 }
+#pragma mark icon image data source
+-(NSString*)userIconNameForIndexPath:(NSIndexPath*)indexPath
+{
+    NSString *iconImageName = nil;
+    if([self.dataArray count]>indexPath.row)
+    {
+        id cellItem = [self.dataArray objectAtIndex:indexPath.row];
+        iconImageName = [cellItem objectForKey:@"avatar"];
+    }
+    return iconImageName;
+}
+-(void)setCellUserIcon:(UIImage*)iconImage withIndexPath:(NSIndexPath*)indexPath
+{
+    //NSString *iconUrl = [itemData objectForKey:@"avatar"];
+    //if(iconUrl == nil||[iconUrl isEqualToString:@""])
+    FriendItemCell *cell = (FriendItemCell*)[tweetieTableView cellForRowAtIndexPath:indexPath];
+    if(iconImage)
+    {
+        [cell.userIconImageView setImage:iconImage];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
+}
+-(void)setCell:(id)cell withImageData:(UIImage*)imageData withIndexPath:(NSIndexPath*)indexPath
+{
+    FriendItemCell *realCell = (FriendItemCell*)cell;
+    
+    if(imageData)
+    {
+        [realCell.userIconImageView setImage:imageData];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
+}
 #pragma mark follow and unfollow user action
 -(void)relationButtonAction:(id)sender{
 
     switch ([sender tag]) {
+        case 0:
         case 1:
             [self unfollowUserAction:sender];
             break;
-        case 0:
+        case 2:
             [self followUserAction:sender];
             break;
         default:
@@ -365,10 +406,10 @@ static DBManage *dbMgr = nil;
         {
             NSIndexPath *indexPath = [inputData objectForKey:@"rowIndex"];
             NSDictionary *data = [inputData objectForKey:@"rowData"];
-            [data setValue:@"0" forKey:@"status"];
+            [data setValue:@"3" forKey:@"status"];
             
             FriendItemCell *cell = [tweetieTableView  cellForRowAtIndexPath:indexPath];
-            cell.relationBtn.tag  = 0;
+            cell.relationBtn.tag  = 2;//
             UIImage *bgImage = nil;
             UIImageWithFileName(bgImage, @"btn-followS.png");
             [self setItemCell:cell withImage:bgImage withActive:NO];

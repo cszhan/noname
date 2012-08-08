@@ -87,13 +87,18 @@ static ZCSNetClientErrorMgr *sharedInstance = nil;
     //int errCode = [[resDict objectForKey:@"code"]intValue];
     NSString *key = [resDict objectForKey:@"code"];
     NSString *msg = [self.errorMap objectForKey:key];
+#if 1
     [self performSelectorOnMainThread:@selector(alertMsg:) withObject:msg waitUntilDone:NO]; //alertMsg:msg];
-    
+#endif
 }
 -(void)alertMsg:(NSString*)errMsg
 {
     //NSString *errMsg = [obj localizedDescription];
+#if 0
     UIAlertView *alertErr = [[[UIAlertView alloc]initWithTitle:@"请求错误" message:errMsg delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok",nil) otherButtonTitles:nil, nil]autorelease];
     [alertErr show];
+#else
+    kNetEndWithErrorAutoDismiss(errMsg,2);
+#endif
 }
 @end

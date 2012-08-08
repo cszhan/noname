@@ -9,10 +9,11 @@
 #import "ZCSNetClientDataMgr.h"
 #import "DressMemoNetInterfaceMgr.h"
 #import "DBManage.h"
-static NSString *tagKeyFormart[] = {@"brand[%@][]",@"x[%@][]",@"y[%@][]",@"cat1[%@][]",@"cat2[%@][]"};
+static NSString *tagKeyFormart[] = {@"brand[%@][]",@"x[%@][]",@"y[%@][]",@"bcatid[%@][]",@"scatid[%@][]"};
 
 @interface ZCSNetClientDataMgr()
 @property(nonatomic,retain)NSMutableDictionary *requestResourceDict;
+//@property(nonatomic,assign)BOOL isUserLogOut;
 @end    
 static DressMemoNetInterfaceMgr *dressMemoInterfaceMgr = nil;
 static ZCSNetClientDataMgr *zcsNetClientDataMgr = nil;

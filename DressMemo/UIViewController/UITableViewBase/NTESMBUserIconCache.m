@@ -29,7 +29,6 @@ static NTESMBUserIconCache *instance = nil;
 	}
 	return instance;
 }
-
 - (UIImage *) updateCacheWithUserModel:(NTESMBUserModel *)userModel
 {
 	UIImage *image = nil;
@@ -51,7 +50,7 @@ static NTESMBUserIconCache *instance = nil;
 	return [cache objectForKey:userModel.screenName]!=nil;
 }
 - (BOOL) hasCacheWithUserImageKey:(NSString*)userImagekey{
-    return [cache objectForKey:userImagekey];
+    return [cache objectForKey:userImagekey]!=nil;
 }
 - (UIImage *) getImageWithUserModel:(NTESMBUserModel *) userModel
 {
@@ -59,7 +58,8 @@ static NTESMBUserIconCache *instance = nil;
 	UIImage *image  = nil;
 #if 0
 	UIImage *image = [self updateCacheWithUserModel:userModel];
-	if (image!=nil) {
+	if (image!=nil)
+    {
 		return image;
 	}
 #endif
@@ -161,6 +161,7 @@ static NTESMBUserIconCache *instance = nil;
 	return image;
 }
 #endif
+
 + (UIImage *)getPlaceHolderImage
 {
 	return [NTESMBUserIconCache getInstance].placeHolderImage;

@@ -13,6 +13,7 @@
 #import "DressMemoNetInterfaceMgr.h"
 #import "ZCSNetClientDataMgr.h"
 #import "ZCSNetClientErrorMgr.h"
+#import "NTESMBLocalImageStorage.h"
 AppMainUIViewManage *appMg = nil;
 @implementation AppDelegate
 
@@ -39,6 +40,7 @@ AppMainUIViewManage *appMg = nil;
     [ZCSDataArchiveMgr getSingleTone];
     [DressMemoNetInterfaceMgr getSingleTone];
     [ZCSNetClientErrorMgr getSingleTone];
+    [NTESMBLocalImageStorage getInstance];
     ZCSNetClientDataMgr *clientMgr = [ZCSNetClientDataMgr getSingleTone];
     //[clientMgr startMemoImageTagDataSource];
    //[clientMgr startMemoDataUpload:nil];

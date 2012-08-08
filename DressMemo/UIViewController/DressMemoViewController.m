@@ -11,23 +11,26 @@
 
 #import "MemoImageItemCell.h"
 #import "DressMemoDetailNetViewController.h"
-
+#import "AppSetting.h"
 
 
 @interface DressMemoViewController ()
 @property(nonatomic,assign)NSInteger cellEmptyCount;
+@property(nonatomic,assign)BOOL isUserLoginStatus;
 @end
 
 @implementation DressMemoViewController
 @synthesize request;
 @synthesize cellEmptyCount;
 @synthesize isNeedReflsh;
+@synthesize isUserLoginStatus;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
-        
+        isUserLoginStatus = [AppSetting getUserLoginStatus];
     }
     return self;
 }
@@ -88,7 +91,7 @@
     }
     tweetieTableView.separatorStyle = UITableViewCellAccessoryNone;
     NSString *loginUserId = [AppSetting getLoginUserId];
-    if(loginUserId&&![loginUserId isEqualToString:@""]&&!isFromViewUnload)
+    if(loginUserId&&![loginUserId isEqualToString:@""]&&!isFromViewUnload&&isUserLoginStatus)
     {
         [self  shouldLoadOlderData:tweetieTableView];
         
@@ -114,14 +117,63 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 #pragma mark -
-#pragma mark image download
--(void)startloadVisibleCellImageData:(NSIndexPath*)path
+#pragma mark cell image data source
+-(NSString*)userIconNameForIndexPath:(NSIndexPath*)indexPath
 {
-    if([self.dataArray count]<=path.row)
+    NSString *iconImageName = @"";
+    int index = indexPath.section*kItemCellCount+indexPath.row;
+    NSLog(@"cell Item Index:%d",index);
+    if([self.dataArray count]>index)
     {
-        return ;
+        id cellItem = [self.dataArray objectAtIndex:index];
+        iconImageName = [cellItem objectForKey:@"picpath"];
     }
-
+    return iconImageName;
+}
+-(void)startuserCustomLoadCellImageData:(NSIndexPath*)indexPath
+{
+    for(int i = 0;i<kItemCellCount;i++)
+    {
+        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:indexPath.row];
+        [super didStartLoadCellImageData:index];
+    }
+    
+}
+-(void)setCellUserIcon:(UIImage*)iconImage withIndexPath:(NSIndexPath*)indexPath
+{
+    //NSString *iconUrl = [itemData objectForKey:@"avatar"];
+    //if(iconUrl == nil||[iconUrl isEqualToString:@""])
+    int row = indexPath.section;
+    int subIndex = indexPath.row;
+    int realIndex = row*kItemCellCount+subIndex;
+    NSIndexPath *realIndexPath  = [NSIndexPath indexPathForRow:row inSection:0];
+    MemoImageItemCell *cell = (MemoImageItemCell*)[tweetieTableView cellForRowAtIndexPath:realIndexPath];
+    NSDictionary *itemData = [self.dataArray objectAtIndex:realIndex];
+    NSString *timeStr = [itemData objectForKey:@"addtime"];
+    NSDate  *postTime = [NSDate  dateWithTimeIntervalSince1970:[timeStr longLongValue]];
+    
+    NSString *displayTimeStr = [postTime getDressMemoImageTimeString];
+    if(iconImage)
+    {
+        [cell  setCellItem:iconImage withTime:displayTimeStr withIndex:subIndex];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
+}
+-(void)setCell:(id)cell withImageData:(UIImage*)imageData withIndexPath:(NSIndexPath*)indexPath
+{
+    
+    int row = indexPath.section;
+    int subIndex = indexPath.row;
+    int realIndex = row*kItemCellCount+subIndex;
+    NSDictionary *itemData = [self.dataArray objectAtIndex:realIndex];
+    NSString *timeStr = [itemData objectForKey:@"addtime"];
+    NSDate  *postTime = [NSDate  dateWithTimeIntervalSince1970:[timeStr longLongValue]];
+    NSString *displayTimeStr = [postTime getDressMemoImageTimeString];
+    if(imageData)
+    {
+        [cell  setCellItem:imageData withTime:displayTimeStr withIndex:subIndex];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
 }
 #pragma mark -
 #pragma mark UITableViewDataSource
@@ -154,14 +206,26 @@
     if(indexPath.row ==([self.dataArray count]/kItemCellCount)&&self.cellEmptyCount)
     {
         [cell showCellItemWithNum:self.cellEmptyCount];
+        for(int i = 0;i<self.cellEmptyCount;i++)
+        {
+            //use row as section
+            NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:indexPath.row];
+            [self startloadInitCell:cell withIndexPath:index];
+        }
     }
     else
     {
+        NSLog(@"count:%d,row=%d",[self.dataArray count],indexPath.row);
         [cell showCellItemWithNum:kItemCellCount];
+        for(int i = 0;i<kItemCellCount;i++)
+        {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:indexPath.row];
+            [self startloadInitCell:cell withIndexPath:index];
+        }
     }
     //cell
 	//cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
-    
+    cell.indexPath = indexPath;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

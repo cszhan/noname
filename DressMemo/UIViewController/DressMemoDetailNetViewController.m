@@ -82,10 +82,10 @@
     [btn addTarget:self action:@selector(likeMemoUserList:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
-    
-    //[self getFavMemoUsers];
     [self getMemoDetail];
     [self getMemoComments];
+    //[self getFavMemoUsers];
+   
 	// Do any additional setup after loading the view.
 }
 

@@ -308,9 +308,10 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
     */
     [NSThread detachNewThreadSelector:@selector(didStartNetThread:) toTarget:self withObject:client];
 }
--(void)didStartNetThread:(id)sender{
+-(void)didStartNetThread:(ZCSNetClient*)sender
+{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
-    
+    //ZCSNetClient *requestInstance = (
     {
         [sender startRequest:YES];
     }
@@ -358,7 +359,7 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         {
             
             NSString *resultStr = [[NSString alloc]initWithData:data encoding:client.respDataEncode];
-            NE_LOG(@"final:%@",resultStr);
+            //NE_LOG(@"final:%@",resultStr);
             NSDictionary *restData = [resultStr JSONValue];
             NSString *ret = [restData objectForKey:kNEFYJsonKeyResult];
             if(![ret isEqualToString:kNEFYJsonResultOK])
@@ -457,7 +458,7 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
 -(void)checkRightRequest:(ZCSNetClient*)request withData:(id)data
 {
     NSString *resultStr = [[NSString alloc]initWithData:data encoding:request.respDataEncode];
-    NE_LOG(@"final:%@",resultStr);
+    //NE_LOG(@"final:%@",resultStr);
     NSDictionary *restData = [resultStr JSONValue];
     NSString *ret = [restData objectForKey:kNEFYJsonKeyResult];
     if(![ret isEqualToString:kNEFYJsonResultOK])
@@ -477,7 +478,8 @@ static DressMemoNetInterfaceMgr *sharedInstance = nil;
         NSDictionary *subDict = [restData objectForKey:@"info"];
         NSString *token = [subDict objectForKey:@"token"];
         NSString *userId = [subDict objectForKey:@"uid"];
-        [AppSetting setLoginUserId:userId];                
+        [AppSetting setLoginUserId:userId];
+        [AppSetting setUserLoginStatus:YES];
         if(token)
         {
             self.gToken = token;

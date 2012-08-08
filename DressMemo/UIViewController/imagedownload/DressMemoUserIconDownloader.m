@@ -6,13 +6,13 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UserIconDownloader.h"
-@implementation UserIconDownloader
+#import "DressMemoUserIconDownloader.h"
+@implementation DressMemoUserIconDownloader
 - (id) initWithUserIconUrl:(NSString*)iconUrl indexPath:(NSIndexPath *) _indexPath
 {
 	//self = [super initWithUrlString:[_user.userImageURL YoudaoImageUrlWithWidth:48 AndHeight:48] ];
-    NSString *realUrl = [NSString stringWithFormat:@"%@%@",kDressMemoUserIconUrlRoot,iconUrl];
-	self = [super initWithUrlString:realUrl];
+    iconUrl = [self getDresMemoAvatarUrl:iconUrl];
+	self = [super initWithUrlString:iconUrl];
 	if (self != nil) 
     {
 		indexPath = [_indexPath retain];
@@ -20,5 +20,11 @@
 		isNeedAuthRequest = NO;
 	}
 	return self;
+}
+-(NSString*)getDresMemoAvatarUrl:(NSString*)userIconFileName
+{
+    NSString *realUrl = [NSString stringWithFormat:@"%@%@%@",kDressMemoImageUrlRoot,userIconFileName,kDressMemoUserIconScaleSize];
+    NSLog(@"download icon url:%@",realUrl);
+    return realUrl;
 }
 @end

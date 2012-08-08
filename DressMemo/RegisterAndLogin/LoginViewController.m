@@ -72,10 +72,10 @@
     */
 }
 - (void)addObservers{
-    [ZCSNotficationMgr addObserver:self call:@selector(didLoginOK:) msgName:kZCSNetWorkOK];
-     [ZCSNotficationMgr addObserver:self call:@selector(didLoginFailed:) msgName:
+    [ZCSNotficationMgr addObserver:self call:@selector(didNetOK:) msgName:kZCSNetWorkOK];
+     [ZCSNotficationMgr addObserver:self call:@selector(didNetFailed:) msgName:
        kZCSNetWorkRespondFailed];
-    [ZCSNotficationMgr addObserver:self call:@selector(didLoginFailed:) msgName:kZCSNetWorkRequestFailed];
+    [ZCSNotficationMgr addObserver:self call:@selector(didNetFailed:) msgName:kZCSNetWorkRequestFailed];
 }
 - (void)viewDidLoad
 {
@@ -98,7 +98,7 @@
 	//logInfo.contentInset
     
 	logInfo.allowsSelectionDuringEditing = NO;
-	//logInfo.backgroundColor = [UIColor clearColor];
+	logInfo.backgroundColor = [UIColor clearColor];
 	logInfo.delegate = self;
 	logInfo.dataSource = self;
 	logInfo.scrollEnabled = NO;
@@ -459,11 +459,6 @@
 {
     //save use name and passwor;
     kNetEnd(self.view);
-    [self performSelectorOnMainThread:@selector(didNetOK:) withObject:ntf waitUntilDone:NO];
-}
--(void)didNetOK:(NSNotification*)ntf
-{
-    
     id obj = [ntf object];
     id request = [obj objectForKey:@"request"];
     id data = [obj objectForKey:@"data"];
@@ -480,6 +475,12 @@
         [ZCSNotficationMgr  postMSG:kUserDidLoginOk obj:nil];
     }
 
+    
+}
+-(void)didNetOK:(NSNotification*)ntf
+{
+   [self performSelectorOnMainThread:@selector(didLoginOK:) withObject:ntf waitUntilDone:NO]; 
+   
 }
 /*
  *

@@ -55,6 +55,7 @@
     ///[ZCSNotficationMgr addObserver:self call:@selector(didNetWorkFailed:) msgName:kZCSNetWorkRespondFailed];
     [ZCSNotficationMgr addObserver:self call:@selector(didNetWorkRequestFailed:) msgName:kZCSNetWorkRequestFailed];
     [ZCSNotficationMgr addObserver:self call:@selector(didUserLogin:) msgName:kUserDidLoginOk];
+  
 #endif
 }
 - (void)setEmptyDataUI
@@ -159,6 +160,7 @@
 -(void)startloadVisibleCellImageData:(NSIndexPath*)path
 {
     NE_LOG(@"warning load visibleCellImagedata not implementation");
+    
 }
 -(void)updatesegmentTitle:(NSInteger)icount
 {

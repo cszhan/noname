@@ -54,6 +54,7 @@ typedef enum ReqEngType
 +(id)getSigleton;
 /*
  */
+-(void)startRequest:(BOOL)isNeedCookie;
 -(void)cancelRequest;
 /**
  *like reflush of webview;

@@ -7,7 +7,8 @@
 //
 
 #import "NTESMBIconDownloader.h"
+#define kImageIconScaleSize @"_100x100.jpg"
 
-@interface UserIconDownloader : NTESMBIconDownloader
+@interface DressMemoUserIconDownloader : NTESMBIconDownloader
 - (id) initWithUserIconUrl:(NSString*)iconUrl indexPath:(NSIndexPath *) _indexPath;
 @end

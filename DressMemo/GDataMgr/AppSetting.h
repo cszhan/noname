@@ -12,15 +12,6 @@
 @interface AppSetting : NSObject {
 
 }
-+(BOOL)getStopPlayTimerStatus:(NSString*)time;
-+(void)setStopPlayTimer:(NSString*)time status:(BOOL)status;
-+(id)getStopPlayTimer;
-+(void)setStopPlayTimer:(id)minuteNum;
-+(NSString*)getLrcSpeedAdjust:(NSString*)lrcUid;
-+(void)setLrcSpeedAdjust:(NSString*)lrcUid value:(NSString*)value;
-+(void)setPlayingSelPath:(NSNumber*)num;
-+(NSDictionary*)getPlayingSong;
-+(NSNumber*)getPlayingSelPath;
 
 +(void)setLoginUserInfo:(NSDictionary*)data withUserKey:(NSString*)userId;
 +(NSDictionary*)getLoginUserInfo:(NSString*)usrId;
@@ -30,4 +21,7 @@
 
 +(void)setLoginUserId:(NSString*)userId;
 +(NSString*)getLoginUserId;
+
++(BOOL)getUserLoginStatus;
++(void)setUserLoginStatus:(BOOL)status;
 @end

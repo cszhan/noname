@@ -49,6 +49,7 @@
 @property(nonatomic,assign)ZCSAlertInforView *animationView;
 -(void)startShowLoadingView;
 -(void)stopShowLoadingView;
+-(void)startloadVisibleCellImageData:(NSIndexPath*)path;
 #endif
 - (void) cancelAllIconDownloads;
 - (void) loadImagesForOnscreenRows;

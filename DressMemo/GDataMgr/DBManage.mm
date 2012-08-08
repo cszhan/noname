@@ -22,7 +22,8 @@
 static DBManage *sharedInstance = nil;
 //static LrcNetClient *lrcNetClient;
 @interface DBManage()
-@property(nonatomic,retain)NSMutableDictionary *uploadimageTagPointMap; 
+@property(nonatomic,retain)NSMutableDictionary *uploadimageTagPointMap;
+@property(nonatomic,assign)BOOL isUserLogOut;
 @end
 @implementation DBManage
 @synthesize imageFileNameArr;
@@ -31,6 +32,7 @@ static DBManage *sharedInstance = nil;
 //use tage dict or arr
 @synthesize uploadImageTagDict;
 @synthesize uploadImageTagArr;
+@synthesize isUserLogOut;
 //@synthesize loginUserData;
 
 @synthesize uploadimageTagPointMap;
@@ -44,6 +46,10 @@ static DBManage *sharedInstance = nil;
         uploadRequestMapDict = [[NSMutableDictionary alloc]init];
         uploadImageTagDict = [[NSMutableDictionary alloc]init];
         uploadimageTagPointMap = [[NSMutableDictionary alloc]init];
+        if([AppSetting getUserLoginStatus])
+        {
+            isUserLogOut = YES;
+        }
     }
     return self;
 }
@@ -153,6 +159,10 @@ static DBManage *sharedInstance = nil;
     {
         NE_LOG(@"remove ok!!");
     }
+}
+-(BOOL)getUserLoginStatus
+{
+    return isUserLogOut;
 }
 /**
  save data 

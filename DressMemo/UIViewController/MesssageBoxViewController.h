@@ -6,8 +6,8 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIImageNetBaseViewController.h"
+#import "UIIconImageNetViewController.h"
 
-@interface MesssageBoxViewController : UIImageNetBaseViewController
+@interface MesssageBoxViewController : UIIconImageNetViewController<UIIconImageNetViewControllerDataSource,UIIconImageNetViewControllerDeleage>
 
 @end

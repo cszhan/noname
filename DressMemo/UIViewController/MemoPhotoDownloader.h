@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "NTESMBIconDownloader.h"
+#import "DressMemoUserIconDownloader.h"
 
-@interface MemoPhotoDownloader:NTESMBIconDownloader
+@interface MemoPhotoDownloader:DressMemoUserIconDownloader
 {
     
 }

@@ -240,7 +240,7 @@ static NSString *kSectionOneArr[] =
     
         [self.navigationController popToRootViewControllerAnimated:NO];
         [AppSetting setCurrentLoginUser:@""];
-        
+        [AppSetting setUserLoginStatus:NO];
         LoginAndResignMainViewController *loginVc = [[LoginAndResignMainViewController alloc]init];
         //[self.navigationController pushViewController:tagchooseBrandVc animated:YES];
         UINavigationController *loginNav  = [[UINavigationController alloc]initWithRootViewController:loginVc];
@@ -248,6 +248,7 @@ static NSString *kSectionOneArr[] =
         /*
          [navCtrl presentModalViewController:loginNav animated:YES];
          */
+        
         [ZCSNotficationMgr postMSG:kPresentModelViewController obj:loginNav];
         [loginVc release];
 

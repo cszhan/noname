@@ -29,7 +29,7 @@
 #import "AppSetting.h"
 
 static NSString *iconFilNameArr[] = 
-{@"icon-dress.png",@"icon-like.png",@"icon-following.png",@"icon-follower.png"};
+{@"icon-dress.png",@"user-icon-like.png",@"icon-following.png",@"icon-follower.png"};
 static NSString *iconTextArr[]=
 {@"穿着",@"喜欢",@"关注",@"粉丝"};
 
@@ -497,7 +497,8 @@ static NSString *iconTextArr[]=
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self performSelectorInBackground:@selector(getUserInforFromNet) withObject:nil];
+    //if([[DBManage getSingleTone]getUserLoginStatus])
+       [self performSelectorInBackground:@selector(getUserInforFromNet) withObject:nil];
 
 }
 - (void)viewWillDisappear:(BOOL)animated

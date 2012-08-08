@@ -94,18 +94,61 @@
     NSDate  *resignTime = [NSDate  dateWithTimeIntervalSince1970:[msgTimeStr longLongValue]];
     cell.timeLabel.text = [resignTime memoFormatTime:@"YY-MM-dd HH:mm"];
     //cell.timeLabel.text =
+#if 0
     NSString *iconUrl = [itemData objectForKey:@"avatar"];
     
     if(iconUrl == nil||[iconUrl isEqualToString:@""])
     {
         [cell.userIconImageView setImage:[dbMgr getItemCellUserIconImageDefault]];
     }
+#else
+    {
+        [cell.userIconImageView setImage:[dbMgr getItemCellUserIconImageDefault]];
+    }
+    //else
+    {
+        
+        [self startloadInitCell:cell  withIndexPath:indexPath];
+    }
+#endif
    // if([[itemData objectForKey:@"type"] isEqualToString:@"follow"])
     {
         cell.cellType = -1;
     }
     cell.msgData = itemData;
     cell.userInteractionEnabled = YES;
+}
+#pragma mark icon image data source
+-(NSString*)userIconNameForIndexPath:(NSIndexPath*)indexPath
+{
+    NSString *iconImageName = nil;
+    if([self.dataArray count]>indexPath.row)
+    {
+        id cellItem = [self.dataArray objectAtIndex:indexPath.row];
+        iconImageName = [cellItem objectForKey:@"avatar"];
+    }
+    return iconImageName;
+}
+-(void)setCellUserIcon:(UIImage*)iconImage withIndexPath:(NSIndexPath*)indexPath
+{
+    //NSString *iconUrl = [itemData objectForKey:@"avatar"];
+    //if(iconUrl == nil||[iconUrl isEqualToString:@""])
+    MessageTableViewCell *cell = (MessageTableViewCell*)[tweetieTableView cellForRowAtIndexPath:indexPath];
+    if(iconImage)
+    {
+        [cell.userIconImageView setImage:iconImage];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
+}
+-(void)setCell:(id)cell withImageData:(UIImage*)imageData withIndexPath:(NSIndexPath*)indexPath
+{
+    MessageTableViewCell *realCell = (MessageTableViewCell*)cell;
+    
+    if(imageData)
+    {
+        [realCell.userIconImageView setImage:imageData];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
 }
 #pragma mark -
 #pragma mark load data

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04012FC015CFF7EC006484B9 /* UIIconImageNetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04012FBF15CFF7EC006484B9 /* UIIconImageNetViewController.m */; };
+		04012FC315D0052A006484B9 /* DressMemoDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04012FC215D002BF006484B9 /* DressMemoDetailDataModel.m */; };
 		0401F8D5159CC4DC007B6264 /* ZCSASIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0401F8D4159CC4DC007B6264 /* ZCSASIRequest.m */; };
 		0403AC3315C6513400A2C9FA /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0403AC3215C6513400A2C9FA /* MessageTableViewCell.m */; };
 		0403AC3615C65BCE00A2C9FA /* DressMemoMSGModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0403AC3515C65BCE00A2C9FA /* DressMemoMSGModel.m */; };
@@ -33,7 +35,7 @@
 		04043EEE15B71944005A9F93 /* icon-info-follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043ED615B71944005A9F93 /* icon-info-follow.png */; };
 		04043EEF15B71944005A9F93 /* icon-info-like.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043ED715B71944005A9F93 /* icon-info-like.png */; };
 		04043EF015B71944005A9F93 /* icon-info-takephoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043ED815B71944005A9F93 /* icon-info-takephoto.png */; };
-		04043EF115B71944005A9F93 /* icon-like.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043ED915B71944005A9F93 /* icon-like.png */; };
+		04043EF115B71944005A9F93 /* user-icon-like.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043ED915B71944005A9F93 /* user-icon-like.png */; };
 		04043EF215B71944005A9F93 /* icon-local.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043EDA15B71944005A9F93 /* icon-local.png */; };
 		04043EF315B71944005A9F93 /* icon-reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043EDB15B71944005A9F93 /* icon-reply.png */; };
 		04043EF415B71944005A9F93 /* pic-user.png in Resources */ = {isa = PBXBuildFile; fileRef = 04043EDC15B71944005A9F93 /* pic-user.png */; };
@@ -58,13 +60,13 @@
 		0415A38715BA8CD400D7121E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0415A38615BA8CD300D7121E /* MessageUI.framework */; };
 		04179B8115A2A04C00036789 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04179B8015A2A04C00036789 /* CMPopTipView.m */; };
 		04179B8815A2FCF500036789 /* delBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 04179B8715A2FCF100036789 /* delBG.png */; };
+		0417BDF815CFC4CF003C1689 /* DressMemoUserIconCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417BDF715CFC4CE003C1689 /* DressMemoUserIconCache.m */; };
 		0419CEA215BF0135007B9255 /* NSData+Ex.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB3B6E15B7F3DA0003B10F /* NSData+Ex.m */; };
 		0419CEA315BF0135007B9255 /* NSDate+Ex.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A8B82115B6A72500FBB5AB /* NSDate+Ex.m */; };
 		0419CEA715BF0465007B9255 /* MesssageBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0419CEA615BF0465007B9255 /* MesssageBoxViewController.m */; };
 		041C36C715CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C36C615CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m */; };
 		0430B8A315CE997100E080A2 /* DataParserEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430B8A215CE997100E080A2 /* DataParserEngine.m */; };
 		0430B8A615CE9CDE00E080A2 /* NTESMBDecodeJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430B8A515CE9C2800E080A2 /* NTESMBDecodeJSONOperation.m */; };
-		0430B8A715CE9FCD00E080A2 /* DressMemoDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430B89C15CE801700E080A2 /* DressMemoDetailDataModel.m */; };
 		0436226215C0F11E0071B528 /* FriendItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0436226115C0F11E0071B528 /* FriendItemCell.xib */; };
 		0436226515C0F1490071B528 /* FriendItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0436226415C0F1490071B528 /* FriendItemCell.m */; };
 		04370CCE159B6684005EA66B /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04370CCD159B6684005EA66B /* libz.1.2.5.dylib */; };
@@ -102,6 +104,8 @@
 		046FFF9F159B581A00F9B8DF /* NTESMBServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 046FFF99159B581A00F9B8DF /* NTESMBServer.m */; };
 		04870BB81596C3D9000DE724 /* libZCSUIFrameWork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04870BAD1596C38E000DE724 /* libZCSUIFrameWork.a */; };
 		04902EBB159DB02500F0F4FB /* NTESMBUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2ECF5159DA76C001CDA0C /* NTESMBUtility.m */; };
+		0491FF6215D0E44B0040A69C /* UIPhotoImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491FF6115D0E44B0040A69C /* UIPhotoImageViewController.m */; };
+		0491FF6515D0E9980040A69C /* DressMemoPhotoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491FF6415D0E9980040A69C /* DressMemoPhotoCache.m */; };
 		049A3D4C15986CB600467BB3 /* btn-red-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 049A3D4A15986CB600467BB3 /* btn-red-back.png */; };
 		049A3D4D15986CB600467BB3 /* btn-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 049A3D4B15986CB600467BB3 /* btn-red.png */; };
 		04A8B81715B6A6C900FBB5AB /* NTESMBDragDownInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDCBE215B697DC00EF8771 /* NTESMBDragDownInfoView.m */; };
@@ -185,7 +189,7 @@
 		04D4B0EC15BF9CE300618215 /* MemoImageItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D4B0EB15BF9CE300618215 /* MemoImageItemCell.xib */; };
 		04D4B0EE15BFA1F000618215 /* pic190x254-default.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D4B0ED15BFA1F000618215 /* pic190x254-default.png */; };
 		04D4B0F115BFA5DF00618215 /* MemoPhotoDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4B0F015BFA5DE00618215 /* MemoPhotoDownloader.m */; };
-		04D4B0F515BFBE2800618215 /* UserIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4B0F415BFBE2800618215 /* UserIconDownloader.m */; };
+		04D4B0F515BFBE2800618215 /* DressMemoUserIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D4B0F415BFBE2800618215 /* DressMemoUserIconDownloader.m */; };
 		04D7779E15AB315D00E7DAC8 /* DressMemoTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7779D15AB315C00E7DAC8 /* DressMemoTagButton.m */; };
 		04D81F5A15B2D2CF0064176D /* ZCSNetClientErrorMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D81F5915B2D2CF0064176D /* ZCSNetClientErrorMgr.m */; };
 		04DC215415B857BA008524C0 /* UserInforEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC215315B857BA008524C0 /* UserInforEditViewController.m */; };
@@ -283,6 +287,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04012FBE15CFF7EC006484B9 /* UIIconImageNetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIIconImageNetViewController.h; sourceTree = "<group>"; };
+		04012FBF15CFF7EC006484B9 /* UIIconImageNetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIIconImageNetViewController.m; sourceTree = "<group>"; };
+		04012FC115D002BF006484B9 /* DressMemoDetailDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DressMemoDetailDataModel.h; sourceTree = "<group>"; };
+		04012FC215D002BF006484B9 /* DressMemoDetailDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DressMemoDetailDataModel.m; sourceTree = "<group>"; };
 		0401F8D3159CC4DC007B6264 /* ZCSASIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCSASIRequest.h; sourceTree = "<group>"; };
 		0401F8D4159CC4DC007B6264 /* ZCSASIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCSASIRequest.m; sourceTree = "<group>"; };
 		0403AC3115C6513400A2C9FA /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = Cell/MessageTableViewCell.h; sourceTree = "<group>"; };
@@ -314,7 +322,7 @@
 		04043ED615B71944005A9F93 /* icon-info-follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info-follow.png"; sourceTree = "<group>"; };
 		04043ED715B71944005A9F93 /* icon-info-like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info-like.png"; sourceTree = "<group>"; };
 		04043ED815B71944005A9F93 /* icon-info-takephoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info-takephoto.png"; sourceTree = "<group>"; };
-		04043ED915B71944005A9F93 /* icon-like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-like.png"; sourceTree = "<group>"; };
+		04043ED915B71944005A9F93 /* user-icon-like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-icon-like.png"; sourceTree = "<group>"; };
 		04043EDA15B71944005A9F93 /* icon-local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-local.png"; sourceTree = "<group>"; };
 		04043EDB15B71944005A9F93 /* icon-reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-reply.png"; sourceTree = "<group>"; };
 		04043EDC15B71944005A9F93 /* pic-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic-user.png"; sourceTree = "<group>"; };
@@ -360,12 +368,12 @@
 		04179B8215A2A1FD00036789 /* SNPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNPopupView.h; sourceTree = "<group>"; };
 		04179B8315A2A1FD00036789 /* SNPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNPopupView.m; sourceTree = "<group>"; };
 		04179B8715A2FCF100036789 /* delBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delBG.png; sourceTree = "<group>"; };
+		0417BDF615CFC4CE003C1689 /* DressMemoUserIconCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DressMemoUserIconCache.h; path = imagedownload/DressMemoUserIconCache.h; sourceTree = "<group>"; };
+		0417BDF715CFC4CE003C1689 /* DressMemoUserIconCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DressMemoUserIconCache.m; path = imagedownload/DressMemoUserIconCache.m; sourceTree = "<group>"; };
 		0419CEA515BF0465007B9255 /* MesssageBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MesssageBoxViewController.h; path = ../UIViewController/MesssageBoxViewController.h; sourceTree = "<group>"; };
 		0419CEA615BF0465007B9255 /* MesssageBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MesssageBoxViewController.m; path = ../UIViewController/MesssageBoxViewController.m; sourceTree = "<group>"; };
 		041C36C515CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICityPickerViewDataSourceBase.h; sourceTree = "<group>"; };
 		041C36C615CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICityPickerViewDataSourceBase.m; sourceTree = "<group>"; };
-		0430B89B15CE801700E080A2 /* DressMemoDetailDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DressMemoDetailDataModel.h; path = ../../../../../../../Downloads/DressMemoDetailDataModel.h; sourceTree = "<group>"; };
-		0430B89C15CE801700E080A2 /* DressMemoDetailDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DressMemoDetailDataModel.m; path = ../../../../../../../Downloads/DressMemoDetailDataModel.m; sourceTree = "<group>"; };
 		0430B8A115CE997100E080A2 /* DataParserEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataParserEngine.h; sourceTree = "<group>"; };
 		0430B8A215CE997100E080A2 /* DataParserEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataParserEngine.m; sourceTree = "<group>"; };
 		0430B8A415CE9C2800E080A2 /* NTESMBDecodeJSONOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NTESMBDecodeJSONOperation.h; sourceTree = "<group>"; };
@@ -435,6 +443,10 @@
 		046FFF99159B581A00F9B8DF /* NTESMBServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESMBServer.m; sourceTree = "<group>"; };
 		046FFF9C159B581A00F9B8DF /* RequestCfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestCfg.h; sourceTree = "<group>"; };
 		04870BA51596C38E000DE724 /* ZCSUIFrameWork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZCSUIFrameWork.xcodeproj; path = ../../../BaseLib/UIFramework/ZCSUIFrameWork/ZCSUIFrameWork.xcodeproj; sourceTree = SOURCE_ROOT; };
+		0491FF6015D0E44B0040A69C /* UIPhotoImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPhotoImageViewController.h; sourceTree = "<group>"; };
+		0491FF6115D0E44B0040A69C /* UIPhotoImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPhotoImageViewController.m; sourceTree = "<group>"; };
+		0491FF6315D0E9980040A69C /* DressMemoPhotoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressMemoPhotoCache.h; sourceTree = "<group>"; };
+		0491FF6415D0E9980040A69C /* DressMemoPhotoCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressMemoPhotoCache.m; sourceTree = "<group>"; };
 		049A3D4A15986CB600467BB3 /* btn-red-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-red-back.png"; sourceTree = "<group>"; };
 		049A3D4B15986CB600467BB3 /* btn-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-red.png"; sourceTree = "<group>"; };
 		04A8B82015B6A72500FBB5AB /* NSDate+Ex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDate+Ex.h"; path = "UIViewController/UITableViewBase/NSDate+Ex.h"; sourceTree = "<group>"; };
@@ -522,8 +534,8 @@
 		04D4B0ED15BFA1F000618215 /* pic190x254-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pic190x254-default.png"; sourceTree = "<group>"; };
 		04D4B0EF15BFA5DE00618215 /* MemoPhotoDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoPhotoDownloader.h; sourceTree = "<group>"; };
 		04D4B0F015BFA5DE00618215 /* MemoPhotoDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoPhotoDownloader.m; sourceTree = "<group>"; };
-		04D4B0F315BFBE2800618215 /* UserIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserIconDownloader.h; path = imagedownload/UserIconDownloader.h; sourceTree = "<group>"; };
-		04D4B0F415BFBE2800618215 /* UserIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserIconDownloader.m; path = imagedownload/UserIconDownloader.m; sourceTree = "<group>"; };
+		04D4B0F315BFBE2800618215 /* DressMemoUserIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DressMemoUserIconDownloader.h; path = imagedownload/DressMemoUserIconDownloader.h; sourceTree = "<group>"; };
+		04D4B0F415BFBE2800618215 /* DressMemoUserIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DressMemoUserIconDownloader.m; path = imagedownload/DressMemoUserIconDownloader.m; sourceTree = "<group>"; };
 		04D7779C15AB315C00E7DAC8 /* DressMemoTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressMemoTagButton.h; sourceTree = "<group>"; };
 		04D7779D15AB315C00E7DAC8 /* DressMemoTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressMemoTagButton.m; sourceTree = "<group>"; };
 		04D81F5815B2D2CF0064176D /* ZCSNetClientErrorMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZCSNetClientErrorMgr.h; path = Network/ZCSNetClientErrorMgr.h; sourceTree = "<group>"; };
@@ -704,7 +716,7 @@
 				04043ED615B71944005A9F93 /* icon-info-follow.png */,
 				04043ED715B71944005A9F93 /* icon-info-like.png */,
 				04043ED815B71944005A9F93 /* icon-info-takephoto.png */,
-				04043ED915B71944005A9F93 /* icon-like.png */,
+				04043ED915B71944005A9F93 /* user-icon-like.png */,
 				04043EDA15B71944005A9F93 /* icon-local.png */,
 				04043EDB15B71944005A9F93 /* icon-reply.png */,
 				04043EDC15B71944005A9F93 /* pic-user.png */,
@@ -909,6 +921,10 @@
 				0415A31B15BA7CEB00D7121E /* UISimpleNetBaseViewController.m */,
 				04E7634615BCF81B006A2810 /* UIImageNetBaseViewController.h */,
 				04E7634715BCF81B006A2810 /* UIImageNetBaseViewController.m */,
+				04012FBE15CFF7EC006484B9 /* UIIconImageNetViewController.h */,
+				04012FBF15CFF7EC006484B9 /* UIIconImageNetViewController.m */,
+				0491FF6015D0E44B0040A69C /* UIPhotoImageViewController.h */,
+				0491FF6115D0E44B0040A69C /* UIPhotoImageViewController.m */,
 			);
 			path = CommView;
 			sourceTree = "<group>";
@@ -1076,8 +1092,12 @@
 			children = (
 				04D4B0EF15BFA5DE00618215 /* MemoPhotoDownloader.h */,
 				04D4B0F015BFA5DE00618215 /* MemoPhotoDownloader.m */,
-				04D4B0F315BFBE2800618215 /* UserIconDownloader.h */,
-				04D4B0F415BFBE2800618215 /* UserIconDownloader.m */,
+				04D4B0F315BFBE2800618215 /* DressMemoUserIconDownloader.h */,
+				04D4B0F415BFBE2800618215 /* DressMemoUserIconDownloader.m */,
+				0417BDF615CFC4CE003C1689 /* DressMemoUserIconCache.h */,
+				0417BDF715CFC4CE003C1689 /* DressMemoUserIconCache.m */,
+				0491FF6315D0E9980040A69C /* DressMemoPhotoCache.h */,
+				0491FF6415D0E9980040A69C /* DressMemoPhotoCache.m */,
 			);
 			name = MemoPhoto;
 			sourceTree = "<group>";
@@ -1328,8 +1348,8 @@
 				04EB810E1590287100C3DBCC /* MyProfileViewController.m */,
 				04ACB6C715CD271C008776D5 /* MemoLikeUserViewController.h */,
 				04ACB6C815CD271D008776D5 /* MemoLikeUserViewController.m */,
-				0430B89B15CE801700E080A2 /* DressMemoDetailDataModel.h */,
-				0430B89C15CE801700E080A2 /* DressMemoDetailDataModel.m */,
+				04012FC115D002BF006484B9 /* DressMemoDetailDataModel.h */,
+				04012FC215D002BF006484B9 /* DressMemoDetailDataModel.m */,
 				040C661615C927C70049204E /* DressMemoDetailNetViewController.h */,
 				040C661715C927C70049204E /* DressMemoDetailNetViewController.m */,
 			);
@@ -1498,7 +1518,7 @@
 				04043EEE15B71944005A9F93 /* icon-info-follow.png in Resources */,
 				04043EEF15B71944005A9F93 /* icon-info-like.png in Resources */,
 				04043EF015B71944005A9F93 /* icon-info-takephoto.png in Resources */,
-				04043EF115B71944005A9F93 /* icon-like.png in Resources */,
+				04043EF115B71944005A9F93 /* user-icon-like.png in Resources */,
 				04043EF215B71944005A9F93 /* icon-local.png in Resources */,
 				04043EF315B71944005A9F93 /* icon-reply.png in Resources */,
 				04043EF415B71944005A9F93 /* pic-user.png in Resources */,
@@ -1581,7 +1601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0430B8A715CE9FCD00E080A2 /* DressMemoDetailDataModel.m in Sources */,
+				04012FC315D0052A006484B9 /* DressMemoDetailDataModel.m in Sources */,
 				0430B8A615CE9CDE00E080A2 /* NTESMBDecodeJSONOperation.m in Sources */,
 				0419CEA215BF0135007B9255 /* NSData+Ex.m in Sources */,
 				0419CEA315BF0135007B9255 /* NSDate+Ex.m in Sources */,
@@ -1669,7 +1689,7 @@
 				0419CEA715BF0465007B9255 /* MesssageBoxViewController.m in Sources */,
 				04D4B0EA15BF9CBE00618215 /* MemoImageItemCell.m in Sources */,
 				04D4B0F115BFA5DF00618215 /* MemoPhotoDownloader.m in Sources */,
-				04D4B0F515BFBE2800618215 /* UserIconDownloader.m in Sources */,
+				04D4B0F515BFBE2800618215 /* DressMemoUserIconDownloader.m in Sources */,
 				04EE590715C0316900FCCB0D /* UITextViewInputCell.m in Sources */,
 				0436226515C0F1490071B528 /* FriendItemCell.m in Sources */,
 				0440428E15C242830041E81E /* UINetActiveIndicatorButton.m in Sources */,
@@ -1681,6 +1701,10 @@
 				041C36C715CAD4CA004C9A11 /* UICityPickerViewDataSourceBase.m in Sources */,
 				04ACB6C915CD271E008776D5 /* MemoLikeUserViewController.m in Sources */,
 				0430B8A315CE997100E080A2 /* DataParserEngine.m in Sources */,
+				0417BDF815CFC4CF003C1689 /* DressMemoUserIconCache.m in Sources */,
+				04012FC015CFF7EC006484B9 /* UIIconImageNetViewController.m in Sources */,
+				0491FF6215D0E44B0040A69C /* UIPhotoImageViewController.m in Sources */,
+				0491FF6515D0E9980040A69C /* DressMemoPhotoCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

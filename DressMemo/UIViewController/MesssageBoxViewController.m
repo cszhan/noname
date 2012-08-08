@@ -95,6 +95,7 @@
 #endif
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     return 124.f/2.f;
 }
 
@@ -119,11 +120,11 @@
     //cell.locationLabel.text = [itemData objectForKey:@"city"];
     NSString *msgTimeStr = [itemData objectForKey:@"addtime"];
     NSDate  *resignTime = [NSDate  dateWithTimeIntervalSince1970:[msgTimeStr longLongValue]];
-    cell.timeLabel.text = [resignTime memoFormatTime:@"YY-MM-dd HH:mm"];
+    cell.timeLabel.text = [resignTime memoFormatTime:@"YYYY-MM-dd HH:mm"];
     //cell.timeLabel.text =
-    NSString *iconUrl = [itemData objectForKey:@"avatar"];
+   // NSString *iconUrl = [itemData objectForKey:@"avatar"];
     
-    if(iconUrl == nil||[iconUrl isEqualToString:@""])
+   // if(iconUrl == nil||[iconUrl isEqualToString:@""])
     {
         [cell.userIconImageView setImage:[dbMgr getItemCellUserIconImageDefault]];
     }
@@ -131,9 +132,47 @@
     {
         cell.cellType = 0;
     }
+    [self startloadInitCell:cell  withIndexPath:indexPath];
     cell.msgData = itemData;
     cell.userInteractionEnabled = YES;
 }
+
+#pragma mark icon image data source
+-(NSString*)userIconNameForIndexPath:(NSIndexPath*)indexPath
+{
+    NSString *iconImageName = nil;
+    if([self.dataArray count]>indexPath.row)
+    {
+        id cellItem = [self.dataArray objectAtIndex:indexPath.row];
+        
+        iconImageName = [cellItem objectForKey:@"favatar"];
+    }
+    return iconImageName;
+}
+-(void)setCellUserIcon:(UIImage*)iconImage withIndexPath:(NSIndexPath*)indexPath
+{
+    //NSString *iconUrl = [itemData objectForKey:@"avatar"];
+    //if(iconUrl == nil||[iconUrl isEqualToString:@""])
+    FriendItemCell *cell = (FriendItemCell*)[tweetieTableView cellForRowAtIndexPath:indexPath];
+    if(iconImage)
+    {
+        [cell.userIconImageView setImage:iconImage];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
+}
+-(void)setCell:(id)cell withImageData:(UIImage*)imageData withIndexPath:(NSIndexPath*)indexPath
+{
+    FriendItemCell *realCell = (FriendItemCell*)cell;
+    
+    if(imageData)
+    {
+        [realCell.userIconImageView setImage:imageData];
+        //[cell.userIconImageView setNeedsDisplay];
+    }
+}
+#pragma mark -
+#pragma mark net work
+
 -(void)getUserMessageList
 {
     NSString *pageNumStr = [NSString stringWithFormat:@"%d",currentPageNum];
@@ -177,7 +216,6 @@
 	{
 		case 0:
         {
-            
             //if(self.isVisitOther)
             {
                 [self.navigationController popViewControllerAnimated:YES];// animated:
@@ -204,5 +242,4 @@
         
     }
 }
-
 @end

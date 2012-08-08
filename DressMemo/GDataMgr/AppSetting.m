@@ -11,9 +11,20 @@
 
 @implementation AppSetting
 
++(BOOL)getUserLoginStatus
+{
+    NSUserDefaults *usrDefaults = [NSUserDefaults standardUserDefaults];
+    return [[usrDefaults objectForKey:@"userLogin"]boolValue];
+}
++(void)setUserLoginStatus:(BOOL)status
+{
+    NSUserDefaults *usrDefaults = [NSUserDefaults standardUserDefaults];
+    [usrDefaults setValue:[NSNumber numberWithBool:status] forKey:@"userLogin"];
+    [usrDefaults synchronize];
+
+}
 +(void)setLoginUserId:(NSString*)userId
 {
-
     NSUserDefaults *usrDefaults = [NSUserDefaults standardUserDefaults];
     [usrDefaults setValue:userId forKey:@"userId"];
     [usrDefaults synchronize];

@@ -9,6 +9,9 @@
 #import "FollowedViewController.h"
 #import "ZCSNetClientDataMgr.h"
 #import "UserConfig.h"
+#import "FriendItemCell.h"
+#import "DBManage.h"
+static DBManage *dbMgr = nil;
 @interface FollowedViewController ()
 
 @end
@@ -145,6 +148,54 @@
     }
     //self.request = [netMgr getFollowingUserList:param];
     self.request = [netMgr getFollowedUserList:param];
+    
+}
+-(void)setItemCell:(FriendItemCell*)cell  withIndex:(NSIndexPath*)indexPath
+{
+    
+    [super setItemCell:cell withIndex:indexPath];
+    NSDictionary *itemData = [self.dataArray objectAtIndex:indexPath.row];
+
+    //
+    if(!self.isVisitOther )
+    {
+        
+        
+        NSString *followTag = [itemData objectForKey:@"status"];
+        UIImage *bgImage = nil;
+        int relationTag = [followTag intValue];
+        if([followTag isEqualToString:@"1"])//followed
+        {
+            
+            UIImageWithFileName(bgImage, @"btn-followedS.png");
+            [cell.relationBtn setBackgroundImage:bgImage forState:UIControlStateNormal];
+            //cell.relationBtn.tag = relationTag
+        }
+        if([followTag isEqualToString:@"0"])
+        {
+            UIImageWithFileName(bgImage, @"btn-followS.png");
+            [cell.relationBtn setBackgroundImage:bgImage forState:UIControlStateNormal];
+        }
+        cell.relationBtn.tag = relationTag;
+        cell.relationBtn.rowIndex = indexPath.row;
+        [cell.relationBtn addTarget:self action:@selector(relationButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    
+}
+-(void)relationButtonAction:(id)sender{
+    
+    switch ([sender tag]) {
+        case 1:
+            [self unfollowUserAction:sender];
+            break;
+        case 0:
+            [self followUserAction:sender];
+            break;
+        default:
+            break;
+    }
+    
     
 }
 @end

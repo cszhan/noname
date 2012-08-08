@@ -97,4 +97,31 @@
     }
     
 }
+-(void)setCellItem:(UIImage*)imageData withTime:(NSString*)timeStr withIndex:(NSInteger)index
+{
+    switch (index)
+    {
+        case 0:
+            [self.imageItemBtn0 setImage:imageData forState:UIControlStateNormal];
+            self.imageItemBtn0.hidden = NO;
+            [self.imageTimeTitleBtn0 setTitle:timeStr forState:UIControlStateNormal];
+            self.imageTimeTitleBtn0.hidden = NO;
+            break;
+        case 1:
+            [self.imageItemBtn1 setImage:imageData forState:UIControlStateNormal];
+            self.imageItemBtn1.hidden = NO;
+            [self.imageTimeTitleBtn1 setTitle:timeStr forState:UIControlStateNormal];
+            self.imageTimeTitleBtn1.hidden = NO;
+            break;
+        case 2:
+            [self.imageItemBtn2 setImage:imageData forState:UIControlStateNormal];
+            self.imageItemBtn2.hidden = NO;
+            [self.imageTimeTitleBtn2 setTitle:timeStr forState:UIControlStateNormal];
+            self.imageTimeTitleBtn2.hidden = NO;
+            break;
+        default:
+            break;
+    }
+
+}
 @end

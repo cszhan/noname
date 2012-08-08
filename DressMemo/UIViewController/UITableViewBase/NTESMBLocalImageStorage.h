@@ -15,13 +15,21 @@
 
 + (NTESMBLocalImageStorage *) getInstance;
 
-- (UIImage *) getOriginalImageWithUrl:(NSString *) urlString;
-- (void) saveImageDataToOriginalDir:(NSData *) imageData urlString:(NSString *) urlString;
+//- (UIImage *) getOriginalImageWithUrl:(NSString *) urlString;
+
+- (void)saveImageDataToOriginalDir:(NSData *) imageData urlString:(NSString *) urlString;
+- (void)saveImageDataToSmallDir:(NSData *) imageData urlString:(NSString *) urlString;
+- (void)saveImageDataToTinyDir:(NSData*) imageData urlString:(NSString *) urlString;
+- (void)saveImageDataToIconDir:(NSData*) imageData urlString:(NSString*)urlString;
+
 - (NSString *) originalFilePathWithUrlString:(NSString *) urlString;
-- (NSString *) saveImageDataToCameraDir:(NSData *)imageData;
 - (NSString *) smallFilePathWithUrlString:(NSString *) urlString;
+- (NSString *) tinyFilePathWithUrlString:(NSString *) urlString;
+- (NSString *) iconFilePathWithUrlString:(NSString*)urlString;
+
+
+- (NSString *) saveImageDataToCameraDir:(NSData *)imageData;
 - (NSString *) mapFilePathWithLat:(double)lat andLong:(double)lon;
-- (void) saveImageDataToSmallDir:(NSData *) imageData urlString:(NSString *) urlString;
 - (void) saveImageDataToMapDir:(NSData *) imageData Lat:(double)lat andLong:(double)lon;
 
 @end

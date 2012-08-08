@@ -40,7 +40,8 @@
 	[formatter release];
 	return string;
 }
--(NSString*)memoFormatTime:(NSString*)formart{
+-(NSString*)memoFormatTime:(NSString*)formart
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 	[formatter setLocale:locale];
@@ -85,6 +86,24 @@
 	}
 	return @"";
 }
-
-
+-(NSString*)getDressMemoImageTimeString
+{
+    NSDate *curentDate = [NSDate date];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* compoNents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:curentDate]; // Get necessary date components
+    int currYearInt = [compoNents year];
+    compoNents = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:self];
+    int timeYearInt = [compoNents year];
+    NSString *timeFormartStr = nil;
+    if(currYearInt>timeYearInt)
+    {
+        timeFormartStr = @"YYYY年MM月dd日";
+    }
+    else
+    {
+        timeFormartStr = @"MM月dd日";
+    }
+    //timeStr =;
+    return [self memoFormatTime:timeFormartStr];
+}
 @end

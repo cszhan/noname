@@ -179,10 +179,12 @@ static NSInteger tabCount;
 	}
 
 }
--(void)setHiddenRightBtn:(BOOL)hidden{
+-(void)setHiddenRightBtn:(BOOL)hidden
+{
     rightBtn.hidden = hidden;
 }
--(void)setRightBtnEnable:(BOOL)enable{
+-(void)setRightBtnEnable:(BOOL)enable
+{
     if(enable)
     {
         rightBtn.enabled = YES;

@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIImageNetBaseViewController.h"
+#import "UIIconImageNetViewController.h"
 
-@interface FollowingViewController : UIImageNetBaseViewController
+@interface FollowingViewController : UIIconImageNetViewController
 //@property(nonatomic,assign)BOOL isEmpty;
 
 @property(nonatomic,assign)NSInteger itemCount;

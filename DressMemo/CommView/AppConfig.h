@@ -9,8 +9,14 @@
 #ifndef DressMemo_AppConfig_h
 #define DressMemo_AppConfig_h
 
-#define  kDressMemoImageUrlRoot @"http://upload.iclub7.com/memo/"
-#define  kDressMemoUserIconUrlRoot @"http://upload.iclub7.com/avatar"
+#define  kDressMemoImageUrlRoot         @"http://upload.iclub7.com"
+//#define  kDressMemoImageUrlRoot      @"http://upload.iclub7.com"
+#define  kDressMemoUserIconScaleSize    @"_100x100.jpg"
+
+#define  kDressMemoPhotoTinyScaleSize   @"_190x254.jpg"
+#define  kDressMemoPhotoSmallScaleSize  @"_320x429.jpg"
+//#define  kDressMemoPhoto
+
 
 #define  kCurrentLoginUser   @"currentLoginUser"
 
@@ -46,7 +52,7 @@
 #define kNetStartShow(x,y) [SVProgressHUD showWithStatus:x networkIndicator:YES]; [[SVProgressHUD sharedView]setCenter:y.center];y.userInteractionEnabled = NO
 #define kNetEnd(y)  [SVProgressHUD dismiss];y.userInteractionEnabled = YES
 #define kNetEndSuccStr(x,y) [SVProgressHUD dismissWithSuccess:x];y.userInteractionEnabled = YES
-
+#define kNetEndWithErrorAutoDismiss(x,y) [SVProgressHUD show]; [SVProgressHUD dismissWithError:x afterDelay:y];
 #define kItemCellCount  3
 
 #endif

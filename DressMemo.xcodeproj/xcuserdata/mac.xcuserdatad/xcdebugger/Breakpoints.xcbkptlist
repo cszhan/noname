@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DressMemo/UIViewController/MyProfileViewController.m"
-         timestampString = "365774386.931677"
+         timestampString = "365914357.236196"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "661"
-         endingLineNumber = "661"
+         startingLineNumber = "662"
+         endingLineNumber = "662"
          landmarkName = "-relationButtonAction:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "DressMemo/UIViewController/MyProfileViewController.m"
-         timestampString = "365774494.477578"
+         timestampString = "365914357.236196"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "656"
-         endingLineNumber = "656"
+         startingLineNumber = "657"
+         endingLineNumber = "657"
          landmarkName = "-relationButtonAction:"
          landmarkType = "5">
       </FileBreakpoint>
