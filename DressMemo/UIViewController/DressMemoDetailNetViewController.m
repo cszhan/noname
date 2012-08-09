@@ -158,30 +158,7 @@
     self.getMemoDetailRequest = [netMgr getMemoDetail:param];
 
 }
-#pragma mark for comment 
--(void)addMemoComment
-{
-    ZCSNetClientDataMgr *netMgr = [ZCSNetClientDataMgr getSingleTone];
-    NSString *contentText = @"这个是一个测试评论，哈哈！！";
-    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [self.data objectForKey:@"memoid"] ,@"memoid",
-                                  contentText,@"comment",
-                                  nil];
-    self.request = [netMgr addMemoComment:param];
 
-}
--(void)addCommentReply
-{
-
-    ZCSNetClientDataMgr *netMgr = [ZCSNetClientDataMgr getSingleTone];
-    NSString *contentText = @"这个是一个回复评论测试，哈哈！！";
-    NSString *replyId = @"6";
-    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  replyId ,@"commentid",
-                                  contentText,@"comment",
-                                  nil];
-    self.request = [netMgr addCommentReply:param];
-}
 -(void)likeMemoUserList:(id)sender
 {
     MemoLikeUserViewController *memoLikeUserVc = [[MemoLikeUserViewController alloc]init];

@@ -70,7 +70,7 @@
     UIImage *bgImage = nil;
 	UIImageWithFileName(bgImage,@"BG-mask.png");
 	//assert(bgImage);
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0.f,41.f,bgImage.size.width/kScale,bgImage.size.height/kScale)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0.f,41.f,bgImage.size.width/kScale,bgImage.size.height/kScale-50-80.f)];
     imageView.image = bgImage;
     [self.view insertSubview:imageView belowSubview:mainView.topBarView];
     [imageView release];

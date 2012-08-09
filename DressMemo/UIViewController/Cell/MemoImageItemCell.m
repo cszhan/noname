@@ -48,7 +48,7 @@
 }
 +(id)getFromNibFile
 {
-    NSArray *nibItems = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
+    NSArray *nibItems = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil];
     MemoImageItemCell *instance = [nibItems objectAtIndex:0];
     [instance initSubViews];
     instance.imageTimeTitleBtn0.hidden = YES;

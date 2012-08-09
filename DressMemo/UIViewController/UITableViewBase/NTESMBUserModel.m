@@ -53,7 +53,9 @@ static   NTESMBUserModel *sharedUser = nil;
 		if ([imageUrl isEqual:[NSNull null]])
         {
 			self.userImageURL = @"";
-		}else {
+		}
+        else
+        {
 			
 			//if([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){//4.0
 //			imageUrl = [imageUrl stringByReplacingOccurrencesOfString:@"w=48&h=48" withString:[NSString stringWithFormat:@"w=%d&h=%d",TIMELINE_CELL_PHOTO_SIZE*2,TIMELINE_CELL_PHOTO_SIZE*2]];

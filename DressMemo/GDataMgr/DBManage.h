@@ -27,8 +27,9 @@
 - (void)saveImageTagDataById:(NSString*)key withData:(id)data;
 
 -(id)getTagDataByIdRaw:(NSString *)lrcKey;
--(NSDictionary*)getCityNameById:(NSString *)cityId proviceId:(NSString*)provId;
+-(NSDictionary*)getCityNameByCityId:(NSString *)cityId proviceId:(NSString*)provId;
 
+-(NSString*)getSubClassNameByBrandId:(NSString*)bclassId subClassId:(NSString*)sclassId;
 
 -(UIImage*)getItemCellUserIconImageDefault;
 

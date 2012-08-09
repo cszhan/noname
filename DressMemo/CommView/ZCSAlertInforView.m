@@ -15,13 +15,15 @@
 @interface ZCSAlertInforView()
 @property(nonatomic,assign)BOOL isWindowAlert;
 @property(nonatomic,retain)UIImageView *animationView;
+@property(nonatomic,retain)UILabel *label;
 @end
 @implementation ZCSAlertInforView
-static UILabel *label = nil;
+//@synthesize label;
 @synthesize text;
 @synthesize isHiddenAuto;
 @synthesize isWindowAlert;
 @synthesize animationView;
+@synthesize label;
 - (id)initWithFrame:(CGRect)frame {
     
     self = [super initWithFrame:frame];
@@ -203,8 +205,10 @@ static UILabel *label = nil;
 	 }
 	 ];
 }
--(void)layoutSubviews{
-	label.text = text;
+-(void)layoutSubviews
+{
+	[super layoutSubviews];
+    label.text = text;
 	//self.center = CGPointMake(kDeviceScreenWidth/2, kDeviceScreenHeight/2);
 	//label.center = CGPointMake(self.frame.size.width/2,self.frame.size.height/2);
 	//NE_LOGRECT(label.frame);

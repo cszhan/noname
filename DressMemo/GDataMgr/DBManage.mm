@@ -184,7 +184,7 @@ static DBManage *sharedInstance = nil;
    
     return value;
 }
--(NSDictionary*)getCityNameById:(NSString *)cityId proviceId:(NSString*)provId
+-(NSDictionary*)getCityNameByCityId:(NSString *)cityId proviceId:(NSString*)provId
 {
     //DBManage *dbMgr = [DBManage getSingleTone];
     NSMutableDictionary *cityDict = [NSMutableDictionary dictionary];
@@ -200,6 +200,25 @@ static DBManage *sharedInstance = nil;
     [cityDict setValue:[[cityDta objectForKey:cityId]objectForKey:@"district"] forKey:@"city"];
     return cityDict;
 }
+-(NSString*)getSubClassNameByBrandId:(NSString*)bclassId subClassId:(NSString*)sclassId
+{
+    //NSMutableDictionary *cityDict = [NSMutableDictionary dictionary];
+    if([bclassId intValue] == 0&&[sclassId intValue]==0)
+    {
+        return nil;
+    }
+    NSDictionary *classAllData = [self getTagDataByIdRaw:@"getCats"];
+    // NSString *subclassKey = [tempDict objectForKey:@"Cats2"];
+    
+    NSDictionary *subClassDict = [classAllData objectForKey:bclassId];
+    NSDictionary *subClassItem = [subClassDict objectForKey:@"sub"];
+    
+    NSDictionary *subClassData = [subClassItem  objectForKey:sclassId];
+    
+    return [subClassData objectForKey:@"catname"];
+
+}
+
 //use for client to server map
 - (id)getTagDataById:(NSString*)lrcKey
 {

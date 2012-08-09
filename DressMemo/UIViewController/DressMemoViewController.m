@@ -81,7 +81,7 @@
 {
     [super viewDidLoad];
     UIImage *bgImage = nil;
-    UIImageWithFileName(bgImage,@"BG.png");
+    UIImageWithFileName(bgImage,@"BG-common.png");
     //assert(bgImage);
     mainView.bgImage = bgImage;
     

@@ -10,4 +10,6 @@
 
 @interface DressMemoPhotoCache : DressMemoUserIconCache
 - (UIImage *) getImageWithTinyImagePath:(NSString*)userIconFileName;
+- (UIImage *) getImageWithSmallImagePath:(NSString *)userIconFileName;
+- (UIImage *) getImageWithOriginImagePath:(NSString*)userIconFileName;
 @end

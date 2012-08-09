@@ -483,7 +483,7 @@ static NSString *iconTextArr[]=
     DBManage *dbMgr = [DBManage getSingleTone];
     if(self.userData)
     {
-        NSDictionary *citData = [dbMgr getCityNameById:[self.userData objectForKey:@"city"] proviceId:[self.userData objectForKey:@"prov"]];
+        NSDictionary *citData = [dbMgr getCityNameByCityId:[self.userData objectForKey:@"city"] proviceId:[self.userData objectForKey:@"prov"]];
         if([citData objectForKey:@"prov"]&&[citData objectForKey:@"city"])
         {
             self.userLocaltionLabel.text = [citData objectForKey:@"city"];
@@ -512,7 +512,7 @@ static NSString *iconTextArr[]=
     [super viewDidLoad];
     
     UIImage *bgImage = nil;
-	UIImageWithFileName(bgImage,@"BG.png");
+	UIImageWithFileName(bgImage,@"BG-common.png");
 	//assert(bgImage);
 	mainView.bgImage = bgImage;
     [self initSubViews];
