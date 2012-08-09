@@ -66,7 +66,16 @@
 
 - (void)loadView{
     [super loadView];
+    //add backgroudView
+    UIImage *bgImage = nil;
+	UIImageWithFileName(bgImage,@"BG-mask.png");
+	//assert(bgImage);
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0.f,41.f,bgImage.size.width/kScale,bgImage.size.height/kScale)];
+    imageView.image = bgImage;
+    [self.view insertSubview:imageView belowSubview:mainView.topBarView];
+    [imageView release];
     
+	//mainView.bgImage = bgImage;
     _detailView = [[DressMemoDetailView alloc] initWithFrame:CGRectMake(0, 44, 320, 460-44-50)];
     _detailView.tableView.dataSource = self;
     _detailView.tableView.delegate = self;
@@ -115,6 +124,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   
 	// Do any additional setup after loading the view.
 }
 

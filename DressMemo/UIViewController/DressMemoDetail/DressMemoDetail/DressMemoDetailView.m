@@ -9,7 +9,12 @@
 #import "DressMemoDetailView.h"
 #import "DressMemoUserIconCache.h"
 #import "DressMemoUserIconDownloader.h"
+
 #import "NTESMBServer.h"
+
+#import "BSPreviewScrollView.h"
+#import "PhotoUploadXY.h"
+#import "TapImage.h"
 
 #pragma mark -
 #pragma mark DressMemoDetailTableHeader
@@ -24,17 +29,126 @@
         [self addSubview:_infoView];
         
         _gallery = [[UIView alloc] initWithFrame:CGRectZero];
-        _gallery.backgroundColor = [UIColor yellowColor];
+        _gallery.backgroundColor = [UIColor clearColor];
         [self addSubview:_gallery];
-        
+        [self initPreViewImageScrollerView];
         _tagsView = [[DressMemoDetailTagsView alloc] initWithFrame:CGRectZero];
         _tagsView.datasource = self;
+     
         [self addSubview:_tagsView];
     }
     
     return self;
 }
+#pragma mark -
+#pragma mark preview image
+- (void)initPreViewImageScrollerView
+{
+    BSPreviewScrollView *scrollViewPreview = [[BSPreviewScrollView alloc]initWithFrame:CGRectMake(kPhotoUploadStartImageBGX, 20,kPhotoUploadStartScrollerW,kPhotoUploadStartScrollerH+40.f)];
+    NE_LOGRECT(scrollViewPreview.frame);
+    [scrollViewPreview setBackgroundColor:[UIColor clearColor]];
+	scrollViewPreview.pageSize = CGSizeMake(kPhotoUploadStartScrollerW, kPhotoUploadStartScrollerH);
+	// Important to listen to the delegate methods.
+	scrollViewPreview.delegate = self;
+    UIImage *bgImage= nil;
+    UIImageWithFileName(bgImage,@"BG-mask.png");
+    
+    UIImageView *bgImageView = [[UIImageView alloc ]initWithImage:bgImage];
+    bgImageView.frame = CGRectMake(0.f,15.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
+    //scrollViewPreview.bgView = bgImageView;
+    //CGPoint size = self.frame.size;
+    //_bgView.center = CGPointMake(size.width/2.f,size.height/2.f);
+    //[scrollViewPreview add:_bgView belowSubview:zoomView];];
+    
+    [scrollViewPreview setInsertBgView:YES];
+    
+    [scrollViewPreview setPageViewPendingWidth:kPhotoUploadScrollerPagePendingX];
+    // [bgImageView addSubview:scrollViewPreview];
+    
+    //[mainView.mainFramView addSubview:bgImageView];
+    [bgImageView release];
+    //scrollViewPreview.backgroundColor = [UIColor colorWithPatternImage:bgImage];
+    
+	[_gallery addSubview:scrollViewPreview];
+    [scrollViewPreview release];
+    
+}
+#pragma mark -
+#pragma mark BSPreviewScrollViewDelegate methods
+-(UIView*)viewForItemAtIndex:(BSPreviewScrollView*)scrollView index:(int)index
+{
+	// Note that the images are actually smaller than the image view frame, each image
+	// is 210x280. Images are centered and because they are smaller than the actual
+	// view it creates a padding between each image.
+    UIImage *imageData= nil;
+    UIImageWithFileName(imageData, kPhotoUploadStartDefaultImageName);
+	CGRect imageViewFrame = CGRectMake(kPhotoUploadStartImageBGX,kPhotoUploadStartImageBGY, imageData.size.width/kScale+kPhotoUploadScrollerPagePendingX*2,imageData.size.height/kScale);
+	// TapImage is a subclassed UIImageView that catch touch/tap events
+	TapImage *imageView = [[[TapImage alloc] initWithFrame:imageViewFrame] autorelease];
+	imageView.userInteractionEnabled = YES;
+    imageView.delegate = self;
+    
+    //has the
+    imageView.image = imageData;//[UIImage imageNamed:[self.scrollPages objectAtIndex:index]];
+    //imageView.frame =
+    imageView.tag = index;
+    NE_LOGRECT(imageView.frame);
+#if 0
+    if(index <[self.scrollPages count])
+    {
+        id imageData = [self.scrollPages objectAtIndex:index];
+        UIImageView *photoImageView =nil;
+        if([imageData isKindOfClass:[UIImage class]])
+        {
+            photoImageView = [[UIImageView alloc]initWithImage:imageData];
+        }
+        else if([imageData isKindOfClass:[NSString class]])
+        {
+            UIImage *realImageData = [UIImage imageNamed:imageData];
+            photoImageView = [[UIImageView alloc]initWithImage:realImageData];
+        }
+        CGRect rect;
+        rect.origin = CGPointMake(kPhotoUploadStartImageX, kPhotoUploadStartImageY);
+        rect.size = CGSizeMake(kPhotoUploadStartImageW,kPhotoUploadStartImageH);
+        photoImageView.frame = rect;
+        [imageView addSubview:photoImageView];
+        photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [photoImageView release];
+        imageView.hasImageData = YES;
+    }
+#endif
+    //add mask
+    UIImage *bgImage = nil;
+    UIImageWithFileName(bgImage, @"pic-mask.png");
+#if 0
+    UIEdgeInsets resizeEdgeInset = UIEdgeInsetsMake(12.f,12.f,12.f,12.f);
+    if([bgImage respondsToSelector:@selector(resizableImageWithCapInsets:)]&&1)
+    {
+        bgImage =[bgImage resizableImageWithCapInsets:resizeEdgeInset];
+        
+    }
+    else
+    {
+        bgImage = [bgImage stretchableImageWithLeftCapWidth:12.f topCapHeight:12.f];
+    }
+#endif
+    UIImageView *maskView =[[UIImageView alloc]initWithImage:bgImage];
+    // maskView.frame =
+    maskView.frame = CGRectMake(0.f, 0.f,bgImage.size.width/kScale, bgImage.size.height/kScale);
+    [imageView addSubview:maskView];
+    maskView.hidden = YES;
+    [maskView release];
+    //maskView.alpha = 1.f;
+	imageView.contentMode = UIViewContentModeScaleToFill;
+	return imageView;
+}
 
+-(int)itemCount:(BSPreviewScrollView*)scrollView
+{
+	// Return the number of pages we intend to display
+	return kPhotoUploadStartMaxPicCount; //[self.scrollPages count];
+}
+#pragma mark -
 - (void)dealloc{
     if (_downloader) {
         _downloader.delegate = nil;
@@ -107,8 +221,10 @@
 }
 
 #pragma mark -Request Delegate
-- (void) requestCompleted:(NTESMBRequest *) request{
-    if (request == _downloader) {
+- (void) requestCompleted:(NTESMBRequest *) request
+{
+    if (request == _downloader)
+    {
         if(request.receiveData){
 			[[NTESMBLocalImageStorage getInstance] saveImageDataToIconDir:request.receiveData 
                                                                 urlString:request.urlString];
