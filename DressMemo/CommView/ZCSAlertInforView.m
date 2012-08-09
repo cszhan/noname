@@ -101,7 +101,7 @@ static UILabel *label = nil;
         animationView.animationImages = imageArr;
         animationView.frame = CGRectMake(24.f/2.f,18.f/2.f, 56./2.f, 36/2.f);
         [self addSubview:animationView];
-        [animationView release];
+        //[animationView release];
         self.frame = CGRectOffset(self.frame,0.f, self.frame.size.height);
         self.alpha = 1.0;
     }

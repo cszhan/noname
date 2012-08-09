@@ -27,5 +27,5 @@
 #define strong retain
 #define strong retain
 #endif
-
+#define Safe_Release(x) {[x release]; x = nil;}
 #endif

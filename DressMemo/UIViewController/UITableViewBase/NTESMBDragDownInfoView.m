@@ -122,7 +122,7 @@
 
 - (void)dealloc {
 	[infoLabel release];
-	[background release];
+	//[background release];
 	[arrowImage release];
 	[activityView release];
 	[lastUpdateDate release];

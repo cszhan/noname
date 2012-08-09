@@ -73,7 +73,7 @@ BOOL isFromLowMemory = NO;
 	UIImage *bgImage = nil;
 	UIImageWithFileName(bgImage,@"Background.png");
 	mainView.bgImage = bgImage;
-    mainView.backgroundColor = [UIColor clearColor];
+    //mainView.backgroundColor = [UIColor clearColor];
 	curSelNavIndex = -1;
 	isGbShowTabBar = YES;
 	//[self.view addSubview:mainView];

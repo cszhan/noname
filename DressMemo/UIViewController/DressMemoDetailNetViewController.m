@@ -40,47 +40,49 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn setTitle:@"喜欢" forState:UIControlStateNormal];
-    btn.frame = CGRectMake(20.f, 100.f, 80.f, 40.f);
-    btn.tag  = 0;
-    [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-   
-
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //btn.titleLabel.text = @"不喜欢";
-      [btn setTitle:@"不喜欢" forState:UIControlStateNormal];
-    btn.frame = CGRectMake(20.f, 100.f+60.f*1, 80.f, 40.f);
-    btn.tag  = 1;
-    [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
-     [self.view addSubview:btn];
-    
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //btn.titleLabel.text = @"不喜欢";
-    [btn setTitle:@"添加评论" forState:UIControlStateNormal];
-    btn.frame = CGRectMake(20.f, 100.f+60.f*2, 80.f, 40.f);
-    btn.tag  = 1;
-    [btn addTarget:self action:@selector(addMemoComment) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-    
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //btn.titleLabel.text = @"不喜欢";
-    [btn setTitle:@"回复评论" forState:UIControlStateNormal];
-    btn.frame = CGRectMake(20.f, 100.f+60.f*3, 80.f, 40.f);
-    btn.tag  = 1;
-    [btn addTarget:self action:@selector(addCommentReply) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-    
-    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //btn.titleLabel.text = @"不喜欢";
-    [btn setTitle:@"喜欢人的列表" forState:UIControlStateNormal];
-    btn.frame = CGRectMake(20.f, 100.f+60.f*4, 80.f, 40.f);
-    btn.tag  = 1;
-    [btn addTarget:self action:@selector(likeMemoUserList:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+//    [super viewDidLoad];
+//    
+//    
+//    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [btn setTitle:@"喜欢" forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(20.f, 100.f, 80.f, 40.f);
+//    btn.tag  = 0;
+//    [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
+//   
+//
+//    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    //btn.titleLabel.text = @"不喜欢";
+//      [btn setTitle:@"不喜欢" forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(20.f, 100.f+60.f*1, 80.f, 40.f);
+//    btn.tag  = 1;
+//    [btn addTarget:self action:@selector(didTouchBtn:) forControlEvents:UIControlEventTouchUpInside];
+//     [self.view addSubview:btn];
+//    
+//    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    //btn.titleLabel.text = @"不喜欢";
+//    [btn setTitle:@"添加评论" forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(20.f, 100.f+60.f*2, 80.f, 40.f);
+//    btn.tag  = 1;
+//    [btn addTarget:self action:@selector(addMemoComment) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
+//    
+//    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    //btn.titleLabel.text = @"不喜欢";
+//    [btn setTitle:@"回复评论" forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(20.f, 100.f+60.f*3, 80.f, 40.f);
+//    btn.tag  = 1;
+//    [btn addTarget:self action:@selector(addCommentReply) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
+//    
+//    btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    //btn.titleLabel.text = @"不喜欢";
+//    [btn setTitle:@"喜欢人的列表" forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(20.f, 100.f+60.f*4, 80.f, 40.f);
+//    btn.tag  = 1;
+//    [btn addTarget:self action:@selector(likeMemoUserList:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn];
     
     [self getMemoDetail];
     [self getMemoComments];

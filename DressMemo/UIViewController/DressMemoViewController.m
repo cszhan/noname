@@ -10,7 +10,7 @@
 #import "ZCSNetClientDataMgr.h"
 
 #import "MemoImageItemCell.h"
-#import "DressMemoDetailNetViewController.h"
+#import "DressMemoDetailViewController.h"
 #import "AppSetting.h"
 
 
@@ -24,6 +24,10 @@
 @synthesize cellEmptyCount;
 @synthesize isNeedReflsh;
 @synthesize isUserLoginStatus;
+- (void)dealloc
+{
+    [super dealloc];
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -80,6 +84,7 @@
     UIImageWithFileName(bgImage,@"BG.png");
     //assert(bgImage);
     mainView.bgImage = bgImage;
+    
     currentPageNum = 1;
     if(!self.isVisitOther)
         [self setNavgationBarTitle:NSLocalizedString(@"My Dress", @""
@@ -244,10 +249,11 @@
     NSDictionary *cellData = [self.dataArray objectAtIndex:dataIndex];
     NSLog(@"cell data:%@",[cellData description]);
     
-    DressMemoDetailNetViewController * dressMemoVc = [[DressMemoDetailNetViewController alloc]init];
+    DressMemoDetailViewController * dressMemoVc = [[DressMemoDetailViewController alloc]init];
     dressMemoVc.data = cellData;
     [self.navigationController pushViewController:dressMemoVc animated:YES];
     [dressMemoVc release];
+    NSLog(@"kkk:%d",[dressMemoVc retainCount]);
 }
 #pragma mark start get data
 - (void) shouldLoadNewerData:(NTESMBTweetieTableView *) tweetieTableView

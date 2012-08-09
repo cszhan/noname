@@ -39,7 +39,7 @@
 }
 
 @property (nonatomic, retain) NTESMBDragDownInfoView *topInfoView;
-@property (nonatomic, retain) id <TweetieTableViewDelegate> tweetieTableViewDelegate;
+@property (nonatomic, assign) id <TweetieTableViewDelegate> tweetieTableViewDelegate;
 @property (nonatomic, readonly) BOOL isRefreshing;
 @property (nonatomic, readonly) UISearchBar *searchBar;
 @property (nonatomic,assign)BOOL hasDownDragEffect;

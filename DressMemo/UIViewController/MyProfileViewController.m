@@ -552,12 +552,12 @@ static NSString *iconTextArr[]=
     {
         case 0://my post memos
         {
-            DressMemoViewController *dressMemoVc = [[DressMemoViewController alloc]init];
+            DressMemoViewController *dressMemoVc = [[DressMemoViewController alloc]initWithNibName:nil bundle:nil];
             dressMemoVc.isVisitOther = self.isVisitOther;
             dressMemoVc.userId = [self.userData objectForKey:@"uid"];
             [self.navigationController pushViewController:dressMemoVc animated:YES];
             [dressMemoVc release];
-            
+            NSLog(@"kkk:%d",[dressMemoVc retainCount]);
         }
             break;
         case 1:
@@ -622,6 +622,8 @@ static NSString *iconTextArr[]=
                 MesssageBoxViewController *messageVc = [[MesssageBoxViewController alloc]init];
                 [self.navigationController pushViewController:messageVc animated:YES];
                 [messageVc release];
+                //[messageVc release];
+                //[messageVc release];
                 //[[NSNotificationCenter defaultCenter] postNotificationName: object:playMenuVc];
                 //[ZCSNotficationMgr postMSG:kPushNewViewController obj:playMenuVc];
                 //[UserSettingViewController release];
@@ -642,9 +644,11 @@ static NSString *iconTextArr[]=
             {
                 UserSettingViewController *playMenuVc = [[UserSettingViewController alloc]init];
                 [self.navigationController pushViewController:playMenuVc animated:YES];
+             
                 //[[NSNotificationCenter defaultCenter] postNotificationName: object:playMenuVc];
                 //[ZCSNotficationMgr postMSG:kPushNewViewController obj:playMenuVc];
                 [playMenuVc release];
+                NSLog(@"%d",[playMenuVc retainCount]);
             }
              
 			break;

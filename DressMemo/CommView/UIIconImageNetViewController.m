@@ -17,6 +17,10 @@
 @implementation UIIconImageNetViewController
 @synthesize iconDataSouce;
 @synthesize iconDelegate;
+-(void)dealloc
+{
+    [super dealloc];
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -25,6 +29,7 @@
         // Custom initialization
         self.iconDataSouce  = self;
         self.iconDelegate = self;
+
         [ZCSNotficationMgr addObserver:self call:@selector(requestCompleted:) msgName:HTTP_REQUEST_COMPLETE];
         [ZCSNotficationMgr addObserver:self call:@selector(requestFailed:) msgName:HTTP_REQUEST_ERROR];
     }

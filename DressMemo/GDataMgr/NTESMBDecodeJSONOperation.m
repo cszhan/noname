@@ -39,7 +39,8 @@
 	id		jsonObj = nil;
 	NSMutableArray *statusToAdd = [NSMutableArray array];	
 	//NE_LOG(@"ttt:%@",jsonString);
-	@try {
+	@try
+    {
 		jsonObj = [jsonString JSONValue];
 		if (isFromSearchAPI == NO)
 		{

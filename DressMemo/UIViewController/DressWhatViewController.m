@@ -44,7 +44,7 @@
 }
 -(void)initSubViews
 {
-    
+    //UITableView
     //upload bg image
     UIImage *bgImage = nil;
 	UIImageWithFileName(bgImage,@"title.png");
