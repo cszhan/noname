@@ -110,6 +110,8 @@ extern NSString *kAppendInfoDiscriptionKey;
 @property (nonatomic, copy)NSString *idn;
 @property (nonatomic, copy)NSString *catName;
 @property (nonatomic, copy)NSString *brandName;
+@property (nonatomic,retain)NSString *bcatid;
+@property (nonatomic,retain)NSString *scatid;
 @property (nonatomic,assign)CGPoint tagPoint;
 @end
 @interface DressMemoPicModel : DataModelBase{
@@ -140,6 +142,9 @@ extern NSString *kAppendInfoDiscriptionKey;
     NSString *_uid;
     NSString *_commentedUserName;
 }
+@property (nonatomic,retain)NSString * userIconURL;
+@property (nonatomic,retain)NSString * replyUserIconURL;
+
 @property (nonatomic,retain)NSString * replyUserNickName;
 @property (nonatomic,retain)NSString * replyUserId;
 

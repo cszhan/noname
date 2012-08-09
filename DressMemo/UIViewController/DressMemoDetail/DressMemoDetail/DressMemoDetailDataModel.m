@@ -100,7 +100,8 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
         NSDictionary *datas = [dic objectForKey:@"favorusers"];
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
         if ([datas isKindOfClass:[NSDictionary class]]) {
-            for (NSDictionary *dic in [datas allValues]) {
+            for (NSDictionary *dic in [datas allValues])
+            {
                 if ([dic isKindOfClass:[NSDictionary class]] &&
                     [[dic objectForKey:@"avatar"] length]) {
                     DressMemoUserModel *user = [[DressMemoUserModel alloc] initWithDictionary:dic];
@@ -138,6 +139,7 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
         [picPathArr addObject:picModel];
         [picModel release];
     }
+ 
     self.tagArray = tagArr;
     self.picArray = picPathArr;
 }
@@ -174,15 +176,15 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
     }
     [inforDict setValue:emotionValue forKey:kAppendInfoEmotionKey];
     //for location
-    alldataDict = [dbMgr getCityNameById:[data objectForKey:@"prov"] proviceId:[data objectForKey:@"city"]];
+    alldataDict = [dbMgr getCityNameByCityId:[data objectForKey:@"city"] proviceId:[data objectForKey:@"prov"]];
     NSString *location = [data objectForKey:@"location"];
     if(alldataDict||location)
     {
-        if(location)
+        if(![location isEqualToString:@""])
             locationValue = [NSString stringWithFormat:@"%@市%@",[alldataDict objectForKey:@"city" ],location];
         else
         {
-            locationValue = [NSString stringWithFormat:@"%@市",location];  
+            locationValue = [NSString stringWithFormat:@"%@",location];  
         }
            
     }
@@ -248,6 +250,8 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
 @synthesize catName = _catName;
 @synthesize brandName = _brandName;
 @synthesize tagPoint;
+@synthesize bcatid;
+@synthesize scatid;
 - (id) initWithDictionary:(NSDictionary *) dic
 {
     self = [super init];
@@ -255,12 +259,13 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
     {
 		self.idn =          [dic objectForKey:@"tagid"];
 		self.picId =  [dic objectForKey:@"picid"];
+		self.bcatid =       [dic objectForKey:@"bcatid"];
+		self.scatid =      [dic objectForKey:@"scatid"];
         /*
-		self.memoId =       [dic objectForKey:@"memoid"];
-		self.addTime =      [dic objectForKey:@"addtime"];
 		self.coverImageURLPath = [dic objectForKey:@"picpath"];
         */
-        NSString *brandStr=  [dic objectForKey:@"brand"];
+        [self processTagDetail:dic];
+        NSString *brandStr=  [dic objectForKey:@"brandname"];
         if(brandStr)
         {
             self.brandName = brandStr;
@@ -274,6 +279,12 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
         self.tagPoint = CGPointMake([xStr floatValue], [yStr floatValue]);
 	}
 	return self;
+}
+- (void)processTagDetail:(NSDictionary*)dic
+{
+    DBManage *dbMgr = [DBManage getSingleTone];
+    NSString *subClassName = [dbMgr getSubClassNameByBrandId:self.bcatid subClassId:self.scatid];
+    self.catName = subClassName;
 }
 - (void)dealloc
 {
@@ -312,7 +323,6 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
     self.picId  = nil;
     self.picPath = nil;
     self.memoId = nil;
-    
     [super dealloc];
 }
 @end    
@@ -327,6 +337,9 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
 @synthesize commentedUserName = _commentedUserName;
 @synthesize replyUserNickName;
 @synthesize replyUserId;
+
+@synthesize  userIconURL;
+@synthesize  replyUserIconURL;
 
 @synthesize uid = _uid;
 
@@ -367,6 +380,8 @@ NSString *kAppendInfoDiscriptionKey = @"kAppendInfoDiscriptionKey";
 		self.memoId =       [dic objectForKey:@"memoid"];
 		self.addTime =      [dic objectForKey:@"addtime"];
 		self.commentedUserName = [dic objectForKey:@"uname"];
+        self.userIconURL = [dic objectForKey:@"ravatar"];
+        self.replyUserIconURL = [dic objectForKey:@"ravatar"];
         self.uid = [dic objectForKey:@"uid"];
         if([[dic objectForKey:@"ruid"]isEqualToString:@"0"]&&
            [[dic objectForKey:@"replyid"]isEqualToString:@"0"])

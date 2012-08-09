@@ -198,10 +198,17 @@
         
     }else if(sender == _retweetBtn){
         DressMemoRetweetController *tc = [[DressMemoRetweetController alloc] init];
+        
         [self.navigationController pushViewController:tc animated:YES];
         [tc release];
-    }else if(sender == _commentBtn){
+    }else if(sender == _commentBtn)
+    {
         DressMemoCommentController *tc = [[DressMemoCommentController alloc] init];
+        tc.type = 0;//for comment;
+        tc.data = [NSDictionary dictionaryWithObjectsAndKeys:
+                   self.memoDetailData.memoId, @"memoid",
+                   //commentModel.idn ,@"commentid",
+                   nil];
         [tc showWithController:self];
         [tc release];
     }
@@ -374,8 +381,12 @@
     if (![commentModel isKindOfClass:[DressMemoCommentModel class]]) {
         return;
     }
-    
     DressMemoCommentController *tc = [[DressMemoCommentController alloc] init];
+    tc.type = 1;
+    tc.data = [NSDictionary dictionaryWithObjectsAndKeys:
+                //commentModel.memoId, @"memoid",
+                commentModel.idn ,@"commentid",
+               nil];
     [tc showWithController:self];
     [tc release];
 }
