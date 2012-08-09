@@ -24,5 +24,6 @@
     UITextView  *_inputView;
     UIAsistView *_asistView;
 }
-
+@property(nonatomic,retain)UITextView *inputView;
+@property(nonatomic,retain)UIAsistView *asistView;
 @end

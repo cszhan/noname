@@ -57,7 +57,8 @@
 #pragma mark -
 #pragma mark UICommentView
 @implementation UICommentView
-
+@synthesize inputView = _inputView;
+@synthesize asistView = _asistView;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

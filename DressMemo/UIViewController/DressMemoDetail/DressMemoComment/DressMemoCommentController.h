@@ -6,12 +6,17 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIBaseViewController.h"
+#import "UISimpleNetBaseViewController.h"
 #import "UICommentView.h"
-
-@interface DressMemoCommentController : UIBaseViewController{
+typedef enum commentType
+{
+    Comment_Default,
+    Comment_Relpy,
+}CommentType;
+@interface DressMemoCommentController : UISimpleNetBaseViewController{
     UICommentView *_commentView;
 }
+@property(nonatomic,assign)CommentType type;
 -(void)setNavgationBarTitle:(NSString*)title;
 - (void)showWithController:(UIViewController *)tc;
 - (void)dismiss;
